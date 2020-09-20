@@ -11,17 +11,24 @@
 <center> <h1>Statistics, Psychometrics, Games</h1> </center>
 <center> <h3>Harold Doran</h3> </center>
 
+<h1> Dictionary Problem </h1>
+
+<h3>
 <p>
-For the problem stated, "Each secret word is randomly chosen from a dictionary with exactly 267,751 entries. If you have this dictionary memorized, and play the game as efficiently as possible, how many guesses should you expect to make to guess the secret word?" the answer is 19.
+The dictionary problem as stated <a href = "https://fivethirtyeight.com/features/can-you-break-a-very-expensive-centrifuge/" target = "blank"> here </a> is summarized as:
+
+"Each secret word is randomly chosen from a dictionary with exactly 267,751 entries. If you have this dictionary memorized, and play the game as efficiently as possible, how many guesses should you expect to make to guess the secret word?" The answer is 19.
 </p>
 
 <p>
-The solution is motivated by a simple example using a <a href = "https://en.wikipedia.org/wiki/Binary_search_algorithm"> binary search algorithm </a>. In a simple analogy, I pick a random number from 1 to 15 and ask you to guess the number I am thinking. I will tell you if it's higher or lower (or correct). You first guess the midpoint, 8, which has a 1/15 chance of being correct. If the number is higher you can eliminate numbers 1 to 8 (or vice versa if the number is lower) and guess two has a 1/7 chance of being correct by focusing on the new region of the sequence. By continually halving the sequence and focusing on the region where the number exists, we continue to improve the probability of success and will efficiently reach a solution.
+The solution is motivated by a simple example using a <a href = "https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank"> binary search algorithm </a>. In a simple analogy, I pick a random number from 1 to 15 and ask you to guess the number I am thinking. I will tell you if it's higher or lower (or correct). You first guess the midpoint, 8, which has a \(\frac{1}{15}\) chance of being correct. If the number is higher you can eliminate numbers 1 to 8 (or vice versa if the number is lower) and guess two has a \(\frac{1}{7}\) chance of being correct by focusing on the new region of the sequence. By continually halving the sequence and focusing on the region where the number exists, we continue to improve the probability of success and will efficiently reach a solution. That is, the probability of being corect on guess 1 is \(\frac{1}{k}\), then by halving the sequence, guess 2 has a success probability of \(\frac{2}{k}\) such that the \(n\)th guess has a success probability of \(\frac{n}{k} \to 1\).
 </p>
 
 <p>
-Apply this to the dictionary problem in the same manner in which case the general solution is initial guess at midpoint + number of times we can continue halving a sequence of size \(k\). A sequence of size \(k\) can be halved \(floor(log(k)/log(2))\) times (we can't have floating points in this case), so in this example, \(1 + floor(log(267751)/log(2)) = 19\).
+Apply this to the dictionary problem in the same manner in which case the general solution is initial guess at midpoint + number of times we can continue halving a sequence of size \(k\). A sequence of size \(k\) can be halved \(\texttt{floor}(\log(k)/\log(2))\) times (we can't have floating points in this case), so in this example, \(1 + \texttt{floor}(\log(267,751)/\log(2)) = 19\).
 </p>
+</h3>
+
 
 </body>
 </html>
