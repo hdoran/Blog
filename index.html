@@ -72,7 +72,7 @@ The basketball problem as stated <a href = "https://fivethirtyeight.com/features
 <p>
 It's easy to see the concept when N = 5 because the number of equal team combinations is small. In this example, we observe 30 possible ways in which equal teams could be created. For example, if 2 members show up from town \(x_1\), then we must have 1 from town \(x_2\) and 1 from town \(x3\) (there is no option where 0 members show up from any town). So, write this as 2;1-1 as notation to mean that 2 members arrive from town \(x_1\) and then the equal team is created when 1 member arrives from town \(x_2\) and 1 more from town \(x_3\). Then, the other possible patterns in this example are 3;1-2, 3;2-1, 4;1-3, 4;2-2, 4;3-1, 5;1-4, 5;2-3, 5;3-2, and 5;4-1, or a total of \(\frac{(N-1)^2 + (N-1)}{2}\) unique combinations. But, since this can be arranged such that any town is the third town, we actually have \(\frac{(N-1)^2 + (N-1)}{2} * 3\) possible equal team combinations.
 
-Since we also assume each outcome is equally as likely (i.e., any number from 1 to 5 might show up), we have a probability of \(p = \left(\frac{1}{N}\right)^3 to observe this outcome for each of the possible combinations to make equal teams. So in words, it's the probability of the outcome times the number of times an "equal teams" outcome can occur with \(N\) players from 3 towns.
+Since we also assume each outcome is equally as likely (i.e., any number from 1 to 5 might show up), we have a probability of \(p = \left(\frac{1}{N}\right)^3\) to observe this outcome for each of the possible combinations to make equal teams. So in words, it's the probability of the outcome times the number of times an "equal teams" outcome can occur with \(N\) players from 3 towns.
 </p>
 
 <h2> Towards a Solution </h2>
@@ -86,8 +86,11 @@ And some R code to run a simulation over K replications of the problem where N i
 <code>
 ### MC Answer
 K <- 1000000
+
 N <- 5 # Change this to be any number of max players
+
 team1 <- sample(N,K, replace = TRUE)
+
 team2 <- sample(N,K, replace = TRUE)
 team3 <- sample(N,K, replace = TRUE)
 full <- as.data.frame(cbind(team1, team2, team3))
