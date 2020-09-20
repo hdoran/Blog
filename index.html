@@ -84,21 +84,18 @@ And some R code to run a simulation over K replications of the problem where N i
 </h3>
 
 <code>
-### MC Answer
-K <- 1000000
-
-N <- 5 # Change this to be any number of max players
-
-team1 <- sample(N,K, replace = TRUE)
-
-team2 <- sample(N,K, replace = TRUE)
-team3 <- sample(N,K, replace = TRUE)
-full <- as.data.frame(cbind(team1, team2, team3))
-indx <- apply(full, 1, function(x) which.max(x))
-result <- sapply(1:K, function(i) sum(full[i, -indx[i]]) == full[i,indx[i]])
-table(result)[2]/K
-### Analytic
-(1/N)^3 * ((N-1)^2 + (N-1))/2 * 3
+### MC Answer<br>
+K <- 1000000 <br>
+N <- 5 # Change this to be any number of max players<br>
+team1 <- sample(N,K, replace = TRUE)<br>
+team2 <- sample(N,K, replace = TRUE)<br>
+team3 <- sample(N,K, replace = TRUE)<br>
+full <- as.data.frame(cbind(team1, team2, team3))<br>
+indx <- apply(full, 1, function(x) which.max(x))<br>
+result <- sapply(1:K, function(i) sum(full[i, -indx[i]]) == full[i,indx[i]])<br>
+table(result)[2]/K<br>
+### Analytic<br>
+(1/N)^3 * ((N-1)^2 + (N-1))/2 * 3<br>
 </code>
 
 
