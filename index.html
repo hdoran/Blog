@@ -63,7 +63,7 @@ $$
 The basketball problem as stated <a href = "https://fivethirtyeight.com/features/can-you-reach-the-summit-first/" target = "blank"> here </a> is summarized as, "What is the probability that, on any given week, it’s possible to form two equal teams with everyone playing, where two towns are pitted against the third?"</p>
 
 <p>
-<b> The general answer is \( \left(\frac{1}{N}\right)^3 \times \frac{(N-1)^2 + (N-1)}{2} \times 3\) where \(N\) is the number of individuals that show up from each of the three towns randomly. Then, the case with 5 players is a special case of this such that \( \left(\frac{1}{5}\right)^3 \times \frac{(5-1)^2 + (5-1)}{2} \times 3 = .24\). </b>
+<b> The general answer is \(\left(\frac{1}{N}\right)^3 \left[\frac{(N-1)^2 + (N-1)}{2}\right] \times 3\) where \(N\) is the number of individuals that show up from each of the three towns randomly. Then, the case with 5 players is a special case of this such that \(\left(\frac{1}{5}\right)^3 \left[\frac{(5-1)^2 + (5-1)}{2}\right] \times 3 = .24\). </b>
 </p>
 
 </h3>
@@ -71,18 +71,17 @@ The basketball problem as stated <a href = "https://fivethirtyeight.com/features
 <h2> Motivating Example </h2>
 <h3>
 <p>
-It's easy to see the concept when N = 5 because the number of equal team combinations is small. In this example, we observe 30 possible ways in which equal teams could be created. For example, if 2 members show up from town \(x_1\), then we must have 1 from town \(x_2\) and 1 from town \(x_3\) (there is no option where 0 members show up from any town). So, write this as 2;1-1 as notation to mean that 2 members arrive from town \(x_1\) and then the equal team is created when 1 member arrives from town \(x_2\) and 1 more from town \(x_3\). 
+It's easy to see the concept when N = 5 because the number of equal team combinations is small. In this example, we observe 30 possible ways in which equal teams could be created. For example, if 2 members show up from town \(x_1\), then we must have 1 from town \(x_2\) and 1 from town \(x_3\) (there is no option where 0 members show up from any town). So, write this as 2;1-1 as notation to mean that 2 members arrive from town \(x_1\) and then the equal team is created when 1 member arrives from town \(x_2\) and 1 more from town \(x_3\). Then, the other possible patterns in this example are 3;1-2, 3;2-1, 4;1-3, 4;2-2, 4;3-1, 5;1-4, 5;2-3, 5;3-2, and 5;4-1.
 </p>
 
 <h2> Towards a Solution </h2>
 <h3>
 
 <p>
-Then, the other possible patterns in this example are 3;1-2, 3;2-1, 4;1-3, 4;2-2, 4;3-1, 5;1-4, 5;2-3, 5;3-2, and 5;4-1, or a total of \(\frac{(N-1)^2 + (N-1)}{2}\) unique combinations. But, since this can be arranged such that any town is the third town, we actually have \(\frac{(N-1)^2 + (N-1)}{2} \times 3\) possible equal team combinations.
+The motivating example shows a total of \(\frac{(N-1)^2 + (N-1)}{2}\) unique combinations for equal teams where town \(x_1\) is pitted against towns \(x_2\) and \(x_3\). But, since this can be arranged such that any town is the third town, we actually have \(\frac{(N-1)^2 + (N-1)}{2} \times 3\) possible equal team combinations.
 
 Since we also assume each outcome is equally as likely (i.e., any number from 1 to 5 might show up), we have a probability of \(p = \left(\frac{1}{N}\right)^3\) to observe this outcome for each of the possible combinations to make equal teams. So in words, it's the probability of the outcome times the number of times an "equal teams" outcome can occur with \(N\) players from 3 towns.
 </p>
-
 
 <p>
 We can "check" the analytic expression with a simulation. Some R code to run a simulation over \(K\) replications of the problem where \(N\) is the upper limit on the number of players that might arrive from any given town.
