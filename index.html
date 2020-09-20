@@ -81,7 +81,11 @@ It's easy to see the concept when N = 5 because the number of equal team combina
 Then, the other possible patterns in this example are 3;1-2, 3;2-1, 4;1-3, 4;2-2, 4;3-1, 5;1-4, 5;2-3, 5;3-2, and 5;4-1, or a total of \(\frac{(N-1)^2 + (N-1)}{2}\) unique combinations. But, since this can be arranged such that any town is the third town, we actually have \(\frac{(N-1)^2 + (N-1)}{2} \times 3\) possible equal team combinations.
 
 Since we also assume each outcome is equally as likely (i.e., any number from 1 to 5 might show up), we have a probability of \(p = \left(\frac{1}{N}\right)^3\) to observe this outcome for each of the possible combinations to make equal teams. So in words, it's the probability of the outcome times the number of times an "equal teams" outcome can occur with \(N\) players from 3 towns.
-And some R code to run a simulation over K replications of the problem where N is the upper limit on the number of players that might arrive from any given town.
+</p>
+
+
+<p>
+We can "check" the analytic expression with a simulation. Some R code to run a simulation over \(K\) replications of the problem where \(N\) is the upper limit on the number of players that might arrive from any given town.
 </p>
 </h3>
 
