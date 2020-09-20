@@ -5,15 +5,19 @@
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 </head>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages. Is this change visible?</p>
 
-How does this look \(n\).
+<center> <h1>Statistics, Psychometrics, Games</h1> </center>
+<center> <h3>Harold Doran</h3> </center>
 
-When $a \ne 0$, there are two solutions to \( ax^2 + bx + c = 0 \) and they are
-$$
-x = {-b \pm \sqrt{b^2-4ac} \over 2a}.
-$$
+For the problem stated, "Each secret word is randomly chosen from a dictionary with exactly 267,751 entries. If you have this dictionary memorized, and play the game as efficiently as possible, how many guesses should you expect to make to guess the secret word?" the answer is 19.
+
+The solution is motivated by a simple example using a binary search algorithm. In a simple analogy, I pick a random number from 1 to 15 and ask you to guess the number I am thinking. I will tell you if it's higher or lower (or correct). You first guess the midpoint, 8, which has a 1/15 chance of being correct. If the number is higher you can eliminate numbers 1 to 8 (or vice versa if the number is lower) and guess two has a 1/7 chance of being correct by focusing on the new region of the sequence. By continually halving the sequence and focusing on the region where the number exists, we continue to improve the probability of success and will efficiently reach a solution.
+
+Apply this to the dictionary problem in the same manner in which case the general solution is initial guess at midpoint + number of times we can continue halving a sequence of size \(k\). A sequence of size \(k\) can be halved \(floor(log(k)/log(2))\) times (we can't have floating points in this case), so in this example, \(1 + floor(log(267751)/log(2)) = 19\).
+
+
+
 </body>
 </html>
