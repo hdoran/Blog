@@ -24,24 +24,32 @@ The dictionary problem as stated <a href = "https://fivethirtyeight.com/features
 <h2> Motivating Example </h2>
 <h3>
 <p>
-The solution is motivated by a simple example using a <a href = "https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank"> binary search algorithm </a>. In a simple analogy, I pick a random number from 1 to 15 and ask you to guess the number I am thinking. I will tell you if it's higher, lower. or correct. You first guess the midpoint, 8, which has a \(\frac{1}{15}\) chance of being correct. If the number is higher you can eliminate numbers 1 to 8 (or vice versa if the number is lower) and guess two has a \(\frac{1}{7}\) chance of being correct by focusing on the new region of the sequence. If a guess 3 is needed, find the midpoint in the remaining sequence and guess 3 has a success probability of \(\frac{1}{3}\). Last, guess 4 (if needed) has only one remaining possible choice, hence the success probability at this point is 1. So, using this strategy with a sequence of size 15, you would need a maximum of 4 attempts.
+The solution is motivated by a simple example using a <a href = "https://en.wikipedia.org/wiki/Binary_search_algorithm" target="_blank"> binary search algorithm </a>. In a simple analogy, I pick a random number from 1 to 15 and ask you to guess the number I am thinking. I will tell you if it's higher, lower, or correct. You first guess the midpoint, 8, which has a \(\frac{1}{15}\) chance of being correct. If the number is higher you can eliminate numbers 1 to 8 (or vice versa if the number is lower) and guess two has a \(\frac{1}{7}\) chance of being correct by focusing on the new region of the sequence (i.e., numbers 9 through 15). If a guess 3 is needed, find the midpoint in the remaining sequence and guess 3 has a success probability of \(\frac{1}{3}\). Last, guess 4 (if needed) has only one remaining possible choice, hence the success probability at this point is 1. Using this strategy with a sequence of size 15, you would need a maximum of 4 attempts.
 </p>
 
 <p>
-So, by repeatedly halving the sequence and focusing on the region where the number exists, we continue to improve the probability of success and will efficiently reach a solution. 
+So, by iteratively halving the sequence and reducing the search space in the region where the number exists, we continue to improve the probability of success until we ultimately reach a point of certainty. 
 </p>
 
 <h2> Towards a Solution </h2>
 <h3>
 
+<!--
 <p>
-Formally, let \(k\) denote the length of the original sequence and then let \(k^*_n\) denote the revised sequence length after applying an iterative halving strategy at guess \(n\).
-
- we might say that the probability of being correct on guess 1 for a sequence of length \(k\) is \(\Pr(x|1) = \frac{1}{k}\), then (if not correct on guess 1) by halving the sequence, guess 2 has a success probability of \(\Pr(x|2) =\frac{1}{\textrm{floor}(k/2)}\) such that the \(n\)th guess has a success probability that tends to 1, \(\Pr(x|n) = \frac{1}{\textrm{floor}(k/n)} \to 1\). We take the floor given that we're dealing with integers. Finding a general solution requires only that we know how many times we can halve a sequence. A sequence of size \(k\) can be halved \(\textrm{floor}(\log(k)/\log(2))\) times. 
-</p>
+Let \(k\) denote the length of the original sequence and then let \(k^*_n\) denote the revised sequence length after applying an iterative halving strategy at guess \(n\). Then, the probability of being correct on guess 1 for a sequence of length \(k\) is \(\Pr(x|1) = \frac{1}{k}\) and the success probability on revised attempts is then \(\Pr(x|n) =\frac{1}{\textrm{floor}(k^*_n)}\) such that the success probability tends to 1, \(\Pr(x|n) =\frac{1}{\textrm{floor}(k^*_n)} \to 1\). We take the floor given that we're dealing with integers. 
+<p>
+-->
 
 <p>
-Apply this strategy to the dictionary problem in the same manner in which case the solution is initial guess at midpoint + number of remaining times we can continue halving the dictionary with \(k\) words, so in this example, \(1 + \textrm{floor}(\log(267751)/\log(2)) = 19\).
+Knowing that our success probability tends to 1 using this strategy, finding a general solution requires only that we know how many times we can halve a sequence. A sequence of size \(k\) can be halved \(L\) times as: 
+$$
+L = \textrm{floor}\left(\frac{\log(k)}{\log(2)}\right)
+$$ 
+and then the maximum number of guesses needed is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Apply this strategy to the dictionary problem in the same manner in which case the solution is using a dictionary with 267751 words, yields an expected number of guesses:
+
+$$
+\textrm{floor}\left(\frac{\log(267751)}{\log(2)}\right) + 1 = 19.
+$$ 
 </p>
 </h3>
 
