@@ -33,7 +33,7 @@ So, by iteratively halving the sequence and reducing the search space in the reg
 </p>
 
 <p>
-Instead, we can find the expected value for the number of guesses, \(E(G)\), by using the probabilities of being right or wrong at each possible guess, 1 through the maximum. In this example, we can write:
+Combining these pieces of information, we can find the expected value for the number of guesses, \(E(G)\), by using the probabilities of being right or wrong at each possible guess, 1 through the maximum. In this example, we can write:
 
 $$
 E(G) = 1 \cdot \frac{1}{15} + 2 \cdot \frac{14}{15}\frac{1}{7} + 3 \cdot \frac{14}{15}\frac{6}{7}\frac{1}{3} + 4 \cdot \frac{14}{15}\frac{6}{7}\frac{2}{3}1 = 3.266
@@ -60,11 +60,6 @@ $$
 <h2> Towards a Solution </h2>
 <h3>
 
-<!--
-<p>
-Let \(k\) denote the length of the original sequence and then let \(k^*_n\) denote the revised sequence length after applying an iterative halving strategy at guess \(n\). Then, the probability of being correct on guess 1 for a sequence of length \(k\) is \(\Pr(x|1) = \frac{1}{k}\) and the success probability on revised attempts is then \(\Pr(x|n) =\frac{1}{\textrm{floor}(k^*_n)}\) such that the success probability tends to 1, \(\Pr(x|n) =\frac{1}{\textrm{floor}(k^*_n)} \to 1\). We take the floor given that we're dealing with integers. 
-<p>
--->
 
 <p>
 Knowing that our success probability tends to 1 using this strategy, finding a general solution requires building a model that makes use of this efficient strategy. For completeness, first find the maximum number of guesses a sequence of size \(k\) can be halved \(L\): 
