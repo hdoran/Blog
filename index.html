@@ -48,7 +48,7 @@ $$
 L = \textrm{floor}\left(\frac{\log(k)}{\log(2)}\right)
 $$ 
 
-and then the maximum number of guesses needed is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Applying this to the dictionary problem with a dictionary consisting of 267,751 words yields an expected maximum number of guesses:
+and then the maximum number of guesses needed is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Applying this to the dictionary problem with a dictionary consisting of 267,751 words yields an expected <b> maximum </b> number of guesses:
 
 $$
 \textrm{floor}\left(\frac{\log(267751)}{\log(2)}\right) + 1 = 19.
@@ -56,7 +56,7 @@ $$
 </p>
 
 <p>
-However, guessing the secret word could happen in fewer than 19 guesses. Hence, we can simulate the problem using a binary search algorithm over multiple replications of the problem and find the expected value via simulaiton. The result would give an empirical distribution for the number of guesses needed to find the secret word as:
+However, guessing the secret word could happen in fewer than 19 guesses. Hence, we can simulate the problem using a binary search algorithm over multiple replications of the problem and find the expected value via simulation. The result would give an empirical distribution for the number of guesses needed to find the secret word as:
 </p>
 
 <center>
@@ -89,7 +89,7 @@ binSearch <- function(k, s){
 }
 
 ### Iterate over binSearch function 100,000 times to find expected value
-k <- 100000
+k <- 200000
 result <- numeric(k)
 L <- 267751
 for(i in 1:k){
