@@ -30,6 +30,12 @@ The solution is motivated by a simple example using a <a href = "https://en.wiki
 
 <p>
 So, by iteratively halving the sequence and reducing the search space in the region where the number exists, we continue to improve the probability of success until we ultimately reach a point of certainty. This illustrates a way to work efficiently and a model for estimating the maximum number of guesses we would need to find a solution. However, we won't always need the maximum number of guesses as other values less than the maximum have non-zero probabilities, but this helps conceptualize the problem to work towards a solution for the expected value.
+
+Instead, we can find the expected value for the number of guesses, \(E(g)\), by using the probabilities of being right or wrong at each possible guess, 1 through the maximum. In this example, we can write:
+
+$$
+E(g) = 1 \cdot \frac{1}{15} + 2 \cdot \frac{14}{15}\frac{1}{7} + 3 \cdot \frac{14}{15}\frac{6}{7}\frac{1}{3} + 4 \cdot \frac{14}{15}\frac{6}{7}\frac{2}{3}1 = 3.266
+$$
 </p>
 
 <h2> Towards a Solution </h2>
@@ -70,10 +76,10 @@ Below is R code implementing the binary search and repeating that process to fin
 <pre>
 <code>
 ### Function to implement binary search
-### k = "secret number"
+### k = secret number
 ### s = ordered sequence
 ### Function searches for secret number
-### and repots number of iterations to find
+### and reports number of iterations to find
 binSearch <- function(k, s){ 
 	s <- 1:s
 	counter <- 1
