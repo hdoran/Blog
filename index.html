@@ -66,8 +66,11 @@ $$
 and then generally the maximum number of guesses needed to guess the correct answer in a sequence of size \(k\) is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Then, let \(\Pr(x=1|g_n)\) denote the success probability at the \(n\)th guess and let \(\Pr(x=0|g_n)\) denote the probability of being wrong at the \(n\)th guess. Then the expected value for the number of guesses can be written as:
 
 $$
-E(G) = 1 \cdot \Pr(x=1|g_1) +  2 \cdot \Pr(x=0|g_1)(\Pr(x=1|g_2) \\ + 
-	3 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)(\Pr(x=1|g_3) + 4 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)\Pr(x=0|g_3)(\Pr(x=1|g_4)
+\begin{split}
+E(G) & = 1 \cdot \Pr(x=1|g_1) +  2 \cdot \Pr(x=0|g_1)\Pr(x=1|g_2) \\  
+	& + 3 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)\Pr(x=1|g_3) \\ 
+	& + 4 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)\Pr(x=0|g_3)\Pr(x=1|g_4)
+\end{split}
 $$
 
 </p>
