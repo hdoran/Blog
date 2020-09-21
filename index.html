@@ -55,24 +55,24 @@ $$
 
 <pre>
 <code>
-binSearch <- function(k, s){ <br>
-	s <- 1:s<br>
-	counter <- 1<br>
-		while(length(s) > 1){<br>
-			mid <- floor(median(s))<br>
-			if (k == mid){<br>
-			s <- k<br>
-			} else if (k < mid){<br>
-			s <- min(s):(mid-1)<br>
-			counter <- counter + 1<br>
-			} else {<br>
-			s <- (mid+1):max(s)<br>
-			counter <- counter + 1<br>
-		}<br>
-	}<br>
-	list("Value Found" = s, "Number of Iterations" = counter)<br>
-}<br>
-binSearch(8,15)<br>
+binSearch <- function(k, s){ 
+	s <- 1:s
+	counter <- 1
+		while(length(s) > 1){
+			mid <- floor(median(s))
+			if (k == mid){
+			s <- k
+			} else if (k < mid){
+			s <- min(s):(mid-1)
+			counter <- counter + 1
+			} else {
+			s <- (mid+1):max(s)
+			counter <- counter + 1
+		}
+	}
+	list("Value Found" = s, "Number of Iterations" = counter)
+}
+binSearch(8,15)
 </code>
 </pre>
 
