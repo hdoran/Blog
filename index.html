@@ -29,7 +29,7 @@ The solution is motivated by a simple example using a <a href = "https://en.wiki
 </p>
 
 <p>
-So, by iteratively halving the sequence and reducing the search space in the region where the number exists, we continue to improve the probability of success until we ultimately reach a point of certainty. This tells us the way we can work efficiently and the most guesses we would need to find a solution. However, we won't always need 19 guesses as other values less than 19 have non-zero probabilities, but this helps work towards the expected value for the number of guesses.
+So, by iteratively halving the sequence and reducing the search space in the region where the number exists, we continue to improve the probability of success until we ultimately reach a point of certainty. This tells us the way we can work efficiently and the most guesses we would need to find a solution. However, we won't always need 19 guesses as other values less than 19 have non-zero probabilities, but this helps conceptualize the problem to work towards a solution for the expected value for the number of guesses.
 </p>
 
 <h2> Towards a Solution </h2>
@@ -42,27 +42,34 @@ Let \(k\) denote the length of the original sequence and then let \(k^*_n\) deno
 -->
 
 <p>
-Knowing that our success probability tends to 1 using this strategy, finding a general solution requires building a solution that makes use of this efficient strategy. For completeness, a sequence of size \(k\) can be halved \(L\) times as: 
+Knowing that our success probability tends to 1 using this strategy, finding a general solution requires building a model that makes use of this efficient strategy. For completeness, a sequence of size \(k\) can be halved \(L\) times as: 
 
 $$
 L = \textrm{floor}\left(\frac{\log(k)}{\log(2)}\right)
 $$ 
 
-and then the maximum number of guesses needed is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Apply this strategy to the dictionary problem in the same manner in which case the solution with a dictionary consisting of 267,751 words yields an expected maximum number of guesses:
+and then the maximum number of guesses needed is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Applying this to the dictionary problem with a dictionary consisting of 267,751 words yields an expected maximum number of guesses:
 
 $$
 \textrm{floor}\left(\frac{\log(267751)}{\log(2)}\right) + 1 = 19.
 $$ 
 </p>
 
-However, other possible guesses also exist and a simulated empirical distribution for the outcomes is:
+<p>
+However, guessing the secret word could happen in fewer than 19 guesses. Hence, we can simulate the problem using a binary search algorithm over multiple replications of the problem and find the expected value via simulaiton. The result would give an empirical distribution for the number of guesses needed to find the secret word as:
+</p>
 
 <center>
 <img src="hist.jpg">
 </center>
 
+<p>
+Below is R code implementing the binary search and repeating that process to find the expected value for the number of guesses.
+</p>
+
 <pre>
 <code>
+### Function to implement binary search
 binSearch <- function(k, s){ 
 	s <- 1:s
 	counter <- 1
@@ -80,8 +87,8 @@ binSearch <- function(k, s){
 	}
 	list("Value Found" = s, "Number of Iterations" = counter)
 }
-binSearch(8,15)
 
+### Iterate over binSearch function 100,000 times to find expected value
 k <- 100000
 result <- numeric(k)
 L <- 267751
