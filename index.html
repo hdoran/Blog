@@ -30,7 +30,9 @@ The solution is motivated by a simple example using a <a href = "https://en.wiki
 
 <p>
 So, by iteratively halving the sequence and reducing the search space in the region where the number exists, we continue to improve the probability of success until we ultimately reach a point of certainty. This illustrates a way to work efficiently and a model for estimating the maximum number of guesses we would need to find a solution. However, we won't always need the maximum number of guesses as other values less than the maximum have non-zero probabilities, but this helps conceptualize the problem to work towards a solution for the expected value.
+</p>
 
+<p>
 Instead, we can find the expected value for the number of guesses, \(E(G)\), by using the probabilities of being right or wrong at each possible guess, 1 through the maximum. In this example, we can write:
 
 $$
@@ -61,7 +63,16 @@ $$
 L = \textrm{floor}\left(\frac{\log(k)}{\log(2)}\right)
 $$ 
 
-and then generally the maximum number of guesses needed to guess the correct answer in a sequence of size \(k\) is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Applying this to the dictionary problem with a dictionary consisting of 267,751 words yields an expected <b> maximum </b> number of guesses:
+and then generally the maximum number of guesses needed to guess the correct answer in a sequence of size \(k\) is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Then, let \(\Pr(x=1|g_n)\) denote the success probability at the \(n\)th guess and let \(\Pr(x=0|g_n)\) denote the probability of being wrong at the \(n\)th guess. Then the expected value for the number of guesses can be written as:
+
+$$
+E(G) = 1 \cdot \Pr(x=1|g_1) +  2 \cdot \Pr(x=0|g_1)(\Pr(x=1|g_2) + 3 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)(\Pr(x=1|g_3) + 4 \cdot \Pr(x=0|g_1)\Pr(x=0|g_2)\Pr(x=0|g_3)(\Pr(x=1|g_4)
+$$
+
+</p>
+
+<p>
+Applying this to the dictionary problem with a dictionary consisting of 267,751 words yields an expected <b> maximum </b> number of guesses:
 
 $$
 \textrm{floor}\left(\frac{\log(267751)}{\log(2)}\right) + 1 = 19.
