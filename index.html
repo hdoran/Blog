@@ -76,7 +76,7 @@ $$
 and then generally the maximum number of guesses needed to guess the correct answer in a sequence of size \(k\) is \(1 + L\), or initial guess plus remaining number of times the sequence can be halved. Then, generalizing to find the expected value over an arbitrary sequence of length \(k\):
 
 $$
-E(G) = \Pr(x=1|g_1) + \sum_{j=2}^k \left(\Pr(x=1|g_j) \prod_{j=1}^{k-1}\Pr(x=0|g_j)\right)
+E(G) = \Pr(x=1|g_1) + \sum_{j=2}^k \left(g_j \Pr(x=1|g_j) \prod_{j=1}^{k-1}\Pr(x=0|g_j)\right)
 $$
 
 </p>
