@@ -337,7 +337,7 @@ $$
 So then, \(\alpha\) = 84 and \(\beta\) = 156. Now, we have a continuous p.d.f. and we can find the answer by integrating over \(f(x|\alpha, \beta) \sim Beta(84,156)\) from .4 to 1 = 0.0541855, or: 
 
 $$
-\int^1_{.4}f(x)dx. 
+\int^1_{.4}f(x|\alpha, \beta)dx. 
 $$
 
 So, the chances are roughly about 5.4% that we would observe a batter with a true batting average of .35 hitting a .400 average in a 60 game season. Some R code to show math result:
