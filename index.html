@@ -210,7 +210,7 @@ We can conceptualize the problem easily. Think about splitting the 12 inch ruler
 </p>
 
 <p>
-There are only two ways in which a cut can occur containing the 6 inch mark. One potential outcome occurs when \(x_i\) \(\forall \ i\) fall into one and only one region. Then, the length is measured from the ruler's edge to the first ordered point. A second way is when two cuts fall into one region and the remaining cut falls into the other. Then, the length is measured using the points where 6 inch mark is interior to the cuts. For example, case 1 might be all points fall into \(R_1\) in which case the length is measured as \(L = 12 - x_3\). Or to illustrate case 2 we might observe two points in \(R_1\) and one point in \(R_2\). Then, the length is measured as \(L = x_3 - x_2\). 
+There are only two ways in which a cut can occur containing the 6 inch mark. One potential outcome occurs when \(x_i\) \(\forall \ i\) fall into one and only one region. Then, the length is measured from the ruler's edge to the first ordered point. A second way is when two cuts fall into one region and the remaining cut falls into the other. Then, the length is measured using the points where the 6 inch mark is interior to the cuts. For example, case 1 might be all points fall into \(R_1\) in which case the length is measured as \(L = 12 - x_3\). Or to illustrate case 2 we might observe two points in \(R_1\) and one point in \(R_2\). Then, the length is measured as \(L = x_3 - x_2\). 
 </p>
 
 <p>
@@ -223,15 +223,31 @@ All cuts are latent random variables and so we cannot know values for \(x_i\)--t
 <h3>
 
 <p>
-Order statistics have some nicely defined (and simple) expected values that work well for this scenario that are useful for solving this problem. It is specifically useful to know that \(E(\min(x_1, \dots, x_n ))= \frac{1}{N + 1}\). Then, we can define the expected value for the "long cut" to be \(6 * (1 + E(\min(x_1,x_2,x_3)) = 6 * (1 + 1/4) = 7.5\). The probability that all three cuts fall above the 6" mark is .5^3 = .125. Conversely, all cuts can fall below with the same probability, so long cuts will occur \(25\%\) of the time.
+Order statistics have some nicely defined (and simple) expected values that work well for this scenario that are useful for solving this problem. It is specifically useful to know that \(E(\min(x_1, \dots, x_n ))= \frac{1}{N + 1}\). Then, we can define the expected value for the "long cut" to be:
+
+$$
+6 * (1 + E(\min(x_1,x_2,x_3)) = 6 \times (1 + 1/4) = 7.5.
+$$ 
+
+The probability that all three cuts fall above the 6" mark is \(.5^3\) = .125. Conversely, all cuts can fall below with the same probability, so long cuts will occur \(25\%\) of the time.
 </p>
 
 <p>
-We can similarly define a "short cut" as \(6 * (E(\min(x_3,x_2) - E(x_1)) = 6 * ((1 + 1/3) - 1/2) =  8 - 3 = 5\). The probability of this occuring is 1 - .25 = .75 (i.e., the converse of the long cut).
+We can similarly define a "short cut" as:
+
+$$
+6 \times (E(\min(x_3,x_2) - E(x_1)) = 6 * ((1 + 1/3) - 1/2) =  8 - 3 = 5.
+$$
+
+The probability of this occuring is 1 - .25 = .75 (i.e., the converse of the long cut).
 </p>
 
 <p>
-We then simply find the expected value via the weighted mean, \(.25 \times 7.5 + .75 \times 5 = 5.625. 
+We then simply find the expected value via the weighted mean:
+
+$$
+E(X) = .25 \times 7.5 + .75 \times 5 = 5.625. 
+$$
 </p>
 
 <p>
