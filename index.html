@@ -211,7 +211,9 @@ We can conceptualize the problem easily. Think about splitting the 12 inch ruler
 
 <p>
 There are only two ways in which a cut can occur containing the 6 inch mark. One potential outcome occurs when \(x_i\) \(\forall \ i\) fall into one and only one region. Then, the length is measured from the ruler's edge to the first ordered point. Refer to this as the "long cut" because we know it must be at least 6 inches in length.
+</p>.
 
+<p>
 A second way is when two cuts fall into one region and the remaining cut falls into the other. Then, the length is measured using the points where the 6 inch mark is interior to the cuts. For example, case 1 might be all points fall into \(R_1\) in which case the length is measured as \(L = 12 - x_3\). Or to illustrate case 2 we might observe two points in \(R_1\) and one point in \(R_2\). Then, the length is measured as \(L = x_3 - x_2\). Refer to this as the "short cut" because this slice can be less than 6 inches.
 </p>
 
@@ -254,7 +256,9 @@ $$
 
 <p>
 To "verify" lets explore using a simulation-based method. Take 3 random draws for \(x_i \sim U[0,12]\) and sort them by increasing value to represent the ordering of \(x_1, x_2\), and \(x_3\). These can be treated as the cut locations on the ruler occuring at three randomly placed locations between 0 and 12 giving us a simulated "broken ruler" with 4 segments.
+</p>
 
+<p>
 Now, search to find which of the four resulting segments contains the 6 inch mark and measure the length of this segment as \(L = x_i - x_{i-1}\). Replicate this process \(K\) times, yielding a vector of lengths, \(L = {L_1, L_2, \ldots, L_k}\) and find the mean over the vector of simulated possible outcomes. 
 </p>
 
