@@ -253,10 +253,8 @@ $$
 <p>
 To "verify" lets explore using a simulation-based method. Take 3 random draws for \(x_i \sim U[0,12]\) and sort them by increasing value to represent the ordering of \(x_1, x_2\), and \(x_3\). These can be treated as the cut locations on the ruler occuring at three randomly placed locations between 0 and 12 giving us a simulated "broken ruler" with 4 segments.
 
-Now, search to find which of the four resulting segments contains the 6 inch mark and measure the length of this segment as \(L = x_i - x_{i-1}\). Replicate this process \(K\) times, yielding a vector of lengths, \(L = {L_1, L_2, \ldots, L_k}\) and find the mean over the vector of simulated possible outcomes. The R code below implements this process for generating the data and finding the mean.  
+Now, search to find which of the four resulting segments contains the 6 inch mark and measure the length of this segment as \(L = x_i - x_{i-1}\). Replicate this process \(K\) times, yielding a vector of lengths, \(L = {L_1, L_2, \ldots, L_k}\) and find the mean over the vector of simulated possible outcomes. The R code below implements this process for generating the data and finding the mean. If we examine the empirical distribution of all simulated outcomes, we see a "shark fin" looking distribution of potential outcomes.
 </p>
-
-If we examine the empirical distribution of all simulated outcomes, we see a "shark fin" looking distribution of potential outcomes.
 
 <center>
 <img src="ruler.jpg">
@@ -268,7 +266,7 @@ K = 10000000 #Number of replicates. Change to a lower number for speed
 result <- numeric(K)
 for(i in 1:K){
 	### Randomly cut a ruler into 4 pieces (three random cuts)
-	cuts <- c(0, sort(runif(3, 0,12)), 12)
+	cuts <- c(0, sort(runif(3, 0, 12)), 12)
 
 	### Find which piece contains 6" mark
 	pos <- min(which(TRUE == (6 <= cuts)))
