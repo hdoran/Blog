@@ -334,7 +334,7 @@ $$
 .35 = \frac{\alpha}{\alpha + \beta}
 $$
 
-So then rearranging to solve for \(\alpha\) 
+So then rearranging to solve for \(\alpha\): 
 
 $$
 \begin{split}
@@ -347,7 +347,7 @@ $$
 and then \(\beta\) = 240 - 84 = 156\). Now, we have a continuous p.d.f. and we can find the answer by integrating over \(f(x|\alpha, \beta) \sim Beta(84,156)\) from .4 to 1 = 0.0541855, or: 
 
 $$
-\int^1_{.4}f(x|\alpha, \beta)dx. 
+E(H) = \int^1_{.4}f(x|\alpha, \beta)dx. 
 $$
 
 So, the chances are roughly about 5.4% that we would observe a batter with a true batting average of .35 hitting a .400 average in a 60 game season. Some R code to show math result:
@@ -356,7 +356,9 @@ So, the chances are roughly about 5.4% that we would observe a batter with a tru
 <code>
 f <- function(x) dbeta(x, 84, 156)
 integrate(f, .4,1) 
+0.0541855 with absolute error < 6.7e-06
 1-pbeta(.4, 84, 156)
+[1] 0.0541855
 </code>
 </pre>
 </p>
@@ -368,12 +370,19 @@ Now using the same approach, we can answer how this compares to a true .350 batt
 <code>
 f <- function(x) dbeta(x, 226.8, 421.2)
 integrate(f, .4,1)
+0.004319934 with absolute error < 4.6e-09
 </code>
 </pre>
 </p>
  
 <p>
-Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35*(1-.35) * 240)}\) = 7.389181. We could integrate over the normal from 96 to infinity, which yields 0.05218834 or about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
+Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35*(1-.35) * 240)}\) = 7.389181. We could integrate over the normal from 96 to infinity, 
+
+$$
+E(H) \approx \int^{\inf}_{96}f(x|\mu, \sigma)dx. 
+$$
+
+which yields 0.05218834 or about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
 
 <pre>
 <code>
