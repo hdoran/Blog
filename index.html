@@ -297,6 +297,91 @@ mean(result)
 </pre>
 </code>
 
+<hr>
+<center> <h1> The Short Season Baseball Problem </h1> </center>
+
+<h2> Problem Statement </h2>
+<h3>
+<p>
+The short season baseball problem as stated <a href = "https://fivethirtyeight.com/features/can-the-hare-beat-the-tortoise/" target = "blank"> here </a> asks: 
+
+<blockquote>
+"Some statistics are more achievable than others in a shortened season. Suppose your true batting average is .350, meaning you have a 35 percent chance of getting a hit with every at-bat. If you have four at-bats per game, what are your chances of batting at least .400 over the course of the 60-game season?2 And how does this compare to your chances of batting at least .400 over the course of a 162-game season?
+
+Extra credit: Some statistics are less achievable in a shortened season. What are your chances of getting a hit in at least 56 consecutive games, tying or breaking Joe DiMaggio’s record, in a 60-game season? And how does this compare to your chances in a 162-game season? (Again, suppose your true batting average is .350 and you have four at-bats per game.)"
+</blockquote>
+</p>
+</h3>
+
+<h3>
+<p>
+<b>The answer is 0.0541855.</b> 
+</p>
+</h3>
+
+
+<h2> Towards a Solution </h2>
+<h3>
+
+<p>
+Begin with assuming each hit is an independent event so this means that the expected number of hits over 240 at bats (60 games * 4 at bats per game) is .35 * 240 = 84. Hitting a .400 in 240 at bats means we would observe 96 hits.
+</p>
+
+<p>
+The binomial distribution gives the probability for observing independent events, but the beta distribution is the probability distribution for modeling proportions (i.e., continuous and bounded between 0 and 1). The Riddler Nation question is asking what is the probability of observing a specific proportion (e.g., chances of batting .400). So, we can easily find the shape parameters for the beta since we know the expected proportion over 240 events is .350; thus a = 84 and b = 156. Now, we have a continuous p.d.f. and we can find the answer by integrating over \(f(x) \sim Beta(84,156)\) from .4 to 1 = 0.0541855, or: 
+
+$$
+\int^1_{.4}f(x)dx. 
+$$
+
+So, the chances are roughly about 5.4% that we would observe a batter with a true batting average of .35 hitting a .400 average in a 60 game season. Some R code to show math result:
+
+<pre>
+<code>
+f <- function(x) dbeta(x, 84, 156)
+integrate(f, .4,1) 
+1-pbeta(.4, 84, 156)
+</code>
+</pre>
+</p>
+
+<p>
+Now using the same approach, we can answer how this compares to a true .350 batter hitting a .400 in a 162 game season. Here the parameters a and b for the beta are a = 226.8 and b = 421.2 (find these using 648 total at bats in 162 games with a true .350 probability). In this case the probability that we observe a .400 season is 0.004319934, or we expect roughly a .43% chance of observing a true .350 hitter batting a .400 in a 162 game season. Some more R code:
+
+<pre>
+<code>
+f <- function(x) dbeta(x, 226.8, 421.2)
+integrate(f, .4,1)
+</code>
+</pre>
+</p>
+ 
+<p>
+Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35*(1-.35) * 240)}\) = 7.389181. We could integrate over the normal from 96 to infinity, which yields 0.05218834 or about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
+
+<pre>
+<code>
+f <- function(x) dnorm(x, 84, 7.389181)
+integrate(f, 96,Inf)
+</code>
+</pre>
+</p>
+
+<p>
+One last approach could be to use a monte carlo approach and take some random draws from the binomial and count the proportion of times we observe 96 hits (this is the .400 in 240). Let's take a lot of draws, make it 5 million. This would give us about ~6.08% chance. Some R code for math: 
+
+<pre>
+<code>
+K = 5000000
+x=rbinom(K, 240, .35)
+length(which(x >=96))/K * 100
+</code>
+</pre>
+</p>
+
+
+</p>
+
 
 
 
