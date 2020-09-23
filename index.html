@@ -226,7 +226,7 @@ All cuts are latent random variables and so we cannot know values for \(x_i\)--t
 Order statistics have some nicely defined (and simple) expected values that work well for this scenario that are useful for solving this problem. It is specifically useful to know that \(E(\min(x_1, \dots, x_n ))= \frac{1}{N + 1}\). Then, we can define the expected value for the "long cut" to be:
 
 $$
-6 * (1 + E(\min(x_1,x_2,x_3)) = 6 \times (1 + 1/4) = 7.5.
+6 \times (1 + E(\min(x_1,x_2,x_3)) = 6 \times (1 + 1/4) = 7.5.
 $$ 
 
 The probability that all three cuts fall above the 6" mark is \(.5^3\) = .125. Conversely, all cuts can fall below with the same probability, so long cuts will occur \(25\%\) of the time.
@@ -236,7 +236,7 @@ The probability that all three cuts fall above the 6" mark is \(.5^3\) = .125. C
 We can similarly define a "short cut" as:
 
 $$
-6 \times (E(\min(x_3,x_2) - E(x_1)) = 6 * ((1 + 1/3) - 1/2) = 5.
+6 \times (E(\min(x_3,x_2) - E(x_1)) = 6 \times ((1 + 1/3) - 1/2) = 5.
 $$
 
 The probability of this occuring is 1 - .25 = .75 (i.e., the converse of the long cut).
