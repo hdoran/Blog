@@ -331,7 +331,7 @@ Begin with assuming each hit is an independent event so this means that the expe
 The binomial distribution gives the probability for observing independent events, but the beta distribution is the probability distribution for modeling proportions (i.e., continuous and bounded between 0 and 1). The Riddler Nation question is asking what is the probability of observing a specific proportion (e.g., chances of batting .400). So, we can easily find the shape parameters for the beta since we know the expected proportion over 240 events is .350, so then solving for \(\alpha\) and \(\beta\):
 
 $$
-.96 = \frac{\alpha}{\alpha + \beta}
+.35 = \frac{\alpha}{\alpha + \beta}
 $$ 
 
 So then, \(\alpha\) = 84 and \(\beta\) = 156. Now, we have a continuous p.d.f. and we can find the answer by integrating over \(f(x|\alpha, \beta) \sim Beta(84,156)\) from .4 to 1 = 0.0541855, or: 
