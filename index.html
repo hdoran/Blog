@@ -379,7 +379,7 @@ integrate(f, .4,1)
 Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35*(1-.35) * 240)}\) = 7.389181. We could integrate over the normal from 96 to infinity, 
 
 $$
-E(H) \approx \int^{\inf}_{96}f(x|\mu, \sigma)dx. 
+E(H) \approx \int^{\infty}_{96}f(x|\mu, \sigma)dx. 
 $$
 
 which yields 0.05218834 or about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
