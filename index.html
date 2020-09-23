@@ -250,9 +250,14 @@ The probability of this occuring is 1 - .25 = .75 (i.e., the converse of the lon
 We've now defined the universe of potential outcomes and their probability of occuring, so to find the exact answer we then simply find the expected value via the weighted mean of the two potential outcomes:
 
 $$
-E(X) = .25 \times 7.5 + .75 \times 5 = 5.625. 
+\begin{split}
+E(X) & = \sum_{i=1}^2p_iR_i \\
+	& = .25 \times 7.5 + .75 \times 5 \\
+	&= = 5.625. 
+\end{split}
 $$
 </p>
+
 
 <p>
 To "verify" lets explore using a simulation-based method. Take 3 random draws for \(x_i \sim U[0,12]\) and sort them by increasing value to represent the ordering of \(x_1, x_2\), and \(x_3\). These can be treated as the cut locations on the ruler occuring at three randomly placed locations between 0 and 12 giving us a simulated "broken ruler" with 4 segments.
