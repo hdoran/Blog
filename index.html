@@ -344,10 +344,13 @@ $$
 \end{split}
 $$ 
 
-and then \(\beta\) = 240 - 84 = 156. Now, we have a continuous p.d.f. and we can find the answer by integrating over \(f(x|\alpha, \beta) \sim Beta(84,156)\) from .4 to 1 = 0.0541855, or: 
+and then \(\beta\) = 240 - 84 = 156. Now, we have a continuous p.d.f. and we can find the answer by evaluating the integral over \(f(x|\alpha, \beta) \sim Beta(84,156)\) or: 
 
 $$
-E(H) = \int^1_{.4}f(x|\alpha, \beta)dx. 
+\begin{split}
+E(H) & = \int^1_{.4}f(x|\alpha, \beta)dx\\
+	&= = 0.0541855
+\end{split}
 $$
 
 So, the chances are roughly about 5.4% that we would observe a batter with a true batting average of .35 hitting a .400 average in a 60 game season. Some R code to show math result:
@@ -376,13 +379,16 @@ integrate(f, .4,1)
 </p>
  
 <p>
-Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35*(1-.35) * 240)}\) = 7.389181. We could integrate over the normal from 96 to infinity, 
+Out of curiosity, we might be tempted to assume that we can use a gaussian normal rather than a beta. From the properties of the binomial, we have an expected value of 84 and a standard error of se = \(\sqrt{.35\times(1-.35) \times 240)}\) = 7.389181. We could evaluate the integral over the normal from 96 to infinity, 
 
 $$
-E(H) \approx \int^{\infty}_{96}f(x|\mu, \sigma)dx. 
+\begin{split}
+E(H) & \approx \int^{\infty}_{96}f(x|\mu, \sigma)dx\\
+	& \approx 0.05218834
+\end{split}
 $$
 
-which yields 0.05218834 or about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
+where \(f(x|\mu, \sigma) \sim N(\mu, \sigma)\) giving about a 5.2% chance. Note the similarities, but the normal is not the right generating distribution, although it gives a decent(ish) approximation. Some R code for that approach:
 
 <pre>
 <code>
