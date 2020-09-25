@@ -29,9 +29,6 @@ For a 400-yard hole, assuming there are no hazards (water, sand or otherwise) in
 
 <h2> Motivating Example </h2>
 <h3>
-<p>
-Growing up in Tucson, Arizona I golfed all summer as a kid in 100+ degree weather. Rarely, did I hit par even after all that golfing, but I sure did bump into a few cacti! So, the problem reminds me of <a href = "https://en.wikipedia.org/wiki/Infinitesimal"> Infinitesimals </a> but can't really be because otherwise we would never actually hit the target. So, we need to aim for some target that is "close enough" to call it success. We can reasonably take the outer edge of the cup on the same side as the tee. So, the distance we need to reach is from the tee to 2.125--the outer edge of the cup.
-</p>
 
 <p>
 Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. Then, I hit \(x\%\) closer and end up at the new location \(L_1 = L_0 \times x\). Repeat until hit four puts me right at the tip of the hole on my side of the tee, that is \(\leq 2.125\). So, we need to find the best value for \(x\) subject to \(0 < x < 1\) and \(x_i = x \ \forall \ i\).
