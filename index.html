@@ -36,11 +36,8 @@ Growing up in Tucson, Arizona I golfed all summer as a kid in 100+ degree weathe
 <p>
 Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. Then, I hit \(x\%\) closer and end up at the new location \(L_1 = L_0 \times x\). Repeat until hit four puts me right at the tip of the hole on my side of the tee, that is \(\leq 2.125\). So, we need to find the best value for \(x\) subject to \(0 < x < 1\) and \(x_i = x \ \forall \ i\).
 </p>
-</h3>
 
-<h2> Towards a Solution </h2>
-<h3>
-
+<p>
 Sequentially, this can be mapped out as:
 
 $$
@@ -51,6 +48,11 @@ L_2 \times x &= L_3\\
 L_3 \times x &\leq 2.125\\
 \end{split}
 $$
+</h3>
+</p>
+
+<h2> Towards a Solution </h2>
+<h3>
 
 Now, just substitute in each of the equations above and then solve the inequality:
 
