@@ -30,31 +30,22 @@ For a 400-yard hole, assuming there are no hazards (water, sand or otherwise) in
 <p>
 Growing up in Tucson, Arizona I golfed all summer as a kid in 100+ degree weather. Rarely, did I hit par even after all that golfing, but I sure did bump into a few cacti!
 
-So, the problem reminds me of <a href = "https://en.wikipedia.org/wiki/Infinitesimal"> Infinitesimals </a>, but can't really be because otherwise we would never actually hit the target. Conceptually, we need to set something up along the lines of:
-
-$$
-\begin{split}
-D_1 &= 400 \times x \\
-D_2 &= D_1 \times x \\
-D_3 &= D_2 \times x \\
-\end{split}
-$$ 
-
-where \(x\) is the percentage of the distance between the current location of the ball, \(D_j\) and the hole. Then, \(D_4 \leq 2.125\) and as the gamemaster states, we can hope for a "gust of wind" at this point. So, we need to find the best value for \(x\) subject to the contraint that \(0 < x < 1\).
+So, the problem reminds me of <a href = "https://en.wikipedia.org/wiki/Infinitesimal"> Infinitesimals </a>, but can't really be because otherwise we would never actually hit the target. Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or \(D_1\)=400. Then, I hit \(x\) percent closer and end up at the new location \(D_3 = D_4 \times x\). Repeat until hit 4 puts me at location \(D_4 \leq 2.125\). Hopefully, as the gamemaster states, we can hope for a "gust of wind" at this point. So, we need to find the best value for \(x\) subject to the constraint that \(0 < x < 1\).
 </p>
 </h3>
 
 <h2> Towards a Solution </h2>
 <h3>
-Wecan set this up pretty easily as:
+We can set this up pretty easily and solve the inequality:
+
 $$
 \begin{split}
-400 \times x \times x \times x \times x &\leq 2.125 \\
-400 \times x^4 &\leq 2.125
+400 \times x^4 &\leq 2.125\\
+x^4 &\leq \frac{2.125}{400}\\
+x &\leq (\frac{2.125}{400})^{1/4}\\
+x &\leq 0.2699757
 \end{split}
-$$ 
-
-
+$$
 </h3>
 
 
