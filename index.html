@@ -39,14 +39,14 @@ Conceptually, we need to set something up along the lines of the following. At t
 <h3>
 
 <p>
-So, we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings where the ball moves closer to the cup by \(p\%\) each time. I set this up to find the distance reduced at each hit by finding the best value for \(x\) subject to \(0 < x < 1\) and \(x\) is a constant at each swing, then we simply need \(p = 1-x\). Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) and then sequentially, map out the process where I would land after each hit as the following system of equations:
+So, we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings where the ball moves closer to the cup by \(p\%\) each time. I set this up to find the best value for \(x\), then we simply need \(p = 1-x\). Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) and then sequentially, map out the process where I would land after each hit as the following system of equations:
 
 $$
 \begin{split}
-400 \times x &= L_1\\
+L_0 \times x &= L_1\\
 L_1 \times x &= L_2\\
 L_2 \times x &= L_3\\
-L_3 \times x &\leq 2.125\\
+L_3 \times x &\leq L_4\\
 \end{split}
 $$
 </p>
