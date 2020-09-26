@@ -35,6 +35,9 @@ For a 400-yard hole, assuming there are no hazards (water, sand or otherwise) in
 Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. Then, I hit the ball \(p\%\) closer after the first hit ending up at the new location, \(L_1 = L_0 \times x\) where \(x\) is the proportion of the distance covered, or \(x = 1-p\). Repeat by hitting \(p\%\) closer each time until hit four puts me right at the edge of the hole on my side of the tee. Since the diameter of the hole is 4.25, we can assume the ball falls into the cup once it reaches the outer edge of the cup, or is 2.125 inches from the center of the hole. 
 </p>
 
+<h2> Towards a Solution </h2>
+<h3>
+
 <p>
 So, we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings. I set this up to find the distance reduced at each hit by finding the best value for \(x\) subject to \(0 < x < 1\) and \(x\) is a constant at each swing, then we simply need \(p = 1-x\). Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) and then sequentially, map out the process where I would land after each hit as the following system of equations:
 
@@ -49,8 +52,6 @@ $$
 </h3>
 </p>
 
-<h2> Towards a Solution </h2>
-<h3>
 <p>
 Now, just use the <a href = "https://www.mathplanet.com/education/algebra-1/systems-of-linear-equations-and-inequalities/the-substitution-method-for-solving-linear-systems", target = "blank"> method of substitution </a> to easily solve for \(x\) in the system above:
 
