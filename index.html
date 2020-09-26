@@ -80,6 +80,10 @@ import numpy as np
 p = np.arange(0,1,.0001)	 
 result = 400*p**4
 fig =px.scatter(x=p, y=result)
+fig.update_layout(title='Brute Force Location for Various Values of X%',
+	xaxis_title='Value for x (1-p)',
+	yaxis_title='Ball Location at L_4')
+fig.show()
 </code>
 </pre>
 
