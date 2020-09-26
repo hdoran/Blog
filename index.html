@@ -79,9 +79,9 @@ import plotly.express as px
 import numpy as np
 p = np.arange(0,1,.0001)	 
 result = 400*p**4
-fig =px.scatter(x=p, y=result)
-fig.update_layout(title='Brute Force Location for Various Values of X%',
-	xaxis_title='Value for x (1-p)',
+fig =px.scatter(x=1-p, y=result)
+fig.update_layout(title='Brute Force Search Over Various Values of P%',
+	xaxis_title='Value for P',
 	yaxis_title='Ball Location at L_4')
 fig.add_shape(
 	# Line Horizontal
