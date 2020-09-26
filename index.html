@@ -83,6 +83,19 @@ fig =px.scatter(x=p, y=result)
 fig.update_layout(title='Brute Force Location for Various Values of X%',
 	xaxis_title='Value for x (1-p)',
 	yaxis_title='Ball Location at L_4')
+fig.add_shape(
+	# Line Horizontal
+		type="line",
+		x0=0,
+		y0=2.125,
+		x1=1,
+		y1=2.125,
+		line=dict(
+			color="Green",
+			width=4,
+		),
+)
+fig.update_shapes(dict(xref='x', yref='y'))	
 fig.show()
 </code>
 </pre>
