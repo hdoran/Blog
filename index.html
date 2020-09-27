@@ -32,16 +32,18 @@ For a 400-yard hole, assuming there are no hazards (water, sand or otherwise) in
 <h3>
 
 <p>
-Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. From initial position \(L_0\) I take my first swing and move the ball to the new location, \(L_1\) moving \(p\%\) closer to the destination. Now from \(L_1\) I take a second hit and land at position \(L_2\) by again moving the ball by the same percent. Repeat by hitting \(p\%\) closer to the hole each time until hit four puts me right at the edge of the hole on my side of the tee. Since the diameter of the hole is 4.25, we can assume the ball falls into the cup once it reaches the outer edge of the cup, or is 2.125 inches from the center of the hole. 
+Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\) = 400. From initial position, \(L_0\), I take my first swing and move the ball to the new location, \(L_1\), moving \(p\%\) closer to the destination. Now from \(L_1\) I take a second hit and land at position \(L_2\) by again moving the ball by the same percent. Repeat by hitting \(p\%\) closer to the hole each time until hit four puts me right at the edge of the hole on my side of the tee. Since the diameter of the hole is 4.25, we can assume the ball falls into the cup once it reaches the outer edge of the cup, or is 2.125 inches from the center of the hole. 
 </p>
 
 <p>
-Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) then we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings such that:
+Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) then we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings and each hit moves the ball \(p\%\) closer such that:
 
 $$
 p = 1- \frac{L_i}{L_{i-1}}
 $$ 
 </p>
+
+where \(p\% = 100 \times p\).
 
 <h2> Towards a Solution </h2>
 <h3>
