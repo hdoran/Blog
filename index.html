@@ -10,7 +10,7 @@ layout: default
 <!--<center> <h1>Statistics, Psychometrics, Games</h1> </center>
 <center> <h3>Harold Doran</h3> </center> -->
 
-<center> <h1> Golf Problem </h1> </center>
+<center> <h1> Shooting Par </h1> </center>
 <center> <h3> 09/26/2020 </h3> </center>
 
 <h2> Problem Statement </h2> 
@@ -32,18 +32,22 @@ For a 400-yard hole, assuming there are no hazards (water, sand or otherwise) in
 <h3>
 
 <p>
-Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. Then, I hit the ball \(p\%\) closer after the first hit ending up at the new location, \(L_1 = L_0 \times x\) where \(x = 1-p\). Repeat by hitting \(p\%\) closer each time until hit four puts me right at the edge of the hole on my side of the tee. Since the diameter of the hole is 4.25, we can assume the ball falls into the cup once it reaches the outer edge of the cup, or is 2.125 inches from the center of the hole. 
+Conceptually, we need to set something up along the lines of the following. At the tee, I'm 400 yards away, or at the initial location, \(L_0\)=400. From initial position \(L_0\) I take my first swing and move the ball to the new location, \(L_1\) moving \(p\%\) closer to the destination. Now from \(L_1\) I take a second hit and land at position \(L_2\) by again moving the ball by the same percent. Repeat by hitting \(p\%\) closer to the hole each time until hit four puts me right at the edge of the hole on my side of the tee. Since the diameter of the hole is 4.25, we can assume the ball falls into the cup once it reaches the outer edge of the cup, or is 2.125 inches from the center of the hole. 
+</p>
+
+<p>
+Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) then we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings such that:
+
+$$
+p = 1- \frac{L_i}{L_{i-1}}
+$$ 
 </p>
 
 <h2> Towards a Solution </h2>
 <h3>
 
 <p>
-So, we need to move the ball from \(L_0\) to \(L_4\) where \(L_4 \leq 2.125\) in exactly four swings where the ball moves closer to the cup by \(p\%\) each time. I set this up to find the best value for \(x\), then \(p = 1-x\). 
-</p>
-
-<p>
-Let \(L_i\) be the location of the ball after hit \(i = \{1,2,3,4\}\) and then write the four hits as the following system of equations:
+I set this up to find the best value for \(x\), then \(p = 1-x\). Start by writing the four hits as the following system of equations: 
 
 $$
 \begin{split}
