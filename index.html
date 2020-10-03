@@ -37,7 +37,7 @@ So, another way to consider the game is what are the chances that the first 8 dr
 </p>
 
 <p>
-At draw 1, the chances of pulling a dark chocolate out of the bag is \(\frac{8}{10}\). You always eat the first chocolate and assuming the first one pulled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(\frac{7}{9}\). 
+At draw 1, the chance of pulling a dark chocolate out of the bag is \(\frac{8}{10}\). You always eat the first chocolate and assuming the first one pulled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(\frac{7}{9}\). 
 </p>
 
 <p>
@@ -67,21 +67,19 @@ P(x) &= \frac{N_{d}!}{\prod_{i=N_{m}+1}^N i}\\
 \end{split}
 $$
 
-</h3>
-
 <p>
 We can test the using a little simulation. The R code below counts the proportion of times that a milk chocolate (type 2) is drawn in positions 9 and 10.
 </p>
-
+</h3>
 <code>
 <pre>
 ### Simulate a bag of chocolates 
-cc <- c(1,1,1,1,1,1,1,1,2,2)
+bag <- c(1,1,1,1,1,1,1,1,2,2)
 ### Take random draws from this bag K times
 K <- 1000000
 rr <- numeric(K)
 for (i in 1:K){
-	x <- sample(cc,10)
+	x <- sample(bag,10)
 	rr[i] <- all(x[9:10]==2)
 }
 mean(rr)
