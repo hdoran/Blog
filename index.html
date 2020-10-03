@@ -56,13 +56,13 @@ More generally, we can let the total number of chocolates be written as \(N = N_
 </p>
 
 $$
-\begin{split)
+\begin{split}
 P(x) &= \frac{N_{d}!}{\prod_{i=N_{m}+1}^N i}\\
-	&= \frac{N_d!\times N}{N!}
+&= \frac{N_d!\times (N_m)!}{N!}\\
 \end{split}
 $$
 
-
+factorial(N.d)*factorial((N.m))/factorial(N)
 
 </h3>
 
@@ -76,7 +76,12 @@ We can test the using a little simulation. The R code below counts the proportio
 > factorial(10)/factorial(2)
 [1] 1814400
 
-factorial(8)*factorial(2)/factorial(10)
+N = 10
+N.m = 2
+N.d = N-N.m
+
+factorial(N.d)/prod((N.m+1):N)
+factorial(N.d)*factorial((N.m))/factorial(N)
 
 <pre>
 <code>
