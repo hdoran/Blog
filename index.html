@@ -31,26 +31,50 @@ The answer is <b>0.0222</b>, or <b>02.22%</b>.
 <h3>
 
 <p>
-Under the rules of the game, the only condition under which the last chocolate you eat is milk chocolate is when the first 8 chocolates you eat are dark chocolate. Then, the 9th chocolate you eat is milk chocolate leaving the 10th milk chocolate to be pulled in sequence. So, another way to consider the game is what are the chances that the first 8 draws from the bag will result in a dark chocolate?
+Under the rules of the game, the only condition under which the last chocolate you eat is milk chocolate is when the first 8 chocolates you eat are dark chocolate. In other words, the only condition when you would eat the milk chocolate last is when the first milk chocolate is drawn 9th then leaving the final milk chocolate to be pulled in sequence in position 10.
+
+So, another way to consider the game is what are the chances that the first 8 draws from the bag will result in a dark chocolate?
 </p>
 
 <p>
-So, at draw 1, the chances of pulling a dark chocolate out of the bag is \(\frac{8}{10}\). You always eat the first chocolate and assuming the one pulled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(\frac{7}{9}\). 
+So, at draw 1, the chances of pulling a dark chocolate out of the bag is \(\frac{8}{10}\). You always eat the first chocolate and assuming the first one pulled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(\frac{7}{9}\). 
 </p>
 </h3>
 
 <h2> Towards a Solution </h2>
 <h3>
 <p>
-Under the assumption we pull and dark chocolate first and continue to do so for the first 8 draws, then the probability of that sequence can be expressed as:
+Under the assumption we pull a dark chocolate first and continue to do so for the first 8 draws, then the probability of repeating that sequence can be expressed as:
 </p>
 
 $$
 Pr(x) = \left(\frac{8}{10}\right) \times \left(\frac{7}{9}\right) \times \left(\frac{6}{8}\right) \times \left(\frac{5}{7}\right) \times\left(\frac{4}{6}\right) \times\left(\frac{3}{5}\right) \times\left(\frac{2}{4}\right) \times\left(\frac{1}{3}\right)  = .0222
 $$
 
-
 </h3>
+
+<p>
+We can test the using a little simulation. The R code below counts the proportion of times that a milk chocolate (type 2) is drawn in positions 9 and 10.
+</p>
+
+<pre>
+<code>
+### Simulate a bag of chocolates 
+cc <- c(1,1,1,1,1,1,1,1,2,2)
+K <- 1000000
+rr <- numeric(K)
+for (i in 1:K){
+	x <- sample(cc,10)
+	rr[i] <- all(x[9:10]==2)
+}
+mean(rr)
+[1] 0.022339
+</pre>
+</code>
+
+
+
+<hr>
 
 <center> <h1> Shooting Par </h1> </center>
 <center> <h3> 09/26/2020 </h3> </center>
