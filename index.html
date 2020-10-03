@@ -7,6 +7,42 @@ layout: default
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
+<center> <h1> Eating All The Chocolates </h1> </center>
+<center> <h3> 10/03/2020 </h3> </center>
+
+<h2> Problem Statement </h2> 
+<h3>
+<p>
+The eating chocolate problem stated <a href = "https://fivethirtyeight.com/features/can-you-eat-all-the-chocolates//" target = "blank"> here </a> asks:
+</p>
+
+<blockquote>
+I have 10 chocolates in a bag: Two are milk chocolate, while the other eight are dark chocolate. One at a time, I randomly pull chocolates from the bag and eat them — that is, until I pick a chocolate of the other kind. When I get to the other type of chocolate, I put it back in the bag and start drawing again with the remaining chocolates. I keep going until I have eaten all 10 chocolates.
+
+For example, if I first pull out a dark chocolate, I will eat it. (I’ll always eat the first chocolate I pull out.) If I pull out a second dark chocolate, I will eat that as well. If the third one is milk chocolate, I will not eat it (yet), and instead place it back in the bag. Then I will start again, eating the first chocolate I pull out.
+
+What are the chances that the last chocolate I eat is milk chocolate?
+</blockquote>
+
+The answer is <b>0.0222</b>, or <b>02.22%</b>.
+
+
+<h2> Motivating Example </h2>
+<h3>
+
+<p>
+Under the rules of the game, the only condition under which the last chocolate you eat is milk chocolate is when the first 8 chocolates you eat are dark chocolate. So, another way to consider the game is what are the chances that the first 8 draws from the bag will result in a dark chocolate?
+</p>
+
+<p>
+So, at draw 1, the chances of pulling a dark chocolate out of the bag is \(frac{8}{10}\). You always eat the first chocolate and assuming the one puled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(frac{7}{9}\). 
+</p>
+</h3>
+
+<h2> Towards a Solution </h2>
+<h3>
+
+</h3>
 
 <center> <h1> Shooting Par </h1> </center>
 <center> <h3> 09/26/2020 </h3> </center>
