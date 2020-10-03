@@ -56,8 +56,13 @@ More generally, we can let the total number of chocolates be written as \(N = N_
 </p>
 
 $$
-P(x) = \frac{N_{d}!}{\prod_{i=N_{m}+1}^N i}
+\begin{split)
+P(x) &= \frac{N_{d}!}{\prod_{i=N_{m}+1}^N i}\\
+	&= \frac{N_d!\times N}{N!}
+\end{split}
 $$
+
+
 
 </h3>
 
@@ -65,6 +70,13 @@ $$
 We can test the using a little simulation. The R code below counts the proportion of times that a milk chocolate (type 2) is drawn in positions 9 and 10.
 </p>
 
+
+> prod(3:10)
+[1] 1814400
+> factorial(10)/factorial(2)
+[1] 1814400
+
+factorial(8)*factorial(2)/factorial(10)
 
 <pre>
 <code>
