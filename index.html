@@ -34,85 +34,47 @@ For example, if I first pull out a dark chocolate, I will eat it. (I’ll always
 What are the chances that the last chocolate I eat is milk chocolate?
 </blockquote>
 
-The answer is <b>0.0222</b>, or <b>02.22%</b>.
-
-
-<h2> Motivating Example </h2>
-<h3>
-
-<p>
-Under the rules of the game, the only condition under which you last eat milk chocolate is when the first eight chocolates you draw are dark chocolate. In other words, you only eat the milk chocolate last if the draws from the bag result in the following ordered sequence of dark chocolate (DC) and milk chocolate (MC):
-
-<center>
-DC-DC-DC-DC-DC-DC-DC-DC-MC-MC
-</center>
-<br>
-Computing the probability of this sequence occurring is simple. The chance of pulling a dark chocolate out of the bag first is \(\frac{8}{10}\). You always eat the first chocolate and assuming the first one pulled is dark chocolate, there are now 7 remaining dark chocolates and 9 total remaining chocolates. So, at draw 2 the probability of pulling another dark chocolate is \(\frac{7}{9}\). 
-</p>
-
-<p>
-The fact that we put things back in if they are not pulled in sequence is a bit of a red herring. Suppose I pull a dark chocolate in positions 1, 2, and 3 and then at draw 4 I pull a milk chocolate. We put that back in and now restarting the probability of pulling a dark chocolate resets to \(\frac{5}{7}\). But, we cannot ignore the history of what previously happened. So, we continue drawing.
-</p>
-
-</h3>
-
-<h2> Towards a Solution </h2>
-<h3>
-<p>
-Under the assumption we pull a dark chocolate first and continue to do so over the next 8 draws, then the probability of repeating that sequence can be expressed as:
-</p>
-
-$$
-\Pr(x) = \left(\frac{8}{10}\right) \times \left(\frac{7}{9}\right) \times \left(\frac{6}{8}\right) \times \left(\frac{5}{7}\right) \times\left(\frac{4}{6}\right) \times\left(\frac{3}{5}\right) \times\left(\frac{2}{4}\right) \times\left(\frac{1}{3}\right)  = .0222
-$$
-
-<p>
-More generally, we can let the total number of chocolates be written as \(N = N_{d} + N_{m}\) where \(N_{d}\) denotes dark chocolate and \(N_{m}\) denotes milk chocolate. Then, the probability is:  
-</p>
-
-$$
-\begin{split}
-\Pr(x) &= \frac{N_{d}!}{\prod_{i=N_{m}+1}^N i}\\
-&= \frac{N_d!\times N_m!}{N!}\\
-\end{split}
-$$
-
-<p>
-And applying that in this instance yields:
-</p>
-
-$$
-\begin{split}
-\Pr(x) &= \frac{8!\times2!}{10!}\\
-	&= \frac{80640}{3628800}\\
-	&= 0.02222222
-\end{split}
-$$
+The answer is <b>50%</b>.
 
 <p>
 We can test this idea using a little simulation. The R code below counts the proportion of times that a milk chocolate (type 2) is drawn in positions 9 and 10.
 </p>
 </h3>
+
 <code>
 <pre>
-### Simulate a bag of chocolates 
-bag <- c(1,1,1,1,1,1,1,1,2,2)
-### Take random draws from this bag K times
-K <- 1000000
-rr <- numeric(K)
-for (i in 1:K){
-	x <- sample(bag,10)
-	rr[i] <- all(x[9:10]==2)
+
+K <- 100000
+final <- numeric(K)
+for(j in 1:K){
+	### Original bag  
+	bag <- c(1,1,1,1,1,1,1,1,2,2)
+	draw <- numeric(10)
+	### Take first chocolate from bag
+	draw[1] <- sample(bag,1)
+	### "eat" the chocolate and remove from bag
+	bag <- bag[-which(bag == draw[1])[1]]
+	i <- 1
+	### Now take next draw
+	while(length(bag) > 1){
+		i <- i + 1
+		x <- sample(bag,1)
+		if(x == draw[(i-1)]){ ### If same chocolate eat and remove
+			draw[i] <- x
+			bag <- bag[-which(bag == draw[i])[1]] # eat it
+		} else { ### If not, put it back and start over
+			x <- sample(bag,1)
+			bag <- bag[-which(bag == x)[1]] # eat it
+			draw[i] <- x
+		} 
+	}
+final[j] <- bag
 }
-mean(rr)
-[1] 0.022339
+table(final)
+final
+    1     2 
+50284 49716 
 
-### Using general expression(s)
-factorial(8)/prod(3:10)
-[1] 0.02222222
-
-factorial(8) * factorial(2)/factorial(10)
-[1] 0.02222222
 </code>
 </pre>
 
