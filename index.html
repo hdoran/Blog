@@ -44,7 +44,7 @@ We can test this idea using a little simulation. The R code below counts the pro
 <code>
 <pre>
 
-K <- 100000
+K <- 1000000
 final <- numeric(K)
 for(j in 1:K){
 	### Original bag  
@@ -72,8 +72,9 @@ final[j] <- bag
 }
 table(final)
 final
-    1     2 
-50284 49716 
+     1      2 
+499596 500404 
+
 
 </code>
 </pre>
