@@ -37,7 +37,8 @@ What are the chances that the last chocolate I eat is milk chocolate?
 The answer is <b>50%</b>.
 
 <p>
-Analytic solutions are king, but I'm tapping out here with a monte carlo approach. Usually, the MC approach helps me consider the nature of the problem and work out the asymptotics and find some type of a closed form expression, but this one is troubling. Simulations are helpful sometimes and below is R code that counts the proportion of times that milk chocolate (type 2) is drawn last.
+
+The game is based on the concept of a <a href = "https://en.wikipedia.org/wiki/Markov_chain" target = "blank"> Markov Chain </a> where the probability of eating the next chocolate depends only on the prior chocolate eaten. Hats off to those who worked the probabilities by laying out all of the state transitions. Instead, this solution is based on a simulation towards a solution. Simulations are helpful sometimes and below is R code that counts the proportion of times that milk chocolate (type 2) is drawn last.
 </p>
 </h3>
 
