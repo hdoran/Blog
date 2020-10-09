@@ -17,6 +17,78 @@ layout: default
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
+
+<center> <h1> Parallel Parking </h1> </center>
+<center> <h3> 10/09/2020 </h3> </center>
+
+<h2> Problem Statement </h2> 
+<h3>
+<p>
+The parallel parking problem stated <a href = "https://fivethirtyeight.com/features/can-you-parallel-park-your-car/" target = "blank"> here </a> asks:
+</p>
+
+<blockquote>
+Every weekend, I drive into town for contactless curbside pickup at a local restaurant. Across the street from the restaurant are six parking spots, lined up in a row.
+
+While I can parallel park, it’s definitely not my preference. No parallel parking is required when the rearmost of the six spots is available or when there are two consecutive open spots. If there is a random arrangement of cars currently occupying four of the six spots, what’s the probability that I will have to parallel park?
+</blockquote>
+
+The answer is <b>40%</b>.
+
+<h2> Motivating Example </h2>
+<h3>
+
+<p>
+Consider first that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver can parallel park when two adjacent spots are available or when the rearmost spot is available. So, the possible parking arrangements are countable. We must have:
+
+<center>
+1 and 2 <br>
+2 and 3 <br>
+3 and 4 <br>
+4 and 5 <br>
+5 and 6 <br>
+or spot 6 <br>
+</center>
+
+So, we have 6 possible ways in which the driver can parallel park. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
+</p>
+</h3>
+
+<h2> Towards a Solution </h2>
+<h3>
+
+We know that 4 of the 6 spots are always randomly taken, meaning there are \( \binom{6}{4} = 15\) possible arrangements. Then, we simply have the number of favorable ways to park over the total number of ways, or 6/15 = .40.
+
+Some R code to simulate 
+
+<pre>
+<code>
+spots <- 1:6
+k <- 100000
+count <- numeric(k)
+for (i in 1:k){
+	taken <- sort(sample(spots,4))
+	empty <- which(!spots %in% taken)
+	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 1, 0)
+}
+1-mean(count)
+[1] 0.40163
+
+</pre>
+</code>
+
+</h3>
+
+
+
+
+
+
+
+
+<hr>
+
+
 <center> <h1> Eating All The Chocolates </h1> </center>
 <center> <h3> 10/03/2020 </h3> </center>
 
