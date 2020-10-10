@@ -50,14 +50,24 @@ Consider first that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's le
 or spot 6 <br>
 </center>
 
-So, we have 6 possible ways in which the driver can parallel park. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
+So, we can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces. In this instance, that yields 5 possible ways in which the driver can parallel park into consecutive spaces and 1 spot at the end. So, the are always \(n\) total ways to require parallel parking. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
 </p>
 </h3>
 
 <h2> Towards a Solution </h2>
 <h3>
 
-We know that 4 of the 6 spots are always randomly taken, meaning there are \( \binom{6}{4} = 15\) possible arrangements. Then, we simply have the number of favorable ways to park over the total number of ways, or 6/15 = .40.
+At this point, we need to only know the total number of possible arrangements. Since the cars park randomly into 4 of the 6 spots we can find the probability that the driver will parallel park as
+
+$$
+\Pr(x) = \frac{n}{\binom{n}{k}}
+	= \frac{6}{\binom{6}{4}}
+	= \frac{6}{15}
+	= .4
+$$
+
+
+
 
 Some R code to simulate 
 
@@ -69,9 +79,9 @@ count <- numeric(k)
 for (i in 1:k){
 	taken <- sort(sample(spots,4))
 	empty <- which(!spots %in% taken)
-	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 1, 0)
+	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 0, 1)
 }
-1-mean(count)
+mean(count)
 [1] 0.40163
 
 </pre>
