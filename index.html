@@ -39,7 +39,7 @@ The answer is <b>40%</b>.
 <h3>
 
 <p>
-Consider first that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver can parallel park when two adjacent spots are available or when the rearmost spot is available. So, the possible parking arrangements are countable. We must have:
+Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver can parallel park when two adjacent spots are available or when the rearmost spot is available. So, the possible parking arrangements in this small example are countable. We must have:
 
 <center>
 1 and 2 <br>
@@ -49,27 +49,31 @@ Consider first that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's le
 5 and 6 <br>
 or spot 6 <br>
 </center>
+</p>
 
-So, we can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces. In this instance, that yields 5 possible ways in which the driver can parallel park into consecutive spaces and 1 spot at the end. So, the are always \(n\) total ways to require parallel parking. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
+<p>
+So, we can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces. In this instance, that yields five possible ways in which the driver can parallel park into consecutive spaces and one spot at the end. So, the are always \(n\) total ways to require parallel parking. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
 </p>
 </h3>
 
 <h2> Towards a Solution </h2>
 <h3>
 
-At this point, we need to only know the total number of possible arrangements. Since the cars park randomly into 4 of the 6 spots we can find the probability that the driver will parallel park as
+<p>
+At this point, we need to only know the total number of possible arrangements. Since the cars park randomly into 4 of the 6 spots, the total number of parking arrangements is simply \({n \choose k}\) where \(n\) is the total number of spaces and \(k\) is the number of spaces randomly taken. Then we can find the probability that the driver will parallel park as:
 
-$$
-\Pr(x) = \frac{n}{\binom{n}{k}}
-	= \frac{6}{\binom{6}{4}}
+
+$$ 
+\Pr(x) = \frac{n}{{n \choose k}}
+	= \frac{6}{{6 \choose 4}}
 	= \frac{6}{15}
-	= .4
+	= .4   
 $$
+</p>
 
-
-
-
+<p>
 Some R code to simulate 
+</p>
 
 <pre>
 <code>
