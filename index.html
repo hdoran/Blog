@@ -52,7 +52,7 @@ or spot 6 <br>
 </p>
 
 <p>
-So, we can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces. In this instance, that yields five possible ways in which the driver can parallel park into consecutive spaces and one spot at the end. So, the are always \(n\) total ways to require parallel parking. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
+We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 1\) favorable ways to parallel park into consecutive spaces and one spot at the end. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
 </p>
 </h3>
 
@@ -64,7 +64,7 @@ At this point, we need to only know the total number of possible arrangements. S
 
 
 $$ 
-\Pr(x) = \frac{n}{n \choose k}
+\Pr(x) = \frac{p}{n \choose k}
 	= \frac{6}{6 \choose 4}
 	= \frac{6}{15}
 	= .4   
