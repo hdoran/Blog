@@ -33,7 +33,7 @@ Every weekend, I drive into town for contactless curbside pickup at a local rest
 While I can parallel park, it’s definitely not my preference. No parallel parking is required when the rearmost of the six spots is available or when there are two consecutive open spots. If there is a random arrangement of cars currently occupying four of the six spots, what’s the probability that I will have to parallel park?
 </blockquote>
 
-The answer is <b>60%</b>.
+The answer is <b>40%</b>.
 
 <h2> Motivating Example </h2>
 <h3>
@@ -47,12 +47,12 @@ Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represen
 3 and 4 <br>
 4 and 5 <br>
 5 and 6 <br>
-or spot 6 <br>
+or spot 6 with any other spot 1 to 4<br>
 </center>
 </p>
 
 <p>
-We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 1\) ways to not parallel park (i.e., 5 consecutive and 1 rearmost). Now we need to consider the total number of ways in which the availabe spots can be arranged.  
+We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 4\) ways to not parallel park (i.e., 5 consecutive and 4 ways the rearmost spot would also be open). Now we need to consider the total number of ways in which the availabe spots can be arranged.  
 </p>
 </h3>
 
@@ -74,7 +74,7 @@ $$
 Then, 
 
 $$ 
-\Pr(x) = \frac{L}{M} = \frac{9}{15} = .6
+\Pr(x) = \frac{L}{M} = \frac{6}{15} = .4
 $$
 </p>
 
@@ -85,15 +85,16 @@ Some R code to simulate
 <pre>
 <code>
 spots <- 1:6
-k <- 1000000
+k <- 100000
 count <- numeric(k)
 for (i in 1:k){
 	taken <- sort(sample(spots,4))
 	empty <- which(!spots %in% taken)
-	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 1, 0)
+	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 0, 1)
 }
 mean(count)
-[1] 0.599471
+[1] 0.40268
+
 
 
 </pre>
