@@ -47,12 +47,12 @@ Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represen
 3 and 4 <br>
 4 and 5 <br>
 5 and 6 <br>
-or spot 6 with any other spot 1 to 4<br>
+6 or 1, 2, 3, 4<br>
 </center>
 </p>
 
 <p>
-We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 4\) ways to not parallel park (i.e., 5 consecutive and 4 ways the rearmost spot would also be open). Now we need to consider the total number of ways in which the availabe spots can be arranged.  
+We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end with any of the other non-adjacent spots. So that means there are \(p = 5 + 4\) ways to not parallel park (i.e., 5 consecutive and 4 ways the rearmost spot would also be ope with another non-adjacent). Now we need to consider the total number of ways in which the available spots can be arranged.  
 </p>
 </h3>
 
@@ -71,7 +71,7 @@ M = {n \choose k} = {6 \choose 4} = 15
 $$
 </p>
 
-Then, 
+Then we have \(L = 6\) and \(M=15\), giving
 
 $$ 
 \Pr(x) = \frac{L}{M} = \frac{6}{15} = .4
