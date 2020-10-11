@@ -33,13 +33,13 @@ Every weekend, I drive into town for contactless curbside pickup at a local rest
 While I can parallel park, it’s definitely not my preference. No parallel parking is required when the rearmost of the six spots is available or when there are two consecutive open spots. If there is a random arrangement of cars currently occupying four of the six spots, what’s the probability that I will have to parallel park?
 </blockquote>
 
-The answer is <b>40%</b>.
+The answer is <b>60%</b>.
 
 <h2> Motivating Example </h2>
 <h3>
 
 <p>
-Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let's let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver can parallel park when two adjacent spots are available or when the rearmost spot is available. So, the possible parking arrangements in this small example are countable. We must have:
+Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver does <b>not</b> need to parallel park when two adjacent spots are available or when the rearmost spot is available. So, the number of the does not parallel park arrangements in this small example are countable. We must have:
 
 <center>
 1 and 2 <br>
@@ -52,7 +52,7 @@ or spot 6 <br>
 </p>
 
 <p>
-We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 1\) favorable ways to parallel park into consecutive spaces and one spot at the end. But, since the spots are randomly available, how many possible ways can the spots be arranged? 
+We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end. So that means there are \(p = 5 + 1\) ways to not parallel park (i.e., 5 consecutive and 1 rearmost). Now we need to consider the total number of ways in which the availabe spots can be arranged.  
 </p>
 </h3>
 
@@ -60,14 +60,21 @@ We can see there will always be \(n-1\) adjacent spots when there are \(n\) tota
 <h3>
 
 <p>
-At this point, we need to only know the total number of possible arrangements. Since the cars park randomly into 4 of the 6 spots, the total number of parking arrangements is simply \({n \choose k}\) where \(n\) is the total number of spaces and \(k\) is the number of spaces randomly taken. Then we can find the probability that the driver will parallel park as:
+At this point, we need to only know the total number of possible arrangements, let this be denoted as \(M\). Since the cars park randomly into 4 of the 6 spots, the total number of parking arrangements is simply \(M = {n \choose k}\) where \(n\) is the total number of spaces and \(k\) is the number of spaces randomly taken. Then there are \(L = M - p\) conditions when you <b>must</b> parallel park. 
+</p>
 
+<p>
+So, the total number of possible arrangements is:
+
+$$
+M = {n \choose k} = {6 \choose 4} = 15
+$$
+</p>
+
+Then, 
 
 $$ 
-\Pr(x) = \frac{p}{n \choose k}
-	= \frac{6}{6 \choose 4}
-	= \frac{6}{15}
-	= .4   
+\Pr(x) = \frac{L}{M} = \frac{9}{15} = .6
 $$
 </p>
 
@@ -78,15 +85,16 @@ Some R code to simulate
 <pre>
 <code>
 spots <- 1:6
-k <- 100000
+k <- 1000000
 count <- numeric(k)
 for (i in 1:k){
 	taken <- sort(sample(spots,4))
 	empty <- which(!spots %in% taken)
-	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 0, 1)
+	count[i] <- ifelse(6 %in% empty | diff(empty) == 1, 1, 0)
 }
 mean(count)
-[1] 0.40163
+[1] 0.599471
+
 
 </pre>
 </code>
