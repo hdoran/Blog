@@ -39,7 +39,7 @@ The answer is <b>40%</b>.
 <h3>
 
 <p>
-Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver does <b>not</b> need to parallel park when two adjacent spots are available or when the rearmost spot is available. So, the number of the does not parallel park arrangements in this small example are countable. We must have:
+Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represent the first parking spot and let 6 represent the rearmost spot. The driver does <b>not</b> need to parallel park when two adjacent spots are available or when the rearmost spot is available. So, the number of arrangements where parallel parking is not needed in this small example is countable. This would include:
 
 <center>
 1 and 2 <br>
@@ -52,7 +52,7 @@ Consider that we have ordered parking spots 1, 2, 3, 4, 5, and 6. Let 1 represen
 </p>
 
 <p>
-We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end with any of the other non-adjacent spots. So that means there are \(p = 5 + 4\) ways to not parallel park (i.e., 5 consecutive and 4 ways the rearmost spot would also be ope with another non-adjacent). Now we need to consider the total number of ways in which the available spots can be arranged.  
+We can see there will always be \(n-1\) adjacent spots when there are \(n\) total spaces plus the rearmost at the end with any of the other non-adjacent spots. So that means there are \(p = 5 + 4 = 9\) ways to not parallel park (i.e., 5 consecutive and 4 ways the rearmost spot would also be open with another non-adjacent). Now we need to consider the total number of ways in which the available spots can be arranged.  
 </p>
 </h3>
 
@@ -60,7 +60,7 @@ We can see there will always be \(n-1\) adjacent spots when there are \(n\) tota
 <h3>
 
 <p>
-At this point, we need to only know the total number of possible arrangements, let this be denoted as \(M\). Since the cars park randomly into 4 of the 6 spots, the total number of parking arrangements is simply \(M = {n \choose k}\) where \(n\) is the total number of spaces and \(k\) is the number of spaces randomly taken. Then there are \(L = M - p\) conditions when you <b>must</b> parallel park. 
+At this point, we need to only know the total number of possible arrangements, let this be denoted as \(M\). Since the cars park randomly into 4 of the 6 spots, the total number of possible parking arrangements is simply \(M = {n \choose k}\) where \(n\) is the total number of spaces and \(k\) is the number of spaces randomly taken. Then there are \(L = M - p\) conditions when you <b>must</b> parallel park. 
 </p>
 
 <p>
