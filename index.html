@@ -38,7 +38,7 @@ If you are the first to guess, and all contestants play optimally (taking full a
 The answer is effectively <b>0% for player 1</b> if both player 2 and 3 use the cut-off strategy and they are mean. Below I show that the actual probability depends on the value for \(\epsilon\) and assumes players 2 and 3 collude to maximize thier potential gain. Specifically, the probability for player 1 to win is:  
 
 $$
-P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] *  \frac{1}{100}
+P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
 $$
 </h3>
 
@@ -70,7 +70,13 @@ The twitter back and forth on this game clarifies that guesses can be any real n
 </p>
 
 <p>
-Since we are considering some general properties of this game we know the first player could only choose randomly in the absence of any information, but the other players will not use random guesses if they use an optimal strategy. So, in frequentist expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\) if player 1 in fact guesses randomly. If we apply the LPA as suggested by Blatt then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimally small value such that \(51 + \epsilon > 51\).    
+Since we are considering some general properties of this game we know the first player could only choose randomly in the absence of any information, but the other players will not use random guesses if they use an optimal strategy. So, in frequentist expectation, we can take the first guess to be:
+
+$$
+E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50
+$$
+
+if player 1 in fact guesses randomly. If we apply the LPA as suggested by Blatt then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimally small value such that \(51 + \epsilon > 51\).    
 </p>
 
 <p>
@@ -163,7 +169,7 @@ winner
 Formally, the probability that player 1 chooses the exact right number when the other players use the cut-off strategy is:
 
 $$
-P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] *  \frac{1}{100}
+P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
 $$
 
 </h3>
