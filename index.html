@@ -138,19 +138,25 @@ winner
 </code>
 
 <p>
-However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1. Assume player 1 guesses just a hair under $50, or \(50-\epsilon\) doing this such that more often than not the guess is slightly below the expected price. Then, player in turn dives just under this number, \(50-2 \times \epsilon\) and player 3 goes just above, \(50+2 \times \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. 
+However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1. It no longer matters what player 1 guesses. So, let's assume player 1 chooses$50. Then, player 2 in turn dives just under this number, \(50 - \epsilon\) and player 3 goes just above, \(50 + \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. 
 </p>
 
 <pre>
 <code>
 e=.000001
-tpir(50-e,(50-2*e),50+2*e, K=1000000)
+tpir(50,50-e,50+e, K=1000000)
 winner
       2       3 
 49.9095 50.0905 
 </pre>
 </code>
 </h3>
+
+Formally, the probability that player 1 chooses the exact right number is
+
+$$
+P(x) = ((50 + \epsilon) - (50 - \epsilon)) *  frac{1}{100}
+$$
 
 <pre>
 <code>
