@@ -62,7 +62,7 @@ In the current context, we don't have any information about the retail value of 
 </p>
 
 <p>
-Since we are considering some asymptotic properties of this game we know the first player could only choose randomly in the absene of any information, but the other players will not use random guesses if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\) if player 1 in fact guesses randomly. If we apply the LPA as suggested by Blatt then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimal value such that \(51 + \epsilon > 51\).    
+Since we are considering some asymptotic properties of this game we know the first player could only choose randomly in the absence of any information, but the other players will not use random guesses if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\) if player 1 in fact guesses randomly. If we apply the LPA as suggested by Blatt then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimally small value such that \(51 + \epsilon > 51\).    
 </p>
 
 <p>
@@ -75,7 +75,8 @@ Let's explore what happens if this strategy is applied using simulation. R Code 
 
 <pre>
 <code>
-tpir(50,51,51.00001, K=1000000)
+e <-.00001
+tpir(50,51,51+e, K=1000000)
 winner
      1      3 
 50.965 49.035 
@@ -123,20 +124,21 @@ winner
 </code>
 
 <p>
-So far player 1 has been treated rather unfairly and bullied around. In fact, player 1 knows something about expected values and properties of uniform distributions. So, player 1 surmises that the expected value of the price will be $50.00 and strategically chooses \(50 - \epsilon\). The other players follow the LPA sequentially. This would yield a 51% chance for player 1, a 1% chance for player 2 and a 48% chance for player 3.
+So far player 1 has been treated rather unfairly and bullied around. In fact, player 1 knows something about expected values and properties of uniform distributions. So, player 1 surmises that the expected value of the price will be $50.00 and strategically chooses \(50 - \epsilon\). The other players follow the LPA sequentially. This would yield a 50% chance for player 1, a 1% chance for player 2 and a 49% chance for player 3.
 </p>
 
 <pre>
 <code>
-tpir(49.99,50.99,51.99, K=1000000)
+e <-.00001
+tpir(50-e,50+e,51+e, K=1000000)
 winner
       1       2       3 
-50.9603  1.0111 48.0286 
+49.9514  1.0120 49.0366 
 </pre>
 </code>
 
 <p>
-However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1. Assume player 1 guesses just a hair under $50, or \(50-\epsilon\). Then, player in turn dives just under this number, \(50-2 \times \epsilon\) and player 3 goes just above, \(50+2 \times \epsilon\) 
+However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1. Assume player 1 guesses just a hair under $50, or \(50-\epsilon\) doing this such that more often than not the guess is slightly below the expected price. Then, player in turn dives just under this number, \(50-2 \times \epsilon\) and player 3 goes just above, \(50+2 \times \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. 
 </p>
 
 <pre>
