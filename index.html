@@ -38,7 +38,7 @@ If you are the first to guess, and all contestants play optimally (taking full a
 The answer is effectively <b>0% for player 1</b> if both player 2 and 3 use the cut-off strategy and they are mean. Below I show that the actual probability depends on the value for \(\epsilon\) and assumes players 2 and 3 collude to maximize thier potential gain. Specifically, the probability for player 1 to win is:  
 
 $$
-P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
+P(x) = \frac{[(g_1 + \epsilon) - (g_1 - \epsilon)]}{100}
 $$
 </h3>
 
@@ -159,7 +159,7 @@ However, in the end, the players want to maximize their own profit--they are not
 So, let's assume player 1 chooses $50. Then, player 2 in turn dives just under this number, \(50 - \epsilon\) and player 3 goes just above, \(50 + \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. Formally, the probability that player 1 chooses the exact right number when the other players use the cut-off strategy is:
 
 $$
-P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
+P(x) =  \frac{[(g_1 + \epsilon) - (g_1 - \epsilon)]}{100}
 $$
 </p>
 
