@@ -53,7 +53,7 @@ The generalized optimal strategy, he writes, is for the last player to bid one d
 </p>
 
 <p>
-Scott Rick describes a "cut-off" strategy <a href "https://www.psychologytoday.com/us/blog/retail-therapy/201307/the-psychology-bidding-the-price-is-right" target = "blank"> here.</a>, which strategizes in a way that precludes another player from winning at all. 
+Scott Rick describes a "cut-off" strategy <a href "https://www.psychologytoday.com/us/blog/retail-therapy/201307/the-psychology-bidding-the-price-is-right" target = "blank"> here</a>, which strategizes in a way that precludes another player from winning at all. 
 </p>
 
 <p>
@@ -61,7 +61,7 @@ In the current game, the first contestant has no information other than the actu
 </p>
 
 <p>
-Since we are considering some asymptotic properties of this game we know the first player will choose randomly, but the others will not if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\). If we apply the LPA then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some value infinitesimal value such that \(51 + \epsilon > 51\).    
+Since we are considering some asymptotic properties of this game we know the first player will choose randomly, but the others will not if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\). If we apply the LPA then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimal value such that \(51 + \epsilon > 51\).    
 </p>
 
 <p>
@@ -70,6 +70,7 @@ In this way, player 3 has effectively prevented player 2 from ever winning the g
 
 <p>
 Let's explore what happens if this strategy is applied using simulation. R Code below implements this approach and sets \(\epsilon = .00001\). The result yields a 51% chance for player 1 and a 49% chance for player 3 and player 2 has been elimated, as expected.
+</p>
 
 <pre>
 <code>
@@ -98,12 +99,12 @@ tpir(50,51,51.00001, K=1000000)
 winner
      1      3 
 509782 490218 
-
 </pre>
 </code>
 
 <p>
 Let's assume now that in contrast, player 2 knows that player 3 will use a very deterministic way of playing and always use the LPA. A smart player 2 would then drive the second price up to 99.99 such that player 3 must always 100. This now yields a large benefit for player 2 and eliminates player 3. This strategy would yield a 99.99% win probability for player 1 and a .01% win probability for player 2. Player 3 would be entirely eliminated. 
+</p>
 
 <pre>
 <code>
@@ -113,7 +114,7 @@ winner
 999897    103 
 </pre>
 </code>
-</p>
+
 
 <p>
 Of course, Player 3 won't be bullied!! So, if player 2 makes this move, then player 3 would bid the other extreme, $1.00. Simulation code below shows how this scenario plays out. In this case, player 1 has a 98.9% chance, player 3 has a 1% chance and then player 2 has about a .1% chance. 
@@ -130,8 +131,8 @@ winner
 
 <p>
 Perhaps, the second player uses the LPA and then player 3 dives under player 1 by 1 dollar, thus ignoring the advice of Blatt. In this scenario, we would observe a 49% chance of winning by player 2 and player 3 and then only a 2% chance of winning by player 1.
-
 </p>
+
 <pre>
 <code>
 tpir(50,51,49, K=1000000)
@@ -152,6 +153,22 @@ tpir(49.99,50.99,51.99, K=1000000)
 winner
      1      2      3 
 508845  10068 481087
+</pre>
+</code>
+</h3>
+
+<p>
+So, I think what we observe is that the best possible outcome for all players is to use some information. Player 1 can rely on statistical expertise and properties of the uniform distribution and choose slightly under the expected value of the price. Players 2 knows that player 3 will use an LPA if player 2 were to use Blatt's strategy and eliminate them from the game, so, player 2 chooses 99.99. In response, player 3 dives under player 1 by a tiny value, \(\epsilon\). These chess moves yield a final result of 50% for player 1, 49.9% chance for player 3, and .01% chance for player 2.
+</p>
+
+
+<pre>
+<code>
+tpir(49.99,99.98,49.98, K=1000000)
+
+winner
+     1      2      3 
+500179    226 499595 
 </pre>
 </code>
 </h3>
