@@ -97,13 +97,11 @@ winner
 </code>
 </pre>
 
-
 <p>
 Let's assume now that in contrast, player 2 knows that player 3 will use a very deterministic way of playing and always use the LPA. A smart player 2 would then drive the second price up to 99.99 such that player 3 must always bet 100. This now yields a benefit for player 2 and eliminates player 3, but highly favors player 1. This strategy would yield a 99.99% win probability for player 1 and a .01% win probability for player 2. Player 3 would be entirely eliminated as expected. </p>
 
-
-<code>
 <pre>
+<code>
 tpir(50,99.99,100, K=1000000)
 winner
       1       2 
@@ -121,8 +119,8 @@ tpir(50,99.99,1, K=1000000)
 winner
       1       2       3 
 50.0342  0.0087 49.9571
-</pre>
 </code>
+</pre>
 
 <p>
 Of course, player 2 knows that if they bid such a ridiculously high bid player 3 would respond similarly. Perhaps instead, the second player uses the LPA and then player 3 dives under player 1 by 1 dollar, thus ignoring the advice of Blatt. In this scenario, we would observe a 49% chance of winning by player 2 a 50% chance for player 3 and then only a 1% chance of winning by player 1.
@@ -134,8 +132,9 @@ tpir(50,51,49, K=1000000)
 winner
       1       2       3 
  0.9986 48.9946 50.0068
-</pre>
 </code>
+</pre>
+
 
 <p>
 So far player 1 has been treated rather unfairly and bullied around. In fact, player 1 knows something about expected values and properties of uniform distributions. So, player 1 surmises that the expected value of the price will be $50.00 and strategically chooses \(50 - \epsilon\). The other players follow the LPA sequentially. This would yield a 50% chance for player 1, a 1% chance for player 2 and a 49% chance for player 3.
@@ -148,8 +147,8 @@ tpir(50-e,50+e,51+e, K=1000000)
 winner
       1       2       3 
 49.9514  1.0120 49.0366 
-</pre>
 </code>
+</pre>
 
 <p>
 However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1 and split the win probability between the two of the (almost) entirely. It no longer matters what player 1 guesses, players 2 and 3 can eliminate player 1. 
@@ -173,8 +172,9 @@ tpir(50,50-e,50+e, K=1000000)
 winner
       2       3 
 49.9095 50.0905 
-</pre>
 </code>
+</pre>
+
 
 </h3>
 <pre>
@@ -195,8 +195,9 @@ tpir <- function(player1,player2, player3, K){
 	}
 	table(winner)/K * 100
 }
-</pre>
 </code>
+</pre>
+
 
 
 
