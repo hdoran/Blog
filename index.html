@@ -163,7 +163,7 @@ $$
 </p>
 
 
-Again, simulating to observe an outcome if this strategy was used eliminates player 1 as expected:
+Again, simulating to observe an outcome if this strategy was used eliminates player 1 as expected and yields the largest possible gain for players 2 and 3:
 
 <pre>
 <code>
@@ -174,6 +174,8 @@ winner
 49.9095 50.0905 
 </code>
 </pre>
+
+Generally, players 2 and 3 know that they can always eliminate player 1. But, if player 1 chooses a low value, say $1, then player 2 would live with \(1-\epsilon\) because if they choose \(1+\epsilon\) then player 3 would choose \(1-2\times\epsilon\), thus eliminating player 2.
 
 
 </h3>
