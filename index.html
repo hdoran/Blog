@@ -152,8 +152,19 @@ winner
 </code>
 
 <p>
-However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1. It no longer matters what player 1 guesses. So, let's assume player 1 chooses $50. Then, player 2 in turn dives just under this number, \(50 - \epsilon\) and player 3 goes just above, \(50 + \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. 
+However, in the end, the players want to maximize their own profit--they are not interested in sharing the gain. So, both players 2 and 3 can completely eliminate player 1 by choosing values directly under or above player 1 and split the win probability between the two of the (almost) entirely. It no longer matters what player 1 guesses, players 2 and 3 can eliminate player 1. 
 </p>
+
+<p>
+So, let's assume player 1 chooses $50. Then, player 2 in turn dives just under this number, \(50 - \epsilon\) and player 3 goes just above, \(50 + \epsilon\). In other words, their strategy is to form boundaries around player 1 such that the only chance of winning is if player 1 chooses the exact right number. Formally, the probability that player 1 chooses the exact right number when the other players use the cut-off strategy is:
+
+$$
+P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
+$$
+</p>
+
+
+Again, simulating to observe an outcome if this strategy was used eliminates player 1 as expected:
 
 <pre>
 <code>
@@ -164,13 +175,6 @@ winner
 49.9095 50.0905 
 </pre>
 </code>
-
-
-Formally, the probability that player 1 chooses the exact right number when the other players use the cut-off strategy is:
-
-$$
-P(x) = [(g_1 + \epsilon) - (g_1 - \epsilon)] \times  \frac{1}{100}
-$$
 
 </h3>
 <pre>
