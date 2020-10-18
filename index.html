@@ -42,10 +42,8 @@ The answer is <b>50% for player 1</b>.
 <h2> Motivating Example </h2>
 <h3>
 
-
-
 <p>
-There is some previously existing research on this topic borrowing from game theory. Ben Blatt describes his approach for optimal strategy <a href "https://www.npr.org/templates/story/story.php?storyId=245057699" target = "blank"> here </a> and provides a cheat sheet for many TPIR games <a href "https://i1.wp.com/howtowingameshows.com/wp-content/uploads/2013/11/Slate_Price_Is_Right_Cheatsheet_BW.png" target = "blank"> here.</a>
+There is some previously existing research on this topic borrowing from game theory. Ben Blatt describes his approach for optimal Contestant Row strategy <a href "https://www.npr.org/templates/story/story.php?storyId=245057699" target = "blank"> here </a> and provides a cheat sheet for many TPIR games <a href "https://i1.wp.com/howtowingameshows.com/wp-content/uploads/2013/11/Slate_Price_Is_Right_Cheatsheet_BW.png" target = "blank"> here.</a>
 </p>
 
 <p>
@@ -53,15 +51,15 @@ The generalized optimal strategy, he writes, is for the last player to bid one d
 </p>
 
 <p>
-Scott Rick describes a "cut-off" strategy <a href "https://www.psychologytoday.com/us/blog/retail-therapy/201307/the-psychology-bidding-the-price-is-right" target = "blank"> here</a>, which strategizes in a way that precludes another player from winning at all. 
+Scott Rick describes a "cut-off" strategy <a href "https://www.psychologytoday.com/us/blog/retail-therapy/201307/the-psychology-bidding-the-price-is-right" target = "blank">here</a>, which strategizes in a way that precludes another player from winning at all. 
 </p>
 
 <p>
-In the current game, the first contestant has no information other than the actual retail value of the item. In the current context, we don't have that so player 1 can form any guess between 0 and 100 with equal probability. Let's use \(\mathbb{R}_{0 < p < 100} = \{p \in \mathbb{R}| 0 < p < 100\}\) to mean the price is any positive real number between 0 and 100 and then \(\mathbb{R}_{0 < g_i < 100} = \{g_i \in \mathbb{R}| 0 < g_i < 100\}\) to mean that the guess for contestant \(i\) is also a real in the same domain as the price.
+In the current game, the first contestant has no information other than the actual retail value of the item. In the current context, we don't have that so player 1 can form any guess between 0 and 100 with equal probability. Let's use \(\mathbb{R}_{0 < p < 100} = \{p \in \mathbb{R}| 0 < p < 100\}\) to mean the price is any positive real number between 0 and 100 and then \(\mathbb{R}_{0 < g_i < 100} = \{g_i \in \mathbb{R}| 0 < g_i < 100\}\) to mean that the guess for contestant \(i = \{1,2,3\}\) is also a real in the same domain as the price.
 </p>
 
 <p>
-Since we are considering some asymptotic properties of this game we know the first player will choose randomly, but the others will not if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\). If we apply the LPA then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimal value such that \(51 + \epsilon > 51\).    
+Since we are considering some asymptotic properties of this game we know the first player could only choose randomly in the absene of any information, but the other players will not use random guesses if they use an optimal strategy. So, in expectation, we can take the first guess to be \(E(g_1) = .5 \times (a+b) = .5 \times (0+100) = 50\) if player 1 in fact guesses randomly. If we apply the LPA as suggested by Blatt then player 2 will guess 51. However, since the last bidder intends to maximize their approach, they would combine both the cutoff strategy and also the LPA to make a final bid. Let \(\epsilon\) be some infinitesimal value such that \(51 + \epsilon > 51\).    
 </p>
 
 <p>
@@ -82,17 +80,18 @@ winner
 </code>
 
 <p>
-Let's assume now that in contrast, player 2 knows that player 3 will use a very deterministic way of playing and always use the LPA. A smart player 2 would then drive the second price up to 99.99 such that player 3 must always 100. This now yields a large benefit for player 2 and eliminates player 3. This strategy would yield a 99.99% win probability for player 1 and a .01% win probability for player 2. Player 3 would be entirely eliminated as expected. 
+Let's assume now that in contrast, player 2 knows that player 3 will use a very deterministic way of playing and always use the LPA. A smart player 2 would then drive the second price up to 99.99 such that player 3 must always bet 100. This now yields a large benefit for player 2 and eliminates player 3. This strategy would yield a 99.99% win probability for player 1 and a .01% win probability for player 2. Player 3 would be entirely eliminated as expected. 
 </p>
 
-<pre>
+
 <code>
+<pre>
 tpir(50,99.99,100, K=1000000)
 winner
       1       2 
 99.9909  0.0091 
-</pre>
 </code>
+</pre>
 
 <p>
 Of course, Player 3 won't be bullied!! So, if player 2 makes this move, then player 3 would bid the other extreme, $1.00. Simulation code below shows how this scenario plays out. In this case, player 1 has a 50% chance, player 3 has a 49.95% chance and then player 2 has about a .009% chance. 
@@ -108,7 +107,7 @@ winner
 </code>
 
 <p>
-Perhaps, the second player uses the LPA and then player 3 dives under player 1 by 1 dollar, thus ignoring the advice of Blatt. In this scenario, we would observe a 49% chance of winning by player 2 a 50% chance for player 3 and then only a 1% chance of winning by player 1.
+Perhaps instead, the second player uses the LPA and then player 3 dives under player 1 by 1 dollar, thus ignoring the advice of Blatt. In this scenario, we would observe a 49% chance of winning by player 2 a 50% chance for player 3 and then only a 1% chance of winning by player 1.
 </p>
 
 <pre>
@@ -122,7 +121,7 @@ winner
 
 
 <p>
-So far player 1 has been treated rather unfairly and bullied around. In fact, player 1 knows something about expected values and properties of uniform distributions. So, player 1 surmises that the expected value of the price will be $50.00 and strategically chooses \(50 - \epsilon\). This would yield a 51% chance for player 1, a 1% chance for player 2 and a 48% chance for player 3.
+So far player 1 has been treated rather unfairly and bullied around. In fact, player 1 knows something about expected values and properties of uniform distributions. So, player 1 surmises that the expected value of the price will be $50.00 and strategically chooses \(50 - \epsilon\). The other players follow the LPA sequentially. This would yield a 51% chance for player 1, a 1% chance for player 2 and a 48% chance for player 3.
 </p>
 
 <pre>
@@ -137,7 +136,6 @@ winner
 <p>
 So, I think what we observe is that the best possible outcome for all players is to use some information. Player 1 can rely on statistical expertise and properties of the uniform distribution and choose slightly under the expected value of the price. Player 2 knows that player 3 will use an LPA if player 2 were to use Blatt's strategy and eliminate them from the game, so, player 2 chooses 99.99. In response, player 3 dives under player 1 by a tiny value, \(\epsilon\). These chess moves yield a final result of 50% for player 1, 49.9% chance for player 3, and .01% chance for player 2.
 </p>
-
 
 <pre>
 <code>
