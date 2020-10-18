@@ -36,7 +36,7 @@ In the event all three guesses exceed the actual price, the contestant who made 
 If you are the first to guess, and all contestants play optimally (taking full advantage of the guesses of those who went before them), what are your chances of winning?
 </blockquote>
 
-The answer is <b>50% for player 1</b>.
+The answer is <b>50% for player 1</b>. 
 </h3>
 
 <h2> Motivating Example </h2>
@@ -71,27 +71,6 @@ In this way, player 3 has effectively prevented player 2 from ever winning the g
 <p>
 Let's explore what happens if this strategy is applied using simulation. R Code below implements this approach and sets \(\epsilon = .00001\). The result yields a 51% chance for player 1 and a 49% chance for player 3 and player 2 has been elimated, as expected.
 </p>
-
-<pre>
-<code>
-### R Code function
-tpir <- function(player1,player2, player3, K){
-	winner <- numeric(K)
-	for(i in 1:K){
-		price <- runif(1,0,100)
-		guesses <- c(player1, player2 , player3)
-		### Who is lower and closest
-		if(any(guesses < price)){
-			less <- which(guesses < price)
-			winner[i] <- which.min(price-guesses[less])
-		} else {
-			winner[i] <- which.min(guesses - price)
-		}
-	}
-	table(winner)
-}
-</pre>
-</code>
 
 <pre>
 <code>
@@ -173,6 +152,26 @@ winner
 </code>
 </h3>
 
+<pre>
+<code>
+### R Code function
+tpir <- function(player1,player2, player3, K){
+	winner <- numeric(K)
+	for(i in 1:K){
+		price <- runif(1,0,100)
+		guesses <- c(player1, player2 , player3)
+		### Who is lower and closest
+		if(any(guesses < price)){
+			less <- which(guesses < price)
+			winner[i] <- which.min(price-guesses[less])
+		} else {
+			winner[i] <- which.min(guesses - price)
+		}
+	}
+	table(winner)/K * 100
+}
+</pre>
+</code>
 
 
 
