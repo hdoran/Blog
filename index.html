@@ -88,7 +88,7 @@ In this way, player 3 has effectively prevented player 2 from ever winning the g
 </p>
 
 <p>
-Let's explore what happens if this strategy is applied using simulation. R Code below implements this approach and sets \(\epsilon = .00001\). The result yields a 51% chance for player 1 and a 49% chance for player 3 and player 2 has been elimated, as expected.
+Let's explore what happens if this strategy is applied using simulation. R Code below (the function <code>tpir</code> is provided below) implements this approach and sets \(\epsilon = .00001\). In this code, player 1 guesses 50, player 2 guesses 51, and then player 3 guesses 51 + \(\epsilon\). The result yields a 51% chance for player 1 and a 49% chance for player 3 and player 2 has been elimated, as expected.
 </p>
 
 <pre>
