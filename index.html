@@ -40,7 +40,15 @@ Let's play this conceptually in a simple way. Let \(\mathbb{R}_{0 < x < 100} = \
 </p>
 
 <p>
-Suppose there are \(i = \{1, 2, \ldots, N\}\) total contestants and each contestant has a unique guess. Then, the winners are all of those in the set where \(A = g_i < x\) but the winner with the best outcome is the contestant with \(max(A)\), or the largest guess in the set of values less than \(x\). 
+Suppose there are \(i = \{1, 2, \ldots, N\}\) total contestants and each contestant has a unique guess. Then, the winners are all of those in the set where \(A = \{g_i < x\}\) but the winner with the best outcome is the contestant with the maximum value of \(g_i\) in the set \(A\), or the largest guess in the set of values less than \(x\). So conceptually, we can think of everyone in the set \(A\) as a winner, but we want to find the best (richest) winner.
+</p>
+
+<p>
+The value of \(x\) is random so what information do we have to help us inform how to make a guess? In this case, we can use properties from the uniform to know that: 
+
+$$
+E(x) = \frac{1}{2}(100-0) = 50
+$$
 </p>
 
     
