@@ -62,7 +62,11 @@ So then the most optimal guess is \(E(x) - \delta\) where \(\delta\) is some sma
 </p>   
 
 <p>
-Another way to approach the problem is to directly compute the expected value of the return for each possible value between 0 and 100. The uniform has simple properties, so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750. So, even though the expected occurence is less with a $5.00 wager than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
+Another way to approach the problem is to directly compute the expected value of the return for each possible value between 0 and 100. The uniform has simple properties, so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750! So, even though the expected occurence of winning with a $5.00 wager is less than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
+</p>
+
+<p>
+We can sort of brute force our way through each calculation as \(p(x) \times w\) where \(w\) is the value of the wager with corresponding probability \(p(x)\). The visual display shows where our expected return peaks. 
 </p>
 
 
