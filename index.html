@@ -33,22 +33,24 @@ What number should you guess to maximize the average value of your fifing winnin
 </blockquote>
 
 <p>
-Answer: $49.99 or \(E(x) - \delta\) where \(\delta\) is some infinitesimally small value as described below.
+Answer: $49.99 or \(E(x) - \delta\) where \(\delta\) is some small value as described below.
 </p>
 
 
 <h2> A Solution </h2>
 <h3>
 <p>
-Let's play this conceptually in a simple way. Let \(\mathbb{R}_{0 < x < 100} = \{x \in \mathbb{R}| 0 < x < 100\}\) be used to mean the value of the random draw, \(x\), is any real between 0 and 100 and let \(g_i\) be used to denote a guess by contestant \(i\).
+Let's play this conceptually in a simple way as if there were multiple contestants to see who would have the best outcome. Begin with  \(\mathbb{R}_{0 < x < 100} = \{x \in \mathbb{R}| 0 < x < 100\}\) which is used to mean the value of the random draw, \(x\), is any real between 0 and 100 and let \(g_i\) be used to denote a guess by contestant \(i\).
 </p>
 
 <p>
-Suppose there are \(i = \{1, 2, \ldots, N\}\) total contestants and each contestant has a unique guess. Then, the winners are all of those in the set where \(A = \{g_i < x\}\) but the winner with the best outcome is the contestant with the maximum value of \(g_i\) in the set \(A\), or the largest guess in the set of values less than \(x\). So conceptually, we can think of everyone in the set \(A\) as a winner, but we want to find the best (richest) winner.
+Suppose there are \(i = \{1, 2, \ldots, N\}\) total contestants and each contestant has a unique guess. Then, the winners are all of those in the set where \(A = \{g_i < x\}\) but the winner with the best outcome is the contestant with the maximum value of \(g_i\) in the set \(A\), or the largest guess in the set of values less than \(x\). So conceptually, we can think of everyone in the set \(A\) as a winner, but we want to find the best (richest) winner and if we knew the value of \(x\) the winner with the best outcome is the individual \(i\) who guessed just under the value of the random draw.
 </p>
 
 <p>
-The value of \(x\) is random so what information do we have to help us inform how to make a guess? In this case, we can use properties from the uniform to know that the expected value of the random draw for \(x\) is: 
+But value of \(x\) is totally random but bounded between 0 and 100, so what information do we have to help us inform how to make a guess? In this case, we can use properties from the uniform and think like a frequentist and think about the asymptotic behavior of the random variable, \(x\). 
+
+So, one way to approach the problem is ask, ``if this game were repeated one billion times, what would be the most likely value for \(x\)?'' In this case, the expected value of the random draw for \(x\) is: 
 
 $$
 E(x) = \frac{1}{2}(100-0) = 50
@@ -56,11 +58,11 @@ $$
 </p>
 
 <p>
-So then the most optimal guess is \(E(x) - \delta\) where \(\delta\) is some infinitesimally small value such that our guess is just a tad under the expected value. We're dealing with money, and I'm in the U.S., so fix \(\delta = $0.01\) yielding the best guess to be $49.99.
+So then the most optimal guess is \(E(x) - \delta\) where \(\delta\) is some small value such that our guess is just a tad under the expected value. We're dealing with money, and I'm in the U.S., so fix \(\delta = $0.01\) yielding the best guess to be $49.99.
 </p>   
 
 <p>
-We can also see the most optimal value visually. Again, the uniform has simple properties, so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750. So, even though the expected occurence is less with a $5.00 wager than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
+Another way to approach the problem is to directly compute the expected value of the return for each possible value between 0 and 100. The uniform has simple properties, so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750. So, even though the expected occurence is less with a $5.00 wager than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
 </p>
 
 
