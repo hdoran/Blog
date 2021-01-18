@@ -66,8 +66,15 @@ Another way to approach the problem is to directly compute the expected value of
 </p>
 
 <p>
-We can sort of brute force our way through each calculation as \(p(x) \times w\) where \(w\) is the value of the wager with corresponding probability \(p(x)\). The visual display shows where our expected return peaks. We observe that as we approach $50.00, our expected return goes up and as we go above $50.00 our expected return goes back down.
+We can sort of brute force our way through each calculation as \(p(x) \times x\) where \(x\) is the value of the wager with corresponding probability \(p(x)\). The visual display shows where our expected return peaks. We observe that as we approach $50.00, our expected return goes up and as we go above $50.00 our expected return goes back down.
 </p>
+
+<p>
+More formally I suppose we could differentiate the function and find its peak (i.e., where the slope is 0):
+
+$$
+f(x) = x \times 1 - \frac{x-0}{100}
+$$
 
 
 <center>
