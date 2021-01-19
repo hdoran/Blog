@@ -80,7 +80,7 @@ So, now let's simulate and verify this thinking is accurate.
 
 <pre>
 <code>
-fife <- function(guess, k = 100000){
+fife <- function(guess, k = 1000000){
 	value <- runif(k,0,100)
 	win <- guess < value
 	mean(win) * guess
