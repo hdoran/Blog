@@ -81,13 +81,9 @@ So, now let's simulate and verify this thinking is accurate.
 <pre>
 <code>
 fife <- function(guess, k = 100000){
-	win <- val <- numeric(k)
-	for (i in 1:k){
-		value <- runif(1,0,100)
-		win[i] <- guess < value
-		val[i] <- guess
-	}
-	sum(val[which(win == 1)])
+	value <- runif(k,0,100)
+	win <- guess < value
+	mean(win) * guess
 }
 result <- sapply(1:99, function(i) fife(i))
 </code>
