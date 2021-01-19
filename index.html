@@ -33,7 +33,7 @@ What number should you guess to maximize the average value of your fifing winnin
 </blockquote>
 
 <p>
-Answer: $49.99 or \(E(x) - \delta\) where \(\delta\) is some small value as described below.
+Answer: $50.00
 </p>
 
 
@@ -48,21 +48,7 @@ Suppose there are \(i = \{1, 2, \ldots, N\}\) total contestants and each contest
 </p>
 
 <p>
-The value of \(x\) is totally random but bounded between 0 and 100, so what information do we have to help us inform how to make a guess? In this case, we can use properties from the uniform and think like a frequentist and think about the asymptotic behavior of the random variable, \(x\). 
-
-So, one way to approach the problem is ask, "if this game were repeated one billion times, what would be the most likely value for \(x\)?" In this case, the expected value of the random draw for \(x\) is: 
-
-$$
-E(x) = \frac{1}{2}(100-0) = 50
-$$
-</p>
-
-<p>
-So then the most optimal guess is \(E(x) - \delta\) where \(\delta\) is some small value such that our guess is just a tad under the expected value. We're dealing with money, and I'm in the U.S., so fix \(\delta = $0.01\) yielding the best guess to be $49.99.
-</p>   
-
-<p>
-Another way to approach the problem is to directly compute the expected value of the return for each possible value between 0 and 100. The uniform has a simple cumulative distribution function (CDF), so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750! So, even though the expected occurence of winning with a $5.00 wager is less than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
+One way to approach the problem is to directly compute the expected value of the return for each possible value between 0 and 100. The uniform has a simple cumulative distribution function (CDF), so we know that if we were to guess $1.00, we would win 99% of the time, if we were to guess $5.00 we would win 95% of the time and so on. If the game were repeated say 1,000 times, then a $1.00 guess would only give a return of $990, but a $5.00 guess would give an expected return of $4,750! So, even though the expected occurence of winning with a $5.00 wager is less than a $1.00 wager, the average expected return on the $5.00 guess is bigger. 
 </p>
 
 <p>
@@ -85,8 +71,31 @@ $$
 f(x)' = 1 - \frac{x}{50}
 $$
 
-To find its peak (i.e., where the slope is 0) set to 0 and solve yields a peak at 50. But, since the winner must be less than the random draw I would hedge my bet and still choose $49.99. 
+To find its peak (i.e., where the slope is 0) set to 0 and solve yields a peak at 50. 
 </p>
+
+<p>
+So, now let's simulate and verify this thinking is accurate.  
+</p>
+
+<pre>
+<code>
+fife <- function(guess, k = 100000){
+	win <- val <- numeric(k)
+	for (i in 1:k){
+		value <- runif(1,0,100)
+		win[i] <- guess < value
+		val[i] <- guess
+	}
+	sum(val[which(win == 1)])
+}
+result <- sapply(1:99, function(i) fife(i))
+</code>
+</pre>
+
+<center>
+<img src="Images/simulate_fife.jpg">
+</center>
 
 
 
