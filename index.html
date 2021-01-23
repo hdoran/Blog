@@ -101,7 +101,7 @@ library(EnvStats)
 </p>
 
 <p>
-Recall there is no ordering of the times in attempt 2. We assume random draws from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) for either athlete. In this case, the expected mean for both is 0. we can see this is true by taking the means from run2 in our simulation
+Recall there is no ordering of the times in attempt 2. We assume random draws from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) for either athlete. In this case, the expected mean for both is 0. We can see this is true by taking the means from run2 in our simulation
 
 <code>
 <pre>
@@ -121,7 +121,7 @@ $$
 Because we end up with a normal, we can use its CDF to find our probability:
 
 $$
-\Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{1} - s^*_{2}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
+\Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{2} - s^*_{1}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
 $$
 
 For convenience I'll take the variance from the empirical distribution from the simulation to find ~.731.  
