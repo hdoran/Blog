@@ -54,10 +54,10 @@ So, on attempt 1 we realize the that condition \(s_{11} < s_{21}\). That is, you
 Now the winner is the athlete with the best overall time. So, we would add both times together and the lower of the two summed scores is the overall winner. We can now phrase our problem conceptually as:
 
 $$
-\Pr((s_{11} + s_{12}) < (s_{21} + s_{22})|s_{11} < s_{21})
+\Pr(s^*_{1} < s^*_{2}|s_{11} < s_{21})
 $$
 
-That is, we seek the probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount. 
+\noindent where \(s^*_{1} = s_{11}+ s_{12}\) and \(s^*_{1} = s_{21}+ s_{22}\). That is, we seek the probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount. 
 </p>
 
 <h2> One Solution </h2>
