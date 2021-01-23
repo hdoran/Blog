@@ -66,6 +66,10 @@ That is, we seek the probability that the total overall score for skier 1 (you) 
 While the exact distributions to me are a bit illusive, we can simulate the nature of the problem and arrive at an answer. Do this by taking two random draws from \(s_{i1}\sim \mathcal{N}(\mu, \sigma^2)\) for attempt 1 and always assign the lower time to \(s_{11}\). This guarentees that both times are drawn from the same ability distribution, but implements the condition that \(s_{11} < s_{21}\). 
 </p>
 
+<p>
+Now for attempt 2, again take two random draws \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) and no sorting is needed at this point and form \(s_1 = s_{11}+ s_{12}\) and \(s_2 = s_{21}+ s_{22}\). Repeat \(K\) times and count the proportion of times when \(s_1 < s_2\). The R code implements this below and yields a solution of 75%.
+</p>
+
 <pre>
 <code>
 K <- 100000
@@ -73,7 +77,6 @@ run1 = t(replicate(K, sort(rnorm(2))))
 run2 = t(replicate(K, rnorm(2)))
 overall <- run1 + run2
 table((overall[,1] < overall[,2]))/K
-
 </code>
 </pre>
 
