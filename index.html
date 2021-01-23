@@ -35,27 +35,21 @@ Answer: 75%
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-The distributional properties of the times is not immediately clear because we know that your time on run 1 is faster than your opponent. But, the times on the second run have no particular constraints. Define some notation and let \(s_{ij}\) denote the time of skier \(i =\{1,2\}\) on attempt \(j =\{1,2\}\). The problem statement indicates that both skiers share the same true ability distribution \(s_{ij} \sim \mathcal{N}(\mu, \sigma^2)\). 
+Define some notation and let \(s_{ij}\) denote the time of skier \(i =\{1,2\}\) on attempt \(j =\{1,2\}\). The problem statement indicates that both skiers share the same true ability distribution \(s_{ij} \sim \mathcal{N}(\mu, \sigma^2)\). 
 </p>
 
 <p>
-So, on attempt 1 we realize the that condition \(s_{11} < s_{21}\). That is, you did better by some measure than the opponent. However, we can assume that the time for either athlete on attempt 2 can be any random draw from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\). 
+On attempt 1 we realize the that condition \(s_{11} < s_{21}\). That is, you did better by some measure than the opponent. However, we can assume that the time for either athlete on attempt 2 can be any random draw from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\). Hence, from the onset we know we are dealing with order statistics from the normal distribution. We will end up needing the 1st and 2nd order statistics in a sample of size 2 from the normal.
 </p>
 
 <p>
-Now the winner is the athlete with the best overall time. So, we would add both times together and the lower of the two summed scores is the overall winner. Let the total summed scores be denoted as \(s^*_{1} = s_{11}+ s_{12}\) and \(s^*_{2} = s_{21}+ s_{22}\). We can now phrase our problem conceptually as:
-
-$$
-\Pr(s^*_{1} < s^*_{2}|s_{11} < s_{21})
-$$
-
-That is, we seek the conditional probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount. 
+Now the winner is the athlete with the best overall time. So, we would add both times together and the lower of the two summed scores is the overall winner. Let the total summed scores be denoted as \(s^*_{1} = s_{11}+ s_{12}\) and \(s^*_{2} = s_{21}+ s_{22}\). We can now phrase our problem conceptually as we seek the probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount. 
 </p>
 
-<h2> One Solution </h2>
+<h2> First A Simulation </h2>
 <h3>
 <p>
-While the exact analytic solution is a bit illusive, we can simulate the nature of the problem and arrive at an answer. Do this by taking two random draws from \(s_{i1}\sim \mathcal{N}(\mu, \sigma^2)\) for attempt 1 and always assign the lower time to \(s_{11}\). This guarantees that both times are drawn from the same ability distribution, but implements the condition that \(s_{11} < s_{21}\). 
+We can simulate the nature of the problem and arrive at an answer and it then leads to a few interesting things to then consider a more formal solution. First, take two random draws from \(s_{i1}\sim \mathcal{N}(\mu, \sigma^2)\) for attempt 1 and always assign the lower time to \(s_{11}\). This guarantees that both times are drawn from the same ability distribution, but implements the condition that \(s_{11} < s_{21}\). 
 </p>
 
 <p>
@@ -72,7 +66,49 @@ table((overall[,1] < overall[,2]))/K
 </code>
 </pre>
 
+<p>
+Now, it's useful to examine the mean of the values from the first run (when things are ordered). We observe values of -0.5636047 for skier 1 and 0.5656139 for skier 2. These are the expected values of the 1st and 2nd order statistics. 
+</p>
 
+<pre>
+<code>
+> apply(run1,2,mean)
+[1] -0.5636047  0.5656139
+</code>
+</pre>
+
+<p>
+More formally, we can get the 1st and 2nd order statistics in a sample of size 2 from a normal distribution using the method by J.P. Royston <a href = "https://www.jstor.org/stable/2347982?seq=1" target = "blank"> here </a>. An implementation of this formula in R yields
+
+<pre>
+<code>
+library(EnvStats)
+> evNormOrdStatsScalar(r=1,n=2, method="royston")
+[1] -0.5641896
+> evNormOrdStatsScalar(r=2,n=2, method="royston")
+[1] 0.5641896
+</code>
+</pre>
+</p>
+
+<p>
+Recall there is no ordering of the times in attempt 2. We assume random draws from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) for either athlete. In this case, the expected mean for both is 0. we can see this is true by taking the means from run2 in our simulation
+<p>
+
+<code>
+<pre>
+> apply(run2,2,mean)
+[1] -0.0002495554 -0.0000544851
+</code>
+</pre>
+
+<p>
+Now, the sum of two normally distributed variables <a href = "https://en.wikipedia.org/wiki/Sum_of_normally_distributed_random_variables" target = "blank"> yields a normal </a>. So, we know that our term summing both scores will have the property:
+
+$$
+s^*_{i} \sim \mathcal{N}(\mu_{1i} + \mu_{2i}, \sigma^2_{i1} + \sigma^2_{i2}).
+$$
+</p>
 
 <hr>
 
