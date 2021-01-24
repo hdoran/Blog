@@ -53,13 +53,13 @@ $$
 \Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{2} - s^*_{1}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
 $$
 
-where \(\Phi(\cdot)\) is the normal CDF. So, now we need to learn how to obtain the necessary estimates to evaluate this probability.
+where \(\Phi(\cdot)\) is the normal CDF. Estimating this probability requires have expected values for both of the summed timings, \(s^*_{i}\), and their variances. So, now we need to implement an approach to obtain those expected values.
 </p>
 
 <h2> First A Simulation </h2>
 <h3>
 <p>
-We can simulate the nature of the problem and arrive at an answer and it then leads to a few interesting things to then consider a more formal solution. First, take two random draws from \(s_{i1}\sim \mathcal{N}(\mu, \sigma^2)\) for attempt 1 and always assign the lower time to \(s_{11}\). This guarantees that both times are drawn from the same ability distribution, but implements the condition that \(s_{11} < s_{21}\). 
+We can simulate the nature of the problem and arrive at an answer and it then leads to a few interesting things to then consider a more formal solution. First, take two random draws from \(s_{i1}\sim \mathcal{N}(\mu, \sigma^2)\) for attempt 1 and always assign the lower time to \(s_{11}\). This guarantees that both times are drawn from the same ability distribution, but implements the ordering condition that \(s_{11} < s_{21}\). 
 </p>
 
 <p>
@@ -82,7 +82,7 @@ table((overall[,1] < overall[,2]))/K
 <h3>
 
 <p>
-Now, it's useful to examine the mean of the values from the first run (when things are ordered). We observe values of -0.5636047 for skier 1 and 0.5656139 for skier 2. These are the expected values of the 1st and 2nd order statistics. 
+Now, it's useful to examine the mean over all \(K\) replicates from the simulation above of the values from the first run (when things are ordered). Taking the mean over all random draws we observe values of -0.5636047 for skier 1 and 0.5656139 for skier 2. These are the expected values of the 1st and 2nd order statistics in a sample of size 2 from a normal distribution.  
 </p>
 
 <pre>
@@ -93,7 +93,7 @@ Now, it's useful to examine the mean of the values from the first run (when thin
 </pre>
 
 <p>
-More formally, we can get the 1st and 2nd order statistics in a sample of size 2 from a normal distribution using the method by J.P. Royston <a href = "https://www.jstor.org/stable/2347982?seq=1" target = "blank"> here </a>. An implementation of this formula in R yields
+There are also a few direct ways to calculate those order statistics. One option is that we can get the 1st and 2nd order statistics in a sample of size 2 from a normal distribution using the method by J.P. Royston (1981) <a href = "https://www.jstor.org/stable/2347982?seq=1" target = "blank"> here </a>. An implementation of this formula in R yields
 
 <pre>
 <code>
@@ -106,16 +106,16 @@ library(EnvStats)
 </pre>
 </p>
 
-Just as a note, we could alternatively use Blom's (1958) approach for the 1st and 2nd order statistics in a sample of size 2 from the normal. This is slightly less numerically precise than Royston as shown below. However, the point in showing this is the the order statistics from a normal are approximations with different approaches and those approximations may yield slightly different expected values. 
+Immediately we observe that the Royston direct calculation is the same (within stochastic limits) of the values we obtained through our monte carlo approach. Alternatively, we could use Blom's (1958) approach for the 1st and 2nd order statistics in a sample of size 2 from the normal. This is slightly less numerically precise than Royston as shown below. However, the point in showing this is that the order statistics from a normal are approximations with different approaches and those approximations may yield slightly different expected values so arriving at an ``exact'' answer is limited by this approximation. 
 
 <pre>
 <code>
+# Blom
 > qnorm((c(1,2) -.375)/(2-2*.375+1))
 [1] -0.5894558  0.5894558
 </code>
 </pre>
 </p>  
-
 
 <p>
 Recall there is no ordering of the times in attempt 2. We assume random draws from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) for either athlete. In this case, the expected mean for both is 0. We can see this is true by taking the means from run2 in our simulation
@@ -127,7 +127,7 @@ Recall there is no ordering of the times in attempt 2. We assume random draws fr
 </code>
 </pre>
 
-Now, the sum of two normally distributed variables <a href = "https://en.wikipedia.org/wiki/Sum_of_normally_distributed_random_variables" target = "blank"> yields a normal </a>. So, we know that our term summing both scores will have the property:
+Now, the total score, \(s^*_{i}\), is the sum of two components and both of those components are individually drawn from a normal distribution. This is convenient because the sum of two normally distributed variables <a href = "https://en.wikipedia.org/wiki/Sum_of_normally_distributed_random_variables" target = "blank"> yields a normal </a>. So, we know that our summed score term will have the property:
 
 $$
 s^*_{i} \sim \mathcal{N}(\mu_{1i} + \mu_{2i}, \sigma^2_{i1} + \sigma^2_{i2}).
@@ -135,7 +135,7 @@ $$
 </p>
 
 <p>
-Because we end up with a normal, we can use its CDF to find our probability:
+Pulling all of these things together, we can insert our expected values into the probability expression and use the normal CDF as:
 
 $$
 \Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{2} - s^*_{1}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
