@@ -110,6 +110,16 @@ library(EnvStats)
 </pre>
 </p>
 
+Just as a note, we could alternatively use Blom's (1958) approach for the 1st and 2nd order statistics in a sample of size 2 from the normal. This is slightly less numerically precise than Royston as shown below. However, the point in showing this is the the order statistics from a normal are approximations with different approaches and those approximations may yield slightly different expected values. 
+
+<pre>
+<code>
+qnorm((c(1,2) -.375)/(2-2*.375+1))
+</code>
+</pre>
+</p>  
+
+
 <p>
 Recall there is no ordering of the times in attempt 2. We assume random draws from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) for either athlete. In this case, the expected mean for both is 0. We can see this is true by taking the means from run2 in our simulation
 
