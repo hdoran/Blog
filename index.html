@@ -144,7 +144,7 @@ $$
 \Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{2} - s^*_{1}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
 $$
 
-For convenience I'll take the expected variance of the \(k\)th order statistic from the empirical distribution from the simulation to find ~.731. I could use the expression for the variance <a href = "https://stats.stackexchange.com/questions/394960/variance-of-normal-order-statistics" target = "blank"> here </a> and anyone reading this far can see that expression yields a similar answer (as would be expected).   
+For convenience I'll take the expected variance of the summed total score from the empirical distribution from the simulation to find a probability of about .731. I could use the expression for the variance <a href = "https://stats.stackexchange.com/questions/394960/variance-of-normal-order-statistics" target = "blank"> here </a> to find the expected variance of the \)k\)th order statistic and anyone reading this far can see that expression yields a similar answer if those values were plugged in (as would be expected).   
 <code>
 <pre>
 bb <- apply(overall, 2, var)
