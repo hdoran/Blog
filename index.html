@@ -146,7 +146,8 @@ $$
 For convenience I'll take the expected variance of the \(k\)th order statistic from the empirical distribution from the simulation to find ~.731. I could use the expression for the variance <a href = "https://stats.stackexchange.com/questions/394960/variance-of-normal-order-statistics" target = "blank"> here </a> and anyone reading this far can see that expression yields a similar answer (as would be expected).   
 <code>
 <pre>
-> pnorm((0.5641896 - (-0.5641896))/ sqrt(bb[1] + bb[2]))
+bb <- apply(overall, 2, var)
+pnorm((0.5641896 - (-0.5641896))/ sqrt(bb[1] + bb[2]))
 [1] 0.7307102
 </code>
 </pre>
