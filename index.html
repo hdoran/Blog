@@ -39,19 +39,15 @@ Answer: 75%
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-Define some notation and let \(s_{ij}\) denote the time of skier \(i =\{1,2\}\) on attempt \(j =\{1,2\}\). The problem statement indicates that both skiers share the same true ability distribution \(s_{ij} \sim \mathcal{N}(\mu, \sigma^2)\). 
+Define some notation and let \(s_{ij}\) denote the time of skier \(i =\{1,2\}\) on attempt \(j =\{1,2\}\). The problem statement indicates that both skiers share the same true ability distribution \(s_{ij} \sim \mathcal{N}(\mu, \sigma^2)\). Hence, each run down the slopes represents one random draw from that ability distribution. 
 </p>
 
 <p>
-On attempt 1 we realize the that condition \(s_{11} < s_{21}\). That is, you did better by some measure than the opponent. However, we can assume that the time for either athlete on attempt 2 can be any random draw from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\). Hence, from the onset we know we are dealing with order statistics from the normal distribution. We will end up needing the 1st and 2nd order statistics in a sample of size 2 from the normal.
+On attempt 1 we always observe the condition \(s_{11} < s_{21}\). That is, you did better by some measure than the opponent. However, we can assume that the time for either athlete on attempt 2 can be any random draw from \(s_{i2}\sim \mathcal{N}(\mu, \sigma^2)\) with no particular ordering. So, from the onset we know we are dealing with order statistics from the normal distribution. We will end up needing the 1st and 2nd order statistics in a sample of size 2 from the normal.
 </p>
 
 <p>
-Now the winner is the athlete with the best overall time. So, we would add both times together and the lower of the two summed scores is the overall winner. Let the total summed scores be denoted as \(s^*_{1} = s_{11}+ s_{12}\) and \(s^*_{2} = s_{21}+ s_{22}\). We can now phrase our problem conceptually as we seek the probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount. 
-</p>
-
-<p>
-Conceptually, we can state the following as the probability we wish to obtain: 
+Now the winner is the athlete with the best overall time. So, we would add both times together and the lower of the two summed scores is the overall winner. Let the total summed scores be denoted as \(s^*_{1} = s_{11}+ s_{12}\) and \(s^*_{2} = s_{21}+ s_{22}\). We can now phrase our problem conceptually as we seek the probability that the total overall score for skier 1 (you) is faster than the total overall score for skier 2 given that skier 1 beat skier 2 on attempt 1 by some unknown amount, or we can write the following as the probability we wish to obtain: 
 
 $$
 \Pr(s^*_{1} < s^*_{2}) = \Phi\left(\frac{s^*_{2} - s^*_{1}}{ \sqrt{\sigma^2_{s^*_{1}} + \sigma^2_{s^*_{2}}}}\right)
