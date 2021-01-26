@@ -175,7 +175,6 @@ K <- 100000
 run1 = t(replicate(K, sort(rnorm(30))))
 run2 = t(replicate(K, rnorm(30)))
 overall <- run1 + run2
-### This is the extra credit
 table(sapply(1:nrow(overall), function(i) which.min(overall[i,])))[1]/K
    1 
 0.31411 
