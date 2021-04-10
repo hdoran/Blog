@@ -37,7 +37,7 @@ Extra credit: Now suppose both cups initially have somewhere between 0 and 8 oun
 </blockquote>
 
 <p>
-Answer: 2/3 or using the following expression to find the fraction of water in cup \(a\) at the \(n\)th trial.
+Answer: 2/3 or using the following expression to find the fraction of water in cup \(a\) at the \(n\)th trial
 
 $$
 \frac{1}{2} + \frac{1}{2}  \sum_{i=1}^n \left( \frac{1}{4}\right)^n
@@ -48,8 +48,52 @@ $$
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-...
+In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A which now has 10 ounces.
 </p>
+
+<h2> Manually Create Transitions </h2>
+<h3>
+<p>
+We could write come code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe
+</p>
+
+<pre>
+<code>
+#### Iterate
+X <- matrix(0, 19,2)
+X[1,] <- c(.5, .5) # start
+L <- seq(1,nrow(X)-2,2)
+for(i in L){
+	X[(i+1),] <- c(X[i,1]/2, X[i,2] + X[i,1]/2) # pour A into B
+	X[(i+2),] <- c(X[(i+1),1] + X[(i+1),2]/2, X[(i+1),2]/2) # pour B into A
+}
+
+X <- data.frame(X[-1,])
+X$Note <- X$Note <- gl(2, 1, 18, labels = c('Pour B into A', 'Pour A into B'))
+colnames(X) <- c('Fraction in A', 'Fraction in B', 'Pour Direction')
+> X
+   Fraction in A Fraction in B Pour Direction
+1      0.2500000     0.7500000  Pour B into A
+2      0.6250000     0.3750000  Pour A into B
+3      0.3125000     0.6875000  Pour B into A
+4      0.6562500     0.3437500  Pour A into B
+5      0.3281250     0.6718750  Pour B into A
+6      0.6640625     0.3359375  Pour A into B
+7      0.3320312     0.6679688  Pour B into A
+8      0.6660156     0.3339844  Pour A into B
+9      0.3330078     0.6669922  Pour B into A
+10     0.6665039     0.3334961  Pour A into B
+11     0.3332520     0.6667480  Pour B into A
+12     0.6666260     0.3333740  Pour A into B
+13     0.3333130     0.6666870  Pour B into A
+14     0.6666565     0.3333435  Pour A into B
+15     0.3333282     0.6666718  Pour B into A
+16     0.6666641     0.3333359  Pour A into B
+17     0.3333321     0.6666679  Pour B into A
+18     0.6666660     0.3333340  Pour A into B
+</code>
+</pre>
+
 
 
 
