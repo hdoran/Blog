@@ -112,11 +112,36 @@ $$
 <code>
 > 1/2 + 1/2 * sum((1/4) ^ (1:50))
 [1] 0.6666667
-
 </code>
 </pre>
 
+I arrived at this in an awful way, but useful conceptually. If we were to manually write out the proportion of water in Cup A at each step we would manually write the first three steps as
 
+<pre>
+<code>
+> a <- b <- .5
+> ((1- (a)/2) + (a))/2
+[1] 0.625
+> (1- (((1- (a)/2) + (a))/2)/2)/2 + (((1- (a)/2) + (a))/2)/2
+[1] 0.65625
+> (1-(((1- (((1- (a)/2) + (a))/2)/2)/2 + (((1 - (a)/2) + (a))/2)/2)/2))/2 + ((1- (((1- (a)/2) + (a))/2)/2)/2 + (((1- (a)/2) + (a))/2)/2)/2
+[1] 0.6640625
+</code>
+</pre>
+
+Simplifying and rearranging each step we observe that
+<pre>
+<code>
+> a/4 + 1/2
+[1] 0.625
+> a/16 + a/4 + 1/2
+[1] 0.65625
+> a/64 + a/16 + a/4 + 1/2
+[1] 0.6640625
+</code>
+</pre>
+
+We get that ``aha'' when we realize the accumulations are in the pattern 1/2 + a/4 + a/16 + a/64.  
 
 <hr>
 
