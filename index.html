@@ -40,13 +40,13 @@ Extra credit: Now suppose both cups initially have somewhere between 0 and 8 oun
 Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in Cup A at the \(n\)th trial
 
 $$
-\frac{1}{2} + \frac{1}{2} \sum_{i=1}^n \left(\frac{1}{4}\right)^n
+\frac{1}{2} + \frac{1}{2} \sum_{i=1}^n \left(\frac{1}{4}\right)^i
 $$
 
 But, we can take the limit of the portion
 $$
 \begin{split}
-\lim_{n \to \infty} \left(\sum_{i=1}^n \left(\frac{1}{4}\right)^n\right) = \frac{1}{3}
+\lim_{n \to \infty} \left(\sum_{i=1}^n \left(\frac{1}{4}\right)^i\right) = \frac{1}{3}
 \end{split}
 $$
 
@@ -117,7 +117,7 @@ colnames(X) <- c('Fraction in A', 'Fraction in B', 'Pour Direction')
 Using the code above we could wander the state space and we could find the fraction of water in Cup A at any point. But, who wants to stare at matrices and find values in rows! So, instead we can find the exact fraction of water in Cup A at any point using the following solution 
 
 $$
-\frac{1}{2} + \frac{1}{2}  \sum_{n=1}^k \left( \frac{1}{4}\right)^n
+\frac{1}{2} + \frac{1}{2}  \sum_{i=1}^n \left(\frac{1}{4}\right)^i
 $$
 </p>
 
