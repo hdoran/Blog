@@ -37,20 +37,21 @@ Extra credit: Now suppose both cups initially have somewhere between 0 and 8 oun
 </blockquote>
 
 <p>
-Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in Cup A at the \(n\)th trial
+Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \). Below I show how to arrive at the following expression to find the fraction of water in Cup A at the \(n\)th trial
 
 $$
 \frac{1}{2} + \frac{1}{2} \sum_{i=1}^n \left(\frac{1}{4}\right)^i
 $$
 
-But, we can take the <a href = "https://www.wolframalpha.com/input/?i=limit+.5+%2B+.5*+sum_i%3D1%5En+%281%2F4%29%5Ei+as+n+-%3E+infinity&assumption=%22LimitHead%22+-%3E+%7B%22Continuous%22%7D" target = "blank"> limit </a>  of the portion   
+This expression is useful for learnng what the value would be at specific values of \(n\) where \(n\) might be finite. But, we can take the <a href = "https://www.wolframalpha.com/input/?i=limit+.5+%2B+.5*+sum_i%3D1%5En+%281%2F4%29%5Ei+as+n+-%3E+infinity&assumption=%22LimitHead%22+-%3E+%7B%22Continuous%22%7D" target = "blank"> limit </a>  of the portion   
+
 $$
 \begin{split}
 \lim_{n \to \infty} \left(\sum_{i=1}^n \left(\frac{1}{4}\right)^i\right) = \frac{1}{3}
 \end{split}
 $$
 
-Giving a simple expression of 
+Giving a simple expression for the expected value in a more computatioanlly tractable way
 
 $$
 \frac{1}{2} + \frac{1}{2}\times\frac{1}{3} = \frac{2}{3}
