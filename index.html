@@ -98,8 +98,23 @@ colnames(X) <- c('Fraction in A', 'Fraction in B', 'Pour Direction')
 </code>
 </pre>
 
+<h2> A More Concise Solution </h2>
+<h3>
+<p>
+Using the code above we could wander the state space and we could find the fraction of water in Cup A at any point. But, who wants to stare at matrices and find values in rows! So, instead we can find the exact fraction of water in Cup A at any point using the following solution 
 
+$$
+\frac{1}{2} + \frac{1}{2}  \sum_{i=1}^n \left( \frac{1}{4}\right)^n
+$$
+</p>
 
+<pre>
+<code>
+> 1/2 + 1/2 * sum((1/4) ^ (1:50))
+[1] 0.6666667
+
+</code>
+</pre>
 
 
 
