@@ -37,7 +37,7 @@ Extra credit: Now suppose both cups initially have somewhere between 0 and 8 oun
 </blockquote>
 
 <p>
-Answer: 2/3 or using the following expression to find the fraction of water in cup \(a\) at the \(n\)th trial
+Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in cup \(a\) at the \(n\)th trial
 
 $$
 \frac{1}{2} + \frac{1}{2}  \sum_{i=1}^n \left( \frac{1}{4}\right)^n
@@ -58,7 +58,7 @@ It's helpful to think step by step because then we realize the amount of water i
 <h2> Manually Create Transitions </h2>
 <h3>
 <p>
-We could write come code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The initial state begins with both cups having an equal share of water and then State 1 shows Cup A would have 25% of its water remaining and Cup B would now have 75% of the water. Then, pouring half from Cup B back to into A we see that in State 2 Cup A would have 62.5% of the water and so on until we take a break after 18 states, pour half of Cup B back into Cup A and the final step shows about 67% of the water is now in Cup A.   
+We could write some R code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The initial state begins with both cups having an equal share of water and then State 1 shows Cup A would have 25% of its water remaining and Cup B would now have 75% of the water. Then, pouring half from Cup B back to into A we see that in State 2 Cup A would have 62.5% of the water and so on until we take a break after 18 states, pour half of Cup B back into Cup A and the final step shows about 67% of the water is now in Cup A.   
 </p>
 
 <pre>
@@ -118,7 +118,7 @@ $$
 
 
 
-
+<hr>
 
 
 
