@@ -51,10 +51,14 @@ $$
 In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A which now has 10 ounces.
 </p>
 
+<p>
+It's helpful to think step by step because then we realize the amount of water in the cup depends on the prior state of the two cups. 
+</p>
+
 <h2> Manually Create Transitions </h2>
 <h3>
 <p>
-We could write come code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe
+We could write come code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The initial state begins with both cups having an equal share of water and then State 1 shows Cup A would have 25% of its water remaining and Cup B would now have 75% of the water. Then, pouring half from Cup B back to into A we see that in State 2 Cup A would have 62.5% of the water and so on until we take a break after 18 states, pour half of Cup B back into Cup A and the final step shows about 67% of the water is now in Cup A.   
 </p>
 
 <pre>
