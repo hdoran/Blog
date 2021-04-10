@@ -33,11 +33,11 @@ You take half of the water in cup A and pour it into cup B. Then, you take half 
 
 When you finally pause for a breather, what fraction of the total water is in cup A?
 
-Extra credit: Now suppose both cups initially have somewhere between 0 and 8 ounces of water in them. You don’t know the precise amount in each cup, but you know that both cups are not empty. Again, you pour half the water from cup A into cup B, and then half from cup B back to A. You do this many, many times. When you again finally pause for a breather, what fraction of the total water is in cup A?
+Extra credit: Now suppose both cups initially have somewhere between 0 and 8 ounces of water in them. You don’t know the precise amount in each cup, but you know that both cups are not empty. Again, you pour half the water from Cup A into Cup B, and then half from Cup B back to A. You do this many, many times. When you again finally pause for a breather, what fraction of the total water is in Cup A?
 </blockquote>
 
 <p>
-Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in cup \(a\) at the \(n\)th trial
+Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in Cup A at the \(n\)th trial
 
 $$
 \frac{1}{2} + \frac{1}{2}  \sum_{i=1}^n \left( \frac{1}{4}\right)^n
@@ -48,7 +48,7 @@ $$
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A which now has 10 ounces.
+In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A, which now has 10 ounces. So, at this step, Cup A has \(frac{10}{16} = .625\), or 62.5% of the water. But, that was just two pours and we need to do this many more times.
 </p>
 
 <p>
