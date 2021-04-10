@@ -40,7 +40,20 @@ Extra credit: Now suppose both cups initially have somewhere between 0 and 8 oun
 Answer: The express is a special case of the extra credit, so they both have the same answer of 2/3 \(\approx 0.6666667 \) or using the following expression to find the fraction of water in Cup A at the \(n\)th trial
 
 $$
-\frac{1}{2} + \frac{1}{2}  \sum_{n=1}^k \left( \frac{1}{4}\right)^n
+\frac{1}{2} + \frac{1}{2} \sum_{i=1}^n \left(\frac{1}{4}\right)^n
+$$
+
+But, we can take the limit of the portion
+$$
+\begin{split}
+\lim_{n \to \infty} \left(\sum_{i=1}^n \left(\frac{1}{4}\right)^n\right) = \frac{1}{3}
+\end{split}
+$$
+
+Giving a simple expression of 
+
+$$
+\frac{1}{2} + \frac{1}{2}\times\frac{1}{3} = \frac{2}{3}
 $$
 
 </p>
@@ -142,6 +155,17 @@ Simplifying and rearranging each step we observe that
 </pre>
 
 We get that "aha" moment when we realize the accumulations are in the pattern 1/2 + a/4 + a/16 + a/64. So, we can simply sum over the sequence of \(n\) steps and find exactly what fraction of water is in Cup A at any specific point in time. 
+
+<h2> A Final Computational Solution </h2>
+<h3>
+
+<p>
+Summation of the multiple exponents is useful if I want to know what the fraction would be after a specific trial. However, suposing I want to assume it's summation over an extremely large number of trials, summing over exponents is expensive. So, as shown in the introduction, we can reduce to a very simple computation after taking the limit as the summation approaches \(n\) very large trials
+</p>
+
+$$
+\frac{1}{2} + \frac{1}{2}\times\frac{1}{3} = \frac{2}{3}
+$$
 
 <hr>
 
