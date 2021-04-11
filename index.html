@@ -69,7 +69,7 @@ In this problem we're wandering through the state space of just pouring back and
 It's helpful to think step by step because then we realize the amount of water in the cup depends on the prior state of the two cups, a bit of Markovian thinking. Perhaps start with a small simulation to "see" how this plays out numerically in a few trials.
 </p>
 
-<h2> Manually Create Transitions </h2>
+<h2> Manually Create Transition Matrix </h2>
 <h3>
 <p>
 We could write some R code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The rows in the matrix \(X\) below are the proportions of water in each cup and each new row depends on the proportions in the row just above it. In this we just deal wth the proportions directly and no need to deal with ounces.
