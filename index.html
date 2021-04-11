@@ -160,19 +160,20 @@ a <- .5
 </code>
 </pre>
 
-We get that "aha" moment when we realize the accumulations are in the pattern 1/2 + a/4 + a/16 + a/64. So, we can simply sum over the sequence of \(n\) steps and find exactly what fraction of water is in Cup A at any specific point in time as
+We get that "aha" moment when we realize the accumulations are in the pattern 
 
 $$
 \frac{1}{2} + \frac{a}{4} + \frac{a}{16} + \frac{a}{64} \ldots 
 $$ 
 
-where \(a\) = .5. Let's clean this up and generalize. 
+where \(a\) = .5. So, we can simply sum over the sequence of \(n\) steps and find exactly what fraction of water is in Cup A at any specific point.  Let's clean this up and generalize. 
+
 
 <h2> A Final Computational Solution </h2>
 <h3>
 
 <p>
-Summation of the multiple exponents is useful if I want to know what the fraction would be after a specific trial. However, supposing I want to assume it's summation over an extremely large number of trials, summing over exponents is expensive. So, as shown in the introduction, we can reduce to a very simple computation after taking the limit as the summation approaches \(n\) very large trials
+Summation of the multiple exponents is useful if I want to know what the fraction would be after a specific trial. However, supposing I want to assume it's summation over an extremely large number of trials, summing over exponents is computationally expensive with increasing \(n\). So, as shown in the introduction, we can reduce to a very simple computation after taking the limit as the summation approaches a very large number
 </p>
 
 $$
