@@ -174,12 +174,40 @@ where \(a\) = .5. So, we can simply sum over the sequence of \(n\) steps and fin
 
 <p>
 Summation of the multiple exponents is useful if I want to know what the fraction would be after a specific trial. However, supposing I want to assume it's summation over an extremely large number of trials, summing over exponents is computationally expensive with increasing \(n\). So, as shown in the introduction, we can reduce to a very simple computation after taking the limit as the summation approaches a very large number
-</p>
+
 
 $$
 \frac{1}{2} + \frac{1}{2}\times\frac{1}{3} = \frac{2}{3}
 $$
+</p>
 
+<p>
+Last, we can run a small monte carlo simulation just to see how well this all works out. In this below, Cup A starts with a random amount of water and then Cup B has a random amount such that the total amount of water sums to 1.  
+
+<code>
+<pre>
+cupa <- runif(1)
+cupb <- 1 - cupa
+total <- cupa + cupb
+K <- 2000
+resulta <- numeric(K)
+
+for(i in 1:K){
+	## pour half of A into B
+	cupb <- cupa * .5 + cupb
+	## Account for removal in cupa
+	cupa <- cupa * .5
+
+	### now pour half of B into A
+	cupa <- cupb *.5 + cupa 
+	## Account for removal in cupb
+	cupb <- cupb * .5
+	resulta[i] <- cupa
+}
+resulta[K]
+</code>
+</pre>
+</p>
 <hr>
 
 
