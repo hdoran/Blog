@@ -51,7 +51,7 @@ $$
 \end{split}
 $$
 
-Giving a simple expression for the expected value in a more computatioanlly tractable way
+Giving a simple expression for the expected value in a more computationally tractable way
 
 $$
 \frac{1}{2} + \frac{1}{2}\times\frac{1}{3} = \frac{2}{3}
@@ -62,7 +62,7 @@ $$
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start by knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A, which now has 10 ounces. So, at this step, Cup A has \(\frac{10}{16} = .625\), or 62.5% of the water. But, that was just two pours and we need to do this many more times.
+In this problem we're wandering through the state space of just pouring back and forth between the two cups. Conceptually, we can start by knowing that in the first step, we take half of the water in Cup A (it originally starts with 8 ounces) and pour it into Cup B which also originally starts with 8 ounces. So, Cup B would now have 12 ounces and Cup A now has 4 ounces. OK, now we repeat and pour half of the water in Cup B back into Cup A, which now has 10 ounces. So, at this step, Cup A has \(\frac{10}{16} = .625\), or 62.5% of the water. But, that was just two pours and we need to do this many more times.
 </p>
 
 <p>
@@ -72,7 +72,11 @@ It's helpful to think step by step because then we realize the amount of water i
 <h2> Manually Create Transitions </h2>
 <h3>
 <p>
-We could write some R code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The initial state begins with both cups having an equal share of water and then State 1 shows Cup A would have 25% of its water remaining and Cup B would now have 75% of the water. Then, pouring half from Cup B back to into A we see that in State 2 Cup A would have 62.5% of the water and so on until we take a break after 18 states, pour half of Cup B back into Cup A and the final step shows about 67% of the water is now in Cup A.   
+We could write some R code to manually do this \(n\) times and observe what fraction would be in Cup A after a certain number of trials. It's burdensome, but here is what we would observe. The rows in the matrix \(X\) below are the proportions of water in each cup and each new row depends on the proportions in the row just above it. In this we just deal wth the proportions directly and no need to deal with ounces.
+</p>
+
+<p>
+The initial state begins with both cups having an equal share of water and then State 1 shows Cup A would have 25% of its water remaining and Cup B would now have 75% of the water. Then, pouring half from Cup B back to into Cup A we see that in State 2 Cup A would have 62.5% of the water (.75/2 + .25 = .625) and so on until we take a break after 18 states, pour half of Cup B back into Cup A and the final step shows about 67% of the water is now in Cup A.   
 </p>
 
 <pre>
@@ -87,7 +91,7 @@ for(i in L){
 }
 
 X <- data.frame(X[-1,])
-X$Note <- X$Note <- gl(2, 1, 18, labels = c('Pour B into A', 'Pour A into B'))
+X$Note <- gl(2, 1, 18, labels = c('Pour B into A', 'Pour A into B'))
 colnames(X) <- c('Fraction in A', 'Fraction in B', 'Pour Direction')
 > X
    Fraction in A Fraction in B Pour Direction
