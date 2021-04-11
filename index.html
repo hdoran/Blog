@@ -128,12 +128,12 @@ $$
 
 <pre>
 <code>
-> 1/2 + 1/2 * sum((1/4) ^ (1:50))
+> 1/2 + 1/2 * sum((1/4)^(1:50))
 [1] 0.6666667
 </code>
 </pre>
 
-I arrived at this in an awful way, but useful conceptually. If we were to manually write out the proportion of water in Cup A at each step we would manually write the first three steps as
+Here is just a snippet of how to arrive at this conceptually. If we were to manually write out the proportion of water in Cup A at each step we would manually write the first three steps as
 
 <pre>
 <code>
@@ -147,7 +147,7 @@ I arrived at this in an awful way, but useful conceptually. If we were to manual
 </code>
 </pre>
 
-Simplifying and rearranging each step we observe that
+Note, these values match those in the transition matrix \(X\) for the first three instances of where Cup B is poured back into Cup A. Let's simplify and rearrange each step to yield
 <pre>
 <code>
 a <- .5
@@ -160,7 +160,13 @@ a <- .5
 </code>
 </pre>
 
-We get that "aha" moment when we realize the accumulations are in the pattern 1/2 + a/4 + a/16 + a/64. So, we can simply sum over the sequence of \(n\) steps and find exactly what fraction of water is in Cup A at any specific point in time. 
+We get that "aha" moment when we realize the accumulations are in the pattern 1/2 + a/4 + a/16 + a/64. So, we can simply sum over the sequence of \(n\) steps and find exactly what fraction of water is in Cup A at any specific point in time as
+
+$$
+\frac{1}{2} + \frac{a}{4} + \frac{a}{16} + \frac{a}{64} \ldots 
+$$ 
+
+where \(a\) = .5. Let's clean this up and generalize. 
 
 <h2> A Final Computational Solution </h2>
 <h3>
