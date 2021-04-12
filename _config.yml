@@ -1,7 +1,8 @@
 theme: jekyll-theme-cayman
 title: Statistics, Psychometrics, Games
-description: Harold Doran
-    harold dot doran at gmail com
-author_email: you@example.com
+description: Harold Doran.
+author:
+  name:  a b
+  email: d@d.com
 github:
   is_project_page: false
