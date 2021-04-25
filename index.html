@@ -45,15 +45,15 @@ I found this to be an exceedingly challenging issue to solve analytically and in
 </p>
 
 <p>
-First, let's just write a few things we know to be true about the problem in general. On election night, 80% of the votes in some infinitly large population are tallied. All votes are random and independent, which by definition means that the expected propensity to vote for candidate A and B is 50%. This expected propensity must be true in the 80% subset and also in the 20% subset. That is, we do not assume there is anything systematically different about the 20% subset or the 80% subset that makes them more likely to vote for either candidate differentially.
+First, let's just write a few things we know to be true about the problem in general. On election night, 80% of the votes in some infinitely large population are tallied. All votes are random and independent, which by definition means that the expected propensity to vote for candidate A and B is 50%. This expected propensity must be true in the 80% subset and also in the 20% subset. That is, we do not assume there is anything systematically different about the 20% subset or the 80% subset that makes them more likely to vote for either candidate differentially.
 </p>
 
 <p>
-With this statement, then we know that each election is just one draw from the true distribution and while in expectation each candidate has a 50% chance, no given draw will be exactly 50%. So, each draw has some measurement error. We assume the winner is the candidate with greater than 50% of the votes. 
+With this statement, then we know that each election is just one draw from the true distribution and while in expectation each candidate has a 50% chance, no given draw will be exactly 50%. So, each draw has some measurement error. We assume the winner is the candidate with greater than 50% of the votes. The question then becomes does the candidate that lost on election night receive enough votes in the remaining 20% to cover the gap necessary to receive more than 50% of the total votes.
 </p>
 
 <p>
-The question then becomes does the candidate that lost on election night receive enough votes in the remaining 20% to cover the gap necessary to receive more than 50% of the total votes. So, lets \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\). We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the share of votes given to the winner on election night is \(W_{80} = 50% + \epsilon\) where \(W_{80}\) is used to mean the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 100 - W_{80}\). 
+So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\). We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the share of votes given to the winner on election night is \(W_{80} = 50\% + \epsilon\) where \(W_{80}\) is used to mean the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 100 - W_{80}\). 
 </p>
 
 <p>
@@ -67,7 +67,7 @@ where I take the ceiling to make sure it's always an integer (no fractional huma
 </p>
 
 <p>
-At this point is where I find myself getting somewhat stuck. I thought I could integrate over a binomial pdf (or sum), by summing over the probability of receiving \(V_{20}\) through \N_{20}\) votes. Or I thought about conditioning on the known fact that the candidate lost on election night, but the conditional probabilities didn't quite work out as I had hoped. So, instead, I let the computer run for a very long time. I set \(N=1,000,000\) and then ran 10,000 replicates of the problem. Reproducible R code below. 
+At this point is where I find myself getting somewhat stuck. I thought I could integrate over a binomial pdf (or sum), by summing over the probability of receiving \(V_{20}\) through \(N_{20}\) votes. Or I thought about conditioning on the known fact that the candidate lost on election night, but the conditional probabilities didn't quite work out as I had hoped. So, instead, I let the computer run for a very long time. I set \(N=1,000,000\) and then ran 10,000 replicates of the problem. Reproducible R code below. 
 </p>
 
 <code>
