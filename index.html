@@ -17,7 +17,79 @@ layout: default
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
+<center> <h1> Enigmatic Election </h1> </center>
+<center> <h3> 4/25/2021 </h3> </center>
 
+<h2> Problem Statement </h2> 
+<h3>
+<p>
+The Riddler election problem stated <a href = "https://fivethirtyeight.com/features/can-you-cut-the-perfect-pancake//" target = "blank"> here </a> asks:
+</p>
+
+<blockquote>
+Riddler Nation’s neighbor to the west, Enigmerica, is holding an election between two candidates, A and B. Assume every person in Enigmerica votes randomly and independently, and that the number of voters is very, very large. Moreover, due to health precautions, 20 percent of the population decides to vote early by mail.
+
+On election night, the results of the 80 percent who voted on Election Day are reported out. Over the next several days, the remaining 20 percent of the votes are then tallied.
+
+What is the probability that the candidate who had fewer votes tallied on election night ultimately wins the race?
+</blockquote>
+
+<p>
+Answer: 13%. 
+</p>
+
+<h2> Defining the Problem </h2>
+<h3>
+<p>
+I found this to be an exceedingly challenging issue to solve analytically and in the end gave way to a monte carlo solution. I'll document some thoughts that are incomplete in the sense that they are conceptually accurate (I think) and may later lead way to a better solution. 
+</p>
+
+<p>
+First, let's just write a few things we know to be true about the problem in general. On election night, 80% of the votes in some infinitly large population are tallied. All votes are random and independent, which by definition means that the expected propensity to vote for candidate A and B is 50%. This expected propensity must be true in the 80% subset and also in the 20% subset. That is, we do not assume there is anything systematically different about the 20% subset or the 80% subset that makes them more likely to vote for either candidate differentially.
+</p>
+
+<p>
+With this statement, then we know that each election is just one draw from the true distribution and while in expectation each candidate has a 50% chance, no given draw will be exactly 50%. So, each draw has some measurement error. We assume the winner is the candidate with greater than 50% of the votes. 
+</p>
+
+<p>
+The question then becomes does the candidate that lost on election night receive enough votes in the remaining 20% to cover the gap necessary to receive more than 50% of the total votes. So, lets \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\). We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the share of votes given to the winner on election night is \(W_{80} = 50% + \epsilon\) where \(W_{80}\) is used to mean the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 100 - W_{80}\). 
+</p>
+
+<p>
+Using these, we can then write the condition defining how many votes the election night loser must have in order to win overall. That can be written as 
+
+$$
+V_{20} = \texttt{ceiling}\left(\left(\frac{N}{2} + 1\right) - L_{80} * N_{80}\right)
+$$
+
+where I take the ceiling to make sure it's always an integer (no fractional humans). The number \(V_{20}\) represents the number of votes needed for the candidate who lost on election night to end up winning overall. In other words, if the candidate who lost on election night receives at least \(V_{20}\) in the remaining 20% sample, that person will end up with more than 50% of the total vote share, and will become the winner.
+</p>
+
+<code>
+<pre>
+N <- 1000000
+K <- 2000
+overall <- votes <- loserShare <- v20share <- numeric(K)
+for(i in 1:K){	
+	vote80 <- rbinom(N*.8, 1, prob=.5) 
+	vote20 <- rbinom(N*.2, 1, prob=.5) 
+	### Who lost on election night
+	aTable <- table(vote80)
+	result1 <- names(which.min(aTable))
+	loserShare[i] <- aTable[which.min(aTable)]
+	### Who wins overall after 20% are added in
+	theTable <- table(c(vote80,vote20))
+	result2 <- names(which.max(theTable))
+	overall[i] <- result1 == result2
+	votes[i] <- theTable[which.max(theTable)]
+	v20share[i] <- ifelse(result1 == result2, max(table(vote20)), 0)
+}
+mean(overall)
+</code>
+</pre>
+</p>
+<hr>
 
 
 
