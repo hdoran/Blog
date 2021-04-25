@@ -66,11 +66,15 @@ $$
 where I take the ceiling to make sure it's always an integer (no fractional humans). The number \(V_{20}\) represents the number of votes needed for the candidate who lost on election night to end up winning overall. In other words, if the candidate who lost on election night receives at least \(V_{20}\) in the remaining 20% sample, that person will end up with more than 50% of the total vote share, and will become the winner.
 </p>
 
+<p>
+At this point is where I find myself getting somewhat stuck. I thought I could integrate over a binomial pdf (or sum), by summing over the probability of receiving \(V_{20}\) through \N_{20}\) votes. Or I thought about conditioning on the known fact that the candidate lost on election night, but the conditional probabilities didn't quite work out as I had hoped. So, instead, I let the computer run for a very long time. I set \(N=1,000,000\) and then ran 10,000 replicates of the problem. Reproducible R code below. 
+</p>
+
 <code>
 <pre>
 N <- 1000000
-K <- 1000
-overall <- votes <- loserShare <- v20share <- numeric(K)
+K <- 10000
+overall <- numeric(K)
 for(i in 1:K){	
 	vote80 <- rbinom(N*.8, 1, prob=.5) 
 	vote20 <- rbinom(N*.2, 1, prob=.5) 
