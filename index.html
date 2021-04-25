@@ -69,7 +69,7 @@ where I take the ceiling to make sure it's always an integer (no fractional huma
 <code>
 <pre>
 N <- 1000000
-K <- 2000
+K <- 1000
 overall <- votes <- loserShare <- v20share <- numeric(K)
 for(i in 1:K){	
 	vote80 <- rbinom(N*.8, 1, prob=.5) 
@@ -77,14 +77,12 @@ for(i in 1:K){
 	### Who lost on election night
 	aTable <- table(vote80)
 	result1 <- names(which.min(aTable))
-	loserShare[i] <- aTable[which.min(aTable)]
 	### Who wins overall after 20% are added in
 	theTable <- table(c(vote80,vote20))
 	result2 <- names(which.max(theTable))
 	overall[i] <- result1 == result2
-	votes[i] <- theTable[which.max(theTable)]
-	v20share[i] <- ifelse(result1 == result2, max(table(vote20)), 0)
 }
+### How often does this occur (this is probability)
 mean(overall)
 </code>
 </pre>
