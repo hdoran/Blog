@@ -60,10 +60,14 @@ So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is t
 Both candidates have the same expected probability of winning on election night, 50%. But, stochastically, this will not be true with one observed election. The winner will be "lucky" and receive that small stochastic bump of the votes on election night. Using these, we can then write the condition defining how many votes the election night loser must receive in the remaining 20% sample in order to win overall. That can be written as 
 
 $$
-V_{20} = \texttt{ceiling}\left(\left(\frac{N}{2} + 1\right) - L_{80} * N_{80}\right)
+V_{20} = \texttt{ceiling}\left(\left(\frac{N}{2} + 1\right) - L_{80} \times N_{80}\right)
 $$
 
-where I take the ceiling to make sure it's always an integer (no fractional humans). The number \(V_{20}\) represents the number of votes needed for the candidate who lost on election night to end up winning overall. In other words, if the candidate who lost on election night receives at least \(V_{20}\) in the remaining 20% sample, that person will end up with more than 50% of the total vote share, and will become the winner.
+where I take the ceiling to make sure it's always an integer (no fractional humans). The number \(V_{20}\) represents the number of votes needed for the candidate who lost on election night to end up winning overall. In other words, if the candidate who lost on election night receives at least \(V_{20}\) in the remaining 20% sample, that person will end up with more than 50% of the total vote share, and will become the winner. That is,
+
+$$
+\frac{L_{80} \times N_{80} + V_{20}}{N} > .50
+$$
 </p>
 
 <p>
