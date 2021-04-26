@@ -41,7 +41,7 @@ Answer: 15%.
 <h2> Defining the Problem </h2>
 <h3>
 <p>
-I found this to be an exceedingly challenging issue to solve analytically and in the end gave way to a monte carlo solution. I'll document some thoughts that are incomplete in the sense that they are conceptually accurate (I think) and may later lead way to a better solution. 
+I found this to be an exceedingly challenging issue to solve analytically and in the end gave way to a monte carlo solution. Some thoughts are documented here that may later be useful to solve this in closed form. 
 </p>
 
 <p>
@@ -49,11 +49,15 @@ First, let's just write a few things we know to be true about the problem in gen
 </p>
 
 <p>
-With this statement, then we know that each election is just one draw from the true distribution and while in expectation each candidate has a 50% chance, no given draw will be exactly 50%. So, each draw has some measurement error. We assume the winner is the candidate with greater than 50% of the votes. The question then becomes does the candidate that lost on election night receive enough votes in the remaining 20% to cover the gap necessary to receive more than 50% of the total votes?
+With this statement, then we know that each election is just one draw from the true distribution of possible outcomes and while in expectation each candidate has a 50% chance of winning, no given draw will be exactly 50%. So, each draw has some measurement error. We assume the winner is the candidate with greater than 50% of the votes. Because each candidate has the same probability of winning on election night, the only way in which the election night loser can overtake the provisional winner is by winning enough votes in the remaining 20% sample to cover the spread. Hence, the question then becomes does the candidate that lost on election night receive enough votes in the remaining 20% to cover the gap necessary to receive more than 50% of the total votes?
 </p>
 
 <p>
-So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\) is the number of votes in the remaining 20% sample. We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the share of votes given to the winner on election night is \(W_{80} = .50 + \epsilon\) where \(W_{80}\) is used to mean the proportion of votes awarded to the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 1 - W_{80}\). 
+So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\) is the number of votes in the remaining 20% sample. We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the proportion of votes given to the winner on election night is \(W_{80} = .50 + \epsilon\) where \(W_{80}\) is used to mean the proportion of votes awarded to the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 1 - W_{80}\). 
+</p>
+
+<p>
+Both candidates have the same expected probability of winning on election night, 50%. But, stochastically, this will not be true with one observed election. The winner will be "lucky" and receive \(.5 + \epsilon\) of the votes on election night and we know that as \(N \rightarrow \infty\) then \(\epsilon \rightarrow 0\). So, one candidate will win, but only by a small amount.  
 </p>
 
 <p>
