@@ -71,6 +71,14 @@ where I take the ceiling to make sure it's always an integer (no fractional huma
 </p>
 
 <p>
+Now, it is still true that in the remaining 20% sample, both candidates have a 50% chance of winning, but the losing candidate must now win at least \(V_{20}\) votes in the 20% sample, which is more than 50% of the remaining votes. This implies we need to integrate over some probability distribution function with the problem stated generically as 
+
+$$
+\Pr(X \geq V_{20}) = \int f(x)dx
+$$
+</p>
+
+<p>
 So, I let the computer run for a very long time to find how this plays out conceptually. I set \(N=1,000,000\) and then ran 100,000 replicates of the problem. Reproducible R code below which returns 15%. 
 </p>
 
