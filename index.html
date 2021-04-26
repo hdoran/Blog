@@ -71,7 +71,7 @@ where I take the ceiling to make sure it's always an integer (no fractional huma
 </p>
 
 <p>
-At this point is where I find myself getting somewhat stuck. I thought I could integrate over a binomial pdf (or sum), by summing over the probability of receiving \(V_{20}\) through \(N_{20}\) votes. Or I thought about conditioning on the known fact that the candidate lost on election night, but the conditional probabilities didn't quite work out as I had hoped. So, instead, I let the computer run for a very long time. I set \(N=1,000,000\) and then ran 100,000 replicates of the problem. Reproducible R code below. 
+So, I let the computer run for a very long time to find how this plays out conceptually. I set \(N=1,000,000\) and then ran 100,000 replicates of the problem. Reproducible R code below which returns 15%. 
 </p>
 
 <code>
