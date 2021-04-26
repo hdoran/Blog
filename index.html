@@ -53,15 +53,11 @@ With this statement, then we know that each election is just one draw from the t
 </p>
 
 <p>
-So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\) is the number of votes in the remaining 20% sample. We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the proportion of votes given to the winner on election night is \(W_{80} = .50 + \epsilon\) where \(W_{80}\) is used to mean the proportion of votes awarded to the provisional winner on election night. Losing that same night is the complement, so we can write \(L_{80} = 1 - W_{80}\). 
+So, let's define a few things. Let \(N = N_{80} + N_{20}\) where \(N_{80}\) is the number of votes on election night and then \(N_{20}\) is the number of votes in the remaining 20% sample. We can then also assume that since each voter in expectation has a 50% on election night, then winning on that night is a function of measurement error. Let's denote that error as \(\epsilon\) such that the proportion of votes given to the winner on election night is \(W_{80} = .50 + \epsilon\) where \(W_{80}\) is used to mean the proportion of votes awarded to the provisional winner on election night and \(\epsilon\) is a very small, positive number such that as \(N \rightarrow \infty\) then \(\epsilon \rightarrow 0\). Losing that same night is the complement, so we can write \(L_{80} = 1 - W_{80}\). 
 </p>
 
 <p>
-Both candidates have the same expected probability of winning on election night, 50%. But, stochastically, this will not be true with one observed election. The winner will be "lucky" and receive \(.5 + \epsilon\) of the votes on election night and we know that as \(N \rightarrow \infty\) then \(\epsilon \rightarrow 0\). So, one candidate will win, but only by a small amount.  
-</p>
-
-<p>
-Using these, we can then write the condition defining how many votes the election night loser must receive in the remaining 20% sample in order to win overall. That can be written as 
+Both candidates have the same expected probability of winning on election night, 50%. But, stochastically, this will not be true with one observed election. The winner will be "lucky" and receive that small stochastic bump of the votes on election night. Using these, we can then write the condition defining how many votes the election night loser must receive in the remaining 20% sample in order to win overall. That can be written as 
 
 $$
 V_{20} = \texttt{ceiling}\left(\left(\frac{N}{2} + 1\right) - L_{80} * N_{80}\right)
