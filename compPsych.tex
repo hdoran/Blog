@@ -1,0 +1,608 @@
+\documentclass[12pt]{article}
+\usepackage{bm, graphicx}
+\usepackage{psfrag,epsf}
+\usepackage{apacite}
+\usepackage{amssymb,amsmath} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{times} 
+\setlength{\bibitemsep}{\baselineskip}
+\bibliographystyle{apacite}
+\usepackage{mathtools}  
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage[svgnames]{xcolor}
+\usepackage{listings}
+\usepackage{url}
+\DeclareMathOperator*{\argmax}{argmax}
+\interfootnotelinepenalty=10000 % Prevent footnote from splitting across multiple pages
+
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+% For formatting R code
+\lstset{language=R,
+    basicstyle=\small\ttfamily,
+    stringstyle=\color{DarkGreen},
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{DarkGreen},
+	xleftmargin=.0in,
+	breaklines=true,
+    xrightmargin=.25in
+}
+
+% Section to format abstract. Remove if not wanted 
+\renewenvironment{abstract}
+ {\quotation\small\noindent\rule{\linewidth}{.5pt}\par\smallskip
+  {\centering\bfseries\abstractname\par}\medskip}
+ {\par\noindent\rule{\linewidth}{.5pt}\endquotation}
+
+\title{A Collection of Numerical Recipes Useful For Building Scalable Psychometric Applications} 
+	\author{Harold Doran\\
+	\texttt{hdoran@humrro.org}\\
+	\texttt{Human Resources Research Organization}\\
+	\texttt{Working Technical Paper}\\	\\
+	}
+	
+\begin{document} 
+%\baselineskip 24pt % for double spacing when needed
+%\raggedright
+\maketitle
+
+\begin{abstract}
+
+Next generation psychometrics will inevitably leverage advancements made available with modern computing and massive data to create psychometric innovations. Realizing this future requires that psychometricians adopt better approaches for modern computing known to support scalability. Unfortunately, well-known numerical recipes for large-scale computing have not been fully embraced in psychometrics and this limits innovation. Commonly, textbook representations of mathematical solutions are confused to be the same computational strategy for implementation or trivial approximations are often used when faced with complex scenarios. Psychometricians will benefit from focused conversations around a core skill set needed to build scalable applications including numerical analysis, computing, and software development. This work sets out to focus on only one of those components and a collection of numerical recipes is provided. 
+ 
+\vspace{0.2in}
+
+\noindent {\em \underline{Keywords:}} computational psychometrics; gaussian quadrature; item response theory; linear models; numerical analysis; psychometric data scientist
+
+\end{abstract}
+
+\section*{Introduction}
+
+Psychometrics is evolving and increasingly becoming a multidisciplinary field with a more direct integration of modern computing with psychometric methods \cite{act}. This is particularly true given the real challenge facing psychometricians is that massive data are now typical and new methods of analysis, such as machine learning (ML), are taking greater foothold in psychometrics. As a result, psychometric computing techniques must confront the changing dynamics of large data and computationally demanding psychometric applications. This presents an opportunity for next generation psychometricians to blend domain-specific expertise with a growing demand to possess equal computational acumen.
+
+The National Research Council published an important report directly addressing how data science is changing in which the report makes clear that statisticians should be concerned specifically with scalability and algorithms and adapt to the new types of challenging computational demands in the presence of massive data \cite{massive}. One approach that tacitly confronts the scalabilty demands associated with massive data is to engage larger, cloud-based infrastructures or distributed computing concepts. This is a helpful strategy, but it is critically more important to first consider the smallest and most manageable unit--the numerical methods used in the underlying code to build models. These are the core at which scientific ideas are implemented and computational psychometricians require a portfolio of efficient, scalable techniques at the ready so that new ideas can unfold. Then, good computational methods can more readily take advantage of larger computing environments than expecting poor methods to be remedied by more powerful computing.   
+
+Unfortunately, sound numerical methods are not widely embraced within the field of psychometrics and, perhaps, this is rooted in how we learn. A strong case has been made that progressive statistical and mathematical methods are not well integrated in psychometric training programs and even possibly declining in emphasis \cite{aiken,townsend}. With respect to psychometric computing, one general observation is that textbooks commonly represent psychometric solutions in mathematical ways that conflate computational implementation with the notational expression. Notational representations should be understood as valuable for developing a conceptual understanding of the psychometric problem and to communicate the idea of the model or its parameterization. However, those notational representations should not be interpreted as the same way to build a computational implementation. 
+
+However, notational expressions commonly bleed over as a computational implementation as a few examples illustrate. Bates (2004)\nocite{Rnews:Bates:2004} noted that the algebraic textbook solution for the least squares model is commonly used within R code and provided details for better computational implementation. Genz and Kass (1997) report that statisticians often ignore superior methods for high-dimensional integration, a problem also noted by Antal and Oranje (2007) in psychometric software applications finding that trivial rectangular rules are common even in the National Assessment of Educational Progress \cite{nces} and commercially available psychometric software. These types of unsophisticated numerical methods commonly used in application building will impede psychometric innovation by limiting the ability to use that application in a way that scales with the new types of real world data and computational demands. \nocite{genz, ets:2007}
+
+There are, however, interesting conversations among psychometric innovators regarding the challenges in building scalable applications. Cai, Yang, and Hansen (2011) discuss the specific computational challenges when faced with high-dimensional integration problems as do the developers of the R package Dire \cite{dire} for estimating the marginal likelihood regression \cite{mislevy}. Rosseel (2021) provides an impressive example of psychometric computing that translates a complex problem into a feasible computational solution making excellent use of a standard inversion lemma and taking advantage of special matrix structures to a yield a simpler computational solution. \nocite{cai} \nocite{psych3020017}
+
+Notably, these conversations are typically focused on a specific application or problem. In contrast, the work presented here is intentionally problem agnostic offering a survey of tested numerical methods with the intent that psychometricians will use them as templates and solutions to springboard new, computationally demanding psychometric ideas. This work does not set out to formally prove theorems or engage in deriving estimators and proving their properties other than one simple proof in the appendix. 
+
+It's important to acknowledge that the numerical analysis techniques discussed here are situational and implemented as preference for a given condition. Some of the methods on their own are simple, but in combination they form a portfolio of powerful techniques that can be used to build and scale challenging psychometric ideas. Hence, there is no motivation to oversell these specific concepts as the most desirable for any scenario. Instead, the underlying motivation is to encourage staring at a problem and finding a recipe through exploration and testing that yields a stable and reduceable structure to implement a complex procedure at scale providing a toolkit for making a big problem small. The approaches are introduced in the framework of familiar and simple problems and then each idea is advanced sequentially to more complex scenarios. The work ends with three examples of methods not traditionally found in standard software simply to illustrate implementation of computational ideas and not to center attention on those specific methods. 
+
+\section*{Notation and Terminology}
+
+Standard notation is generally used throughout and the terms and notation are defined within each topic. For instance, matrices assume the general notation of uppercase bold, $\bm{A}$, transpose $\bm{A}'$, determinants, $|\cdot|$, vectors are generally lowercase bold, $\bm{x}$, elements within sets $\{x_1, x_2, \ldots, x_n\}$, $\mathbb{E}(\cdot)$ is used for expected values, and functions of variables with a general form $f(\cdot)$. One convention to clarify is the distinction between $g(\theta;\bm{\beta})$ and $g(\theta|\bm{\beta})$. The former is used to mean the density of the random variable at the value of $\theta$ with the parameters $\bm{\beta}$ and the latter is used to mean the conditional distribution of the random variable given the parameters. 
+
+Distinctions in terminology are made throughout using ``algebraic'' representation and ``computational'' representation to mean very different things. Specifically, ``algebraic solution'' is used to mean the way a solution to a problem is written in order to convey a concept. Instead, a ``computational solution'' is a numerical recipe that provides a stable way to implement a solution in software to estimate parameters that may not resemble the algebraic solution. The distinction between the two is a non-trivial point.                           
+
+\subsection*{Defining Scalable Psychometric Applications}
+
+The term ``scale'' is used in this work but requires clarification on its meaning and purpose in psychometrics. The term scale can be used to describe algorithms, networks, databases, and other complex systems. To remove ambiguity, scale in this work refers to the ability of an algorithm (i.e., the computational implementation) and the system making use of the algorithm (i.e., the software application) to handle big inputs and grow in relationship to the size of the problem \cite{teng}. The algorithm is how the idea is implemented and the application is how that idea becomes available to others.
+
+In psychometric practice, there are three primary ways input sizes tend to grow. These include 1) the magnitude of the data used for analysis, 2) the complexity of the computational problem\footnote{The computational complexity is considered as an input here because many complex problems require more inputs. For instance, high dimensional integrals require a large number of quadrature points.}, and 3) the large number of simultaneous users accessing a common system. A scalable application is one that can flexibly handle all three components efficiently. 
+
+Traditional psychometric techniques, such as item calibrations in large populations, are commonly managed with sampling techniques as a data reduction method. This has been convenient for decades with simple, low-dimensional psychometric models that require relatively small computations with software installed on a local machine. In essence, this statement captures how scale is managed in traditional psychometrics--make big data small, use simple computational methods, and rely on single user applications installed on a local machine. However, the future of psychometrics will bring new models to assess learning, cognition, and human behavior in ways that will break the traditional psychometric paradigm. These new approaches will require the richness associated massive data, the benefits of complex psychometric models in high-dimensional space, and the modern nature of computing in a cloud-based infrastructure.  Hence, the new psychometric paradigm requires a focused conversation on scale. 
+
+\section*{Introductory Concepts For Dealing With Correlated Data}
+
+\subsection*{Whitening Transformations for Correlated Variables}
+
+A concept first introduced and used throughout almost all subsequent recipes is referred to as the whitening transformation. Whitening is a process of transforming a collection of correlated vectors into a collection of uncorrelated vectors with the aid of a suitable decomposition \cite{whiten}. The process is critical to the solution of linear systems and for fast quadrature routines and is generally helpful for reducing complex problems into more computationally feasible solutions. 
+
+The concept is introduced as follows. Let $\bm{Y}$ be an $n \times p$ matrix of correlated variables from a $p$-dimensional multivariate normal, $\bm{Y} \sim \mathcal{N}_p(\bm{\mu}, \bm{\Sigma})$ where $\bm{\Sigma}$ is symmetric and positive definite. Now find a decomposition that satisfies $\bm{\Sigma} = \bm{L}\bm{L}'$ where $\bm{L}$ is lower triangular known as the Cholesky factor, and $\bm{\Sigma}^{-1} = \bm{L'}^{-1}\bm{L}^{-1}$. This provides that the transformation $\bm{X} = \bm{Y}\bm{L}'^{-1}$ can be used so that the variables in the matrix $\bm{X}$ are ``whitened'' or ``de-correlated''. Notice this can also be used to create correlated vectors when the operation is reversed, $\bm{Y}= \bm{X}\bm{L}'$, which may be useful for data generation, simulation, or applications such as high dimensional integration. 
+
+There are many useful decompositions in numerical analysis \cite{searle:1982,zhang:matrix} and there are reasons to choose others depending on the computational objective. Cholesky is just one of many that is helpful for decorrelation and the appendix shows how the eigendecomposition can be used to support inverting a matrix. However, the Cholesky will be a focus in this work as it relates to the computational objectives described here and some work has demonstrated its potential advantage over others, such as the QR when used for solving normal equations \cite{qr:chol}. Some applications have fully adopted a sparse Cholesky decomposition \cite{tim:davis} for linear mixed models \cite{bates:2004} with tremendous success.  
+
+\subsection*{Multivariate Densities of Whitened Data}
+
+The multivariate normal density function has an important role in psychometric practice. It is possible to reduce this from a complex problem into separable parts and show how the multivariate density can be computed as a product of transformed univariate densities. This change of variable transformation has broader applications for psychometric computing in maximization methods or dealing with high-dimensional integration problems. 
+
+The general form of the $p$-dimensional multivariate normal for a non-diagonal covariance matrix $\bm{\Sigma}$ is
+\begin{equation}
+\label{eqn:multivariate}
+f_y(y_1, \ldots, y_p)  =  \frac{\exp(-\frac{1}{2}(\bm{y} - \bm{\mu})'\bm{\Sigma}^{-1}(\bm{y} - \bm{\mu}))}{\sqrt{(2\pi)^p|\bm{\Sigma}}|}
+\end{equation}
+
+\noindent If the mean vector is $\bm{\mu} = \bm{0}$ and $\bm{\Sigma} = diag(1, \ldots, 1)$, then the density of the multivariate normal is equal to the product of the marginal densities. Let $\varphi$ denote the standard normal probability density function (p.d.f.), then
+\begin{equation}
+\label{eqn:univariate}
+f_y(y_1, \ldots, y_p)  =  \prod_{i=1}^p\varphi(y_i)
+\end{equation}
+
+Note that (\ref{eqn:multivariate}) and (\ref{eqn:univariate}) are related only under the special case of uncorrelated variables with unit variance. With correlated variables, rewrite (\ref{eqn:multivariate}) as
+\begin{align}
+\label{eqn:multivariate2}
+f_y(y_1, \ldots, y_p)  & =  \frac{\exp(-\frac{1}{2}(\bm{y} - \bm{\mu})'\bm{L}'^{-1}\bm{L}^{-1}(\bm{y} - \bm{\mu}))}{\sqrt{(2\pi)^p|\bm{L}\bm{L}'}|}\\
+				&=  \frac{\exp(-\frac{1}{2}\bm{y}'^{*}\bm{y}^{*}  )}{\sqrt{(2\pi)^p|\bm{L}^2}|} \label{eqn:multivariate3.1}\\
+				& =  |\bm{L}|^{-1}\left(\prod_{i=1}^p\varphi(y^*_i)\right) \label{eqn:multivariate3.2}
+\end{align}
+
+\noindent where $\bm{y}^* = \bm{L}^{-1}\bm{y}$ with elements $\bm{y}^{*} = \{y_1^*, \ldots, y_p^*\}'$. This transform expresses (\ref{eqn:multivariate3.2}) into the form of (\ref{eqn:univariate}), thus showing how the multivariate density can be computed as a product of the (transformed) marginal densities after whitening.
+
+\section*{Computational Concepts for Linear Systems}
+
+This section explores efficient computational recipes for linear models to create simple, reduceable structures to build scalable psychometric algorithms. It's best to begin with a simple, common problem--ordinary least squares (OLS), that will serve as a foundation and subsequently show how to frame more complex models with the same OLS solution. While the examples are provided within the context of linear regressions, the same concepts are used widely across psychometric practice. For example, these same methods are often used in the expectation-maximimation (EM) algorithm during the M-step, in natural language processing problems, latent semantic analysis, solutions to factor analysis problems, in highly parameterized item calibrations problems using the newton-raphson algorithm, and within iteratively reweighted least solutions for generalized linear models. These are just a subset of the possible applications.  
+
+\subsection*{Ordinary Least Squares as a Unifying Framework}
+
+The standard representation of the linear least squares problem is via the following normal equations \cite{mcandsearle:2001}   
+
+\begin{equation}
+\label{eqn:normal}
+\bm{X'X\beta} = \bm{X'y}
+\end{equation}
+
+\noindent where $\bm{X}$ is an $n \times p$ design matrix of full column rank, $\bm{\beta}$ is a $p \times 1$ vector of unknown parameters to be estimated, and $\bm{y}$ is an $n \times 1$ vector of observed outcomes. Provisionally assume in the following examples $p \ll n$, however many machine learning applications are trained on data when $n < p$, a problem referred to as high dimensional regression. The algebraic representation in standard notation is shown having an invertable $\bm{X'X}$ with a solution written as
+
+\begin{equation}
+\label{eqn:ols}
+\widehat{\bm{\beta}} = \bm{(X'X)}^{-1} \bm{X'y}.
+\end{equation}
+
+It is common for texts to convey strong statements around the representation shown in Equation~(\ref{eqn:ols}) with claims insinuating that this is also its computational implementation. As shown by Bates (2004), R code is often written using the literal representation in (\ref{eqn:ols}). In fact, this is a poor implementation and it is unnecessary to invert $\bm{X'X}$. Instead a more stable approach is to find the decomposition, $\bm{X'X} = \bm{LL'}$, and then rewrite (\ref{eqn:normal}) as $\bm{LL'\beta} = \bm{X'y}$. This expression provides a simple solution via two triangular systems as
+\begin{align}
+\label{eqn:triangle}
+\bm{Lz}  & =  \bm{X'y}, \ \text{forward substitution for $\bm{z}$}\\
+\bm{L'\beta}  &=  \bm{z}, \ \text{backward substitution for $\bm{\beta}$} \nonumber.  
+\end{align}
+
+Obtaining least squares estimates is very simple and (\ref{eqn:triangle}) shows estimates for $\bm{\beta}$ are obtained without inverting any matrices along the way. However, it serves as a baseline and a general unifying framework for computing linear systems as subsequently shown when more complex models can be rewritten into the form of (\ref{eqn:normal}). In such cases, other models can be shown to inherit the solution shown in (\ref{eqn:triangle}) even when they appear to be more complex, hence it unifies approaches to computing linear systems.
+
+\subsection*{Generalized Least Squares in OLS Form}
+
+The generalized least squares (GLS) problem is an incrementally more advanced model than its OLS counterpart. The standard textbook normal equations for the GLS model is
+
+\begin{equation}
+\bm{X'\Sigma^{-1}X}\bm{\beta} = \bm{X'\Sigma^{-1}y}
+\label{eqn:glsNormal}
+\end{equation}
+
+\noindent where $\bm{\Sigma} = \bm{LL'}$ is a square, symmetric, positive definite covariance matrix and all others matrices are as previously noted. The algebraic solution for the GLS approach is commonly shown to involve matrix inversions as follows
+
+\begin{equation}
+\label{eqn:gls}
+\widehat{\bm{\beta}} = \bm{(X'\Sigma^{-1}X)}^{-1} \bm{X'\Sigma^{-1}y}.
+\end{equation}
+
+The algebraic representation in (\ref{eqn:gls}) implies inverting the matrices $\bm{\Sigma}$ and $\bm{(X'\Sigma^{-1}X)}$ which can be entirely avoided. The dimensions of $\bm{\Sigma}$ may very large as it is equal to the number of rows in $\bm{X}$ and the GLS problem often involves an iterative solution with elements of $\bm{\Sigma}$ changing over the iterations, so inversions would be costly if not impossible. The concept of whitening can again be used to rewrite the normal equations in (\ref{eqn:glsNormal}) such that the data in $\bm{X}$ are ``de-correlated'' as 
+\begin{align}
+\bm{X^{*'}X^{*}}\bm{\beta}		&= \bm{X^{*'}y^{*}}  \label{eqn:glsNormal2}
+\end{align}
+
+\noindent where $\bm{X}^{*} = \bm{L}^{-1}\bm{X}$ and $\bm{y}^* = \bm{L^{-1}}\bm{y}$. This whitening transform writes (\ref{eqn:glsNormal}) into the form (\ref{eqn:normal}) so that it can inherit the same solution show in (\ref{eqn:triangle}). 
+
+If (\ref{eqn:glsNormal2}) were used in an iterative process and elements of $\bm{\Sigma}$ were updated at each step, then recomputing its Cholesky factor repeatedly would layer additional expense. This is where numerical recipes become situational and we encourage staring at $\bm{\Sigma}$ to determine if it can be separated and reduced into a simple structure. One such example is provided in the section on linear mixed models where a very large matrix is repeatedly updated in an iterative algorithm and finding its inverse at each iteration is costly. Instead, a standard inversion lemma is used and it is extended to exploit some special characteristics of that matrix allowing a complicated problem to be reduced into a very trivial computation implementation. 
+
+\subsection*{Weighted Least Squares in OLS Form}
+
+Weighted least squares (WLS) is a special case of GLS when the covariance matrix $\bm{\Sigma}$ is diagonal. In this case, it is entirely unnecessary to actually create and store the entire matrix $\bm{\Sigma}$ and instead only its diagonal elements, $v_{jj}$, are needed. Instead, there is a special matrix property providing that $\bm{X'\Sigma^{-1}X}$ =  $\bm{X'X^*}$ where is arrived at $\bm{X}^*$ via the elementwise calculation of $1/v_{jj}$ over each column of the matrix $\bm{X}$. Performing this elementwise calculation to the matrix $\bm{X}$ on the left and right hand side of Equation~\ref{eqn:glsNormal} when $\bm{\Sigma}$ is diagonal yields $\bm{X'X^*}\bm{\beta} = \bm{X^{*'}y}$, which is now written in the form of (\ref{eqn:normal}) and inherits the same computational solution. It is useful to point out that the Cholesky factor of a positive definite diagonal matrix is nothing more than the square root of the diagonal values of the original matrix. For example, $\bm{L}^{-1} = diag(\sqrt{1/v_{11}},\sqrt{1/v_{22}}, \ldots, \sqrt{1/v_{jj}})$, providing a way to ``skip ahead'' and find an inverse and Cholesky factor at one time which could then be used in the same way as the solution in (\ref{eqn:glsNormal2}). 
+
+\subsection*{Stochastic Gradient Descent for Linear Systems}
+
+The previously discussed methods provide a coherent and numerically stable way to compute linear models in the form of (\ref{eqn:normal}). However, when the dimensions of the model matrix $\bm{X}$ become extremely large, then computing by (\ref{eqn:triangle}) may prove challenging. Stochastic gradient descent (SGD) is a powerful approach for building highly scalable applications that reduces the computational burden associated with large data by simplifying it to an iterative solution passing over the gradient one sample at a time \cite{cizek,shamir,tran}.  
+
+While SGD is a general purpose optimization technique useful for minimization of any differentiable objective (loss) function, $\mathcal{J}(\bm{\theta})$, it is presented within the section on linear models as it provides a fast and clear pathway for many common psychometric solutions, such as with machine learning applications. It's conceivable that some training data sets used for ML could have hundreds of thousands or even millions of observations, in which case computing by (\ref{eqn:triangle}) may be unrealistic.   
+
+Formally, let $\nabla\mathcal{J}_i(\bm{\theta})$ denote the gradient vector of the objective function with respect to the parameters to be minimized for an $i$th sample in the data. SGD performs the optimization by drawing samples from the observed data and repeatedly updating the gradient and the parameters at each iteration as
+\begin{equation}
+\label{eqn:sgd}
+\bm{\theta}_{t+1} = \bm{\theta}_t - \alpha \nabla\mathcal{J}_i(\bm{\theta})
+\end{equation}
+
+\noindent where $\alpha > 0$ is a learning rate parameter, $\bm{\theta}_t$ is the provisional value of the parameters at iteration $t$, and $\nabla\mathcal{J}_i(\bm{\theta})$ is the value of the gradient computed using sample $i$. 
+
+With respect to models assuming the form of (\ref{eqn:normal}), the gradient is $\nabla\mathcal{J}(\bm{\theta}) = 2n^{-1}(\bm{X}'\bm{X}\bm{\theta}-\bm{X}'\bm{y})$. However, very large dimensions in $\bm{X}$ make general optimization difficult with either general gradient descent or using the traditional closed form solution in (\ref{eqn:triangle}). Instead, the iterative process outlined in Algorithm (\ref{algo:sgd}) allows for a large problem to be reduced simply. 
+
+\begin{algorithm}
+\caption{Stochastic Gradient Descent}
+\label{algo:sgd}
+	\hspace*{\algorithmicindent} \textbf{Input:} Choose initial values for $\bm{\theta}$, $\nabla\mathcal{J}_i(\bm{\theta})$, and select a value for $\alpha$.
+\begin{algorithmic}[1]
+	\State Set $\bm{\theta}_{t+1}:= \bm{\theta}_t - \alpha\nabla\mathcal{J}_i(\theta)$ at iteration $t$.
+	\State Sample $\bm{X}_i$, in $\bm{X}$ and its corresponding value, $\bm{y}_i$.
+	\State Compute $\nabla\mathcal{J}_i(\bm{\theta})$ using $\{\bm{X}_i, \bm{y}_i\}$.
+	\State Iterate between steps (1) and (3) until criterion for a stopping rule has been satisfied. 
+\end{algorithmic}
+\end{algorithm}
+
+When $i=1$, then $\bm{X}_i$ is the $i$th row of the model matrix and this process is termed stochastic gradient descent. When $1 < i < n$, the same iterative process can be used in small batches termed mini-batch gradient descent and $\bm{X}_i$ is a collection of rows in the model matrix. When $i=n$ with $n$ being the total rows in $\bm{X}$, this is termed batch gradient descent. 
+
+SGD, in contrast to traditional least squares algorithms, works only with samples of data and not with the full model matrix $\bm{X}$ at any point. This hints towards a different way to manage the amount of data needed in storage and the concept of streaming in only subsets of data needed for computing instead of requiring the complete data for memory management can be used with SGD \cite{tran}. Consequently, SGD not only uses smaller computations, it also provides a means for using smaller subsets of data as it computes and the combination of the two is pivotal for computing with modern data that may contain many millions of observations. 
+
+A concept only noted in passing is that $\alpha$ is a learning rate and selecting values for this scalar are not fully explored here. Pragmatically speaking, choosing values for the learning rate parameter is a harder problem that it may seem at the surface and there is a good deal of research to further explore. A ``large'' value for learning is generally desired for initial evaluations of the gradient allowing the algorithm to take large steps towards the optimal value. However, using that same large value when approaching the optimum may cause for the algorithm to jump over the optimal value and not converge to the expected result. Hence, the learning rate ``schedule'' is a concept that adjusts the learning rate to smaller values as the algorithm proceeds. In addition, the example here assumes $p \ll n$, in which case the loss function associated with standard linear regression can be used. In fact, many machine learning applications involve scenarios where $n < p$, in which case other approaches such as Ridge or Lasso regressions may prove useful, but can adopt the general SGD framework described in Algorithm (\ref{algo:sgd}). 
+
+As an aside, iterative algorithms need a stopping rule, often referred to as convergence criteria. In many respects, it's an arbitrary rule constructed for a given condition and there are multiple ways to achieve this outcome. For example, one might compute changes in the parameter estimates from iteration $t$ to $t+1$ and take the difference between them. Stopping might occur if no parameter differs by more than $\epsilon$, a term set to be very small indicating the parameters are not changing enough from iteration to iteration any longer. Or, one might stop when differences in the log-likelihood differ by less than $\epsilon$ over iterations. In the SGD scenario, one might stop after reaching a fixed number of iterations or when the sum of the gradients squared is less than $\epsilon$. No particular rule can be highly endorsed, although some scenarios are susceptible to being stuck in a saddle point. 
+
+\subsection*{Linear Mixed Models with Henderson's Method}
+
+The linear mixed model is generally written with the form $\bm{y} = \bm{X}\bm{\beta} + \bm{Z}\bm{u} + \bm{e}$ \cite{laird:ware} and is often presented as having the normal equations \cite{henderson}
+
+\begin{equation}
+\label{eqn:henderson:eiv}
+\left [ 
+\begin{array}{cc}
+\bm{X'}\bm{\Omega}^{-1}\bm{X} & \bm{X'}\bm{\Omega}^{-1}\bm{Z}\\
+\bm{Z}'\bm{\Omega}^{-1}\bm{X} & \bm{Z}'\bm{\Omega}^{-1}\bm{Z} + \bm{G}^{-1}\\
+\end{array}
+\right ]
+\left [ 
+\begin{array}{c}
+\bm{\beta}\\
+\bm{u}\\
+\end{array}
+\right ] = 
+\left [ 
+\begin{array}{c}
+\bm{X'}\bm{\Omega}^{-1}\bm{y} \\
+\bm{Z}\bm{\Omega}^{-1}\bm{y}\\
+\end{array}
+\right] 
+\end{equation}
+
+
+\noindent where $\bm{y}$ is an $n \times 1$ vector of outcomes, $\bm{X}$ is an $n \times p$ model matrix for the fixed effects, $\bm{\beta}$ is a $p \times 1$ vector of estimates for the fixed effects, $\bm{Z} = [\bm{Z}_1, \bm{Z}_2, \ldots, \bm{Z}_Q]$ is an $n \times Q$ model matrix for the random effects, $\bm{u}' = [\bm{u}'_1, \bm{u}'_2, \ldots, \bm{u}'_Q]$ is the vector of random effects, and $\bm{e}$ is the residual error term. The matrices $\bm{\Omega}$ and $\bm{G}$ can have many forms depending on the structure of the model and are developed below for one variant of the linear mixed model. 
+
+\begin{algorithm}
+\caption{Henderson Mixed Model Sketch}
+\label{algo:a}
+	\hspace*{\algorithmicindent} \textbf{Input:} Create starting values for $\sigma^2_{\epsilon}$ and $\sigma^2_{q} \ \forall \ q$.
+\begin{algorithmic}[1]
+	\State Construct $\bm{\Omega} = \sigma^2_{\epsilon}\bm{I}_n$ and $\bm{G}=diag(\{\sigma^2_{1}, \ldots, \sigma^2_{1}\}, \{\sigma^2_{2}, \ldots, \sigma^2_{2}\}, \ldots, \{\sigma^2_{Q}, \ldots, \sigma^2_{Q}\} )$. The length of the diagonal element for block $q$ is equal to the number of columns in its corresponding matrix, $\bm{Z}_q$.
+	\State Solve the linear system for $\bm{\beta}$ and $\bm{u}$.
+	\State Update the values of the variances of the random effects including $\sigma^2_{\epsilon}$ and $\sigma^2_{q}$.
+	\State Iterate between steps (1) and (3) until criterion for a stopping rule has been satisfied. 
+\end{algorithmic}
+\end{algorithm}
+
+Given the representation of (\ref{eqn:henderson:eiv}) there is a temptation to assume a naive solution to the linear system by inversion of the leftmost matrix. This is in fact how the SAS software documents the solution to the mixed model in its technical manual \cite{sas}. This may be perhaps just the algebraic representation and not actually the computational implementation. Instead, the computational solution can be written to resemble the solutions to linear systems previously described and a sketch of the iterative process is provided in Algorithm (\ref{algo:a}). Begin by writing 
+
+\begin{equation}
+\label{eqn:chol}
+\bm{L}\bm{L}' = 
+\left [ 
+\begin{array}{cc}
+\bm{X'}\bm{\Omega}^{-1}\bm{X}& \bm{X'}\bm{\Omega}^{-1}\bm{Z}\\
+\bm{Z}'\bm{\Omega}^{-1}\bm{X} & \bm{Z}'\bm{\Omega}^{-1}\bm{Z} + \bm{G}^{-1}\\
+\end{array}
+\right], \ \ 
+\bm{y}^* = 
+\left [ 
+\begin{array}{c}
+\bm{X'}\bm{\Omega}^{-1}\bm{y} \\
+\bm{Z}\bm{\Omega}^{-1}\bm{y}\\
+\end{array}
+\right]
+\end{equation}
+
+\noindent where elementwise calculation can be used for the diagonal matrices (e.g., $\bm{\Omega}^{-1}\bm{X}$ ) as presented in the WLS section and $\bm{\Theta}' = \left[\bm{\beta}' \ \bm{u}'\right]$. The model can now be written as $\bm{L}\bm{L}'\bm{\Theta}'=\bm{y}^*$ sharing the representation of the OLS form and also inherits the solution using (\ref{eqn:triangle}) through the two triangular systems, $\bm{L}\bm{z}  = \bm{y}^*$ for $\bm{z}$ and then $\bm{L}' \bm{\Theta}  = \bm{z}$ for $\bm{\Theta}$. Of course, this is only one iteration and solutions for the mixed model iterate with updated values for the variance components. Note, that when all elements of the matrix $\bm{G} = \bm{0}$, this reduces to the partitioned fixed effects model.
+
+\subsection*{Variance Estimation with Woodbury Identity and Decompositions for Matrix Inversions}
+
+Achieving scalability with iterative algorithms often requires finding less expensive ways to manage computations that are repeated. Linear mixed models are one such example where estimation depends on iterating between steps to compute variance components and then use those to estimate fixed parameters. It is one use case to further explore how better scalability can be achieved by reducing the computational overhead by rewriting a problem to take advantage of an inversion lemma, a decomposition, and recycling certain components. In the linear mixed model, obtaining updated values for the variance components at each iteration of the algorithm can be estimated by first computing \cite{mcandsearle:2001}
+
+\begin{equation}
+	\label{eqn:varUpdate}
+	\bm{T} = \left[\bm{I} + \left(\bm{Z}'\bm{Z} - \bm{Z}'\bm{X} (\bm{X}^{'}\bm{X})^{-1} \bm{X}^{'}\bm{Z}\right)\bm{D}\right]^{-1}
+\end{equation}
+
+\noindent where $\bm{I}$ is an identity matrix with dimensions equal to the model matrix for the random effects and $\bm{D} = \sigma_{e}^{-2}\bm{G}$ and all other matrices are as above. The variances at each iteration $t-1$ are computed (removing subscripts for iteration)
+
+\begin{equation}
+	\label{eqn:vars:mixed}
+	\sigma_{e}^2 = \frac{\bm{y}'\bm{e}}{N-p}, \ \ \sigma^2_{q} = \frac{\widetilde{\bm{u}}'_{q}\widetilde{\bm{u}}_{q}} {m_q - tr(\bm{T}_q)} 
+\end{equation}
+
+\noindent where $\sigma_{e}^2$ is the residual variance, $\sigma^2_{q}$ is the marginal variance level $q$, $\widetilde{\bm{u}}_q$ are the predictions of the random effects at level $q$, $m_q$ are the number of units in level $q$, and $tr(\bm{T}_q)$ is the trace of the matrix $\bm{T}_q$, which is the block of the matrix $\bm{T}$ corresponding to the $q$th block. 
+
+The challenge here is that the square matrix $\bm{T}$ can be very large. As a result, it is extremely expensive to find its inverse inside an iterative problem, thus rendering this particular approach computationally prohibitive unless a reduceable structure can be identified. In some cases, there is an alternative method for taking the inverse of a matrix with this structure via the Woodbury Matrix Identity \cite{Woodbury1950} that provides a very efficient route for computation. First, Equation~(\ref{eqn:varUpdate}) is rewritten as
+\begin{equation}
+	\label{eqn:varStep1}
+	\bm{T} = \left(\bm{I} +  \bm{Z}'\bm{Z}\bm{D} - \bm{Z}'\bm{X} (\bm{X}'\bm{X})^{-1} \bm{X}'\bm{Z}\bm{D}\right)^{-1}
+\end{equation}
+
+\noindent where $\bm{D}$ is a diagonal matrix in the case of random intercepts and within each block $q$ is constant along the diagonal. The Woodbury Identity provides that $\bm{T}$ can be computed as
+\begin{equation}
+	\label{eqn:woodbury}
+	\bm{T} = \bm{A}^{-1} + \bm{A}^{-1}\bm{B}\left(\bm{P} - \bm{B}'\bm{D}\bm{A}^{-1}\bm{B}\right)^{-1}\bm{B}'\bm{D}\bm{A}^{-1}
+\end{equation}
+
+\noindent where $\bm{A} = \bm{I} +  \bm{Z}'\bm{Z}\bm{D}$, $\bm{B} = \bm{Z}'\bm{X}$, and $\bm{P} = \bm{X}'\bm{X}$. Now using (\ref{eqn:woodbury}) $\bm{T}$ can be computed by separately finding the inverse of $\bm{A}$ and then also of $\bm{P} - \bm{B}'\bm{D}\bm{A}^{-1}\bm{B}$. The latter of the two has very small dimensions, only $p \times p$ where $p$ is the number of fixed effects in the model. The portion $\bm{I} + \bm{Z}'\bm{Z}\bm{D}$ is a bit more cumbersome because the dimensions of the model matrix for the random effects is $Q \times Q$, where $Q$ is the number of columns in the model matrix for the random effects which can be extremely large. 
+
+The components $\bm{I}$ and $\bm{Z}'\bm{Z}$ are fixed and never change over the iterative process, only $\bm{D}$ is changing at each iteration. For nested random effects, $\bm{Z}'\bm{Z}$ is block diagonal but it has no special structure when the random effects are fully or partially crossed. This fact is motivation to explore if the special structures can be exploited in order to more easily find $\bm{A}^{-1}$ given that it will be computed many times. Of course, it is a well-known result that the sum of inverses is not equal to the inverse of the sum. However, $\bm{I}$ and $\bm{D}$ are both diagonal within a block of $q$ for nested random effects and have constant values along the diagonal. These structures make it possible to find $\bm{A}^{-1}$ in a trivial way for the linear mixed model when dealing with nested random effects. Because $(\bm{Z}'\bm{Z})^{-1}$ is block-diagonal in this case, its inverse is found one block at a time. 
+
+It's pointed out here that the following works in the special case of nested random effects for random intercepts and is not globally generalizable (see appendix). However, the emphasis in this work is to identify special structures for a given scenario and exploit them to reduce computational burden. The inverse of the sum provided here may also have broader applications in other types of problems, such as when repeatedly finding the inverse of a Hessian matrix in iterative maximization problems, and so it is a motivating use case to document the condition.
+
+For convenience, the subscript on $\bm{Z}$ is dropped, but note that this performed on each block, or perhaps on large $\bm{Z}$, when it too has a special structure. First, precompute and store the eigendecomposition for $\bm{Z}'\bm{Z}$, which is the most expensive part of the calculation. Then, all subsequent iterations treat the eigenvectors as fixed and are reused and the eigenvalues are updated repeatedly with virtually no computational overhead. The inverse of the sum is then simply the inverse of the eigenvalues as  
+\begin{equation}
+\label{eqn:decompZ}
+(\bm{Z}'\bm{Z}\bm{D} + \bm{I})^{-1} = \bm{A}^{-1} = \bm{Q}_1 \bm{\lambda}^{*-1} \bm{Q}_1'
+\end{equation}
+
+\noindent where the details and a proof for (\ref{eqn:decompZ}) are provided in the appendix. Now $\bm{A}^{-1}$ is obtained in a much less expensive way by reusing, $\bm{Q}_1$, and simply updating $\bm{\lambda}^*$ at each iteration, which is a nominal task given that it is diagonal. So, pulling together the Woodbury Identity and the decomposition derived for Equation~(\ref{eqn:decompZ}), the inverse of the very big matrix $\bm{T}$ is easily computed over and over again with little overhead. 
+
+\section*{Scalable Methods for Integration}
+
+Psychometricians routinely encounter challenging marginal likelihood problems or posterior distributions that require numerical integration methods. These methods approximate difficult integrals by summing over a finite number of points. Integrals with a gaussian factor are rather common in psychometric applications and, as such, the Gauss Hermite rule (GHR) may be used for integrals of the following form over the domain $(-\infty,\infty)$
+\begin{equation}
+\label{eqn:integral}
+\int f(\theta)e^{-\theta^2} d\theta \simeq \sum_{q=1}^Q f(\theta_q)w_q
+\end{equation}
+
+\noindent where summation is over $\mathcal{P}=\{\theta_q,w_q\}^Q_{q=1}$, the so called nodes, $\theta_q$, and weights, $w_q$, for $q = 1,2, \ldots, Q$. The choice of nodes and weights in $\mathcal{P}$ is optimal under GHR and will generally outperform other methods \cite{Quarteroni}. Unfortunately, psychometric practice seems to have codified the basic rectangular rule with fixed, equally spaced points from the domain of $(-4,4)$ \cite{bock:eap} despite its serious limitations in most cases for at least two reasons. First, the equally spaced points may not be sampled in the best region of the integrand and second it lacks the computational advantage of precision until an extremely large number of fixed points are used. Building scalable applications requires approaches with minimal computational overhead that achieve precision rapidly. 
+
+\subsection*{One-Dimensional Gaussian Quadrature}
+
+Conveniently, psychometricians encounter scenarios where the weight function is a standard normal density
+
+\begin{equation}
+\label{eqn:integralApprox2}
+\int f(\theta)\frac{e^{-\theta^2/2}}{\sqrt{2\pi}} d\theta \simeq \pi^{-1/2}\sum_{q=1}^Q f(\sqrt{2}\bm{L}\theta_q+\widetilde{\theta})w_q
+\end{equation}
+
+\noindent where $\widetilde{\theta}$ is a location parameter for centering \cite{liu:pierce}\footnote{The $\bm{L}$ in (\ref{eqn:integralApprox2}) is actually a scalar, $\sigma$, but is left as a matrix so it appears as a special case of (\ref{eqn:multIntegralRotate}).}. The approximation in (\ref{eqn:integralApprox2}) implements a transformation on $\theta$ from (\ref{eqn:integral}) and adapts to the best region of the integrand--hence it is the adaptive GHR. Scalability and accuracy in evaluating integrals depends not only on the number of quadrature points, but also on the location of those points and the nature of the function surface being evaluated \cite{Lesaffre}. 
+
+\subsection*{Multivariate Gaussian Quadrature}
+
+The one-dimensional GHR can be extended to the case for integrals of the general form in multiple dimensions 
+\begin{equation}
+\label{eqn:multIntegral}
+\int \ldots \int f(\bm{\theta}) \psi(\bm{\theta}) d\bm{\theta}.
+\end{equation}
+
+\noindent where $\bm{\theta} = \{\theta_{1}, \ldots, \theta_{p}\}'$ and continue with the assumption $\psi(\bm{\theta})$ is multivariate normal. The integral in (\ref{eqn:multIntegral}) is often intractable and requires approximation. This may generally be approximated with nodes rotated to reflect a covariance structure and possibly shifted over a mean. That rotation can be implemented with the Cholesky factor of a covariance matrix as \cite{chowdhary,jackel,judd,stringer} 
+\begin{equation}
+\label{eqn:multIntegralRotate}
+\int \ldots \int f(\bm{\theta})\psi(\bm{\theta}) d\bm{\theta}  \simeq  \pi^{-P/2}\sum_{q_1=1}^{Q} \cdots \sum_{q_p=1}^{Q} f(\sqrt{2}\bm{L}(\theta_{q1}, \ldots, \theta_{qp})' + (\widetilde{\theta}_{q1}, \ldots, \widetilde{\theta}_{qp})')w_q^*
+\end{equation}
+ 
+\noindent where $\theta_{qp}$ is node $q = 1, 2, \ldots, Q$ in dimension $p = 1,2, \ldots P$, $w_{qp}$ is the corresponding weight, $w_q^* = \prod^P_{p=1}w_{qp}$, and $\widetilde{\theta}_{qp}$ is used to mean some points around which the nodes are centered. The nodes are expansions of the points in the one-dimensional set, $\mathcal{P}$, via a cartesian product rule to form a multivariate grid, $\bm{G}$, with dimensions $Q^P\times P$. Hence, the $q$th row of $\bm{G}$ is $\bm{g}_q = (\theta_{q1}, \ldots, \theta_{qp})$.  Note that (\ref{eqn:integralApprox2}) is simply a special case of (\ref{eqn:multIntegralRotate}), hence no new concepts are needed for implementation beyond what has been described for the one-dimensional scenario. 
+
+The extremely large number of quadrature points is what renders this approach challenging as, hueristicaly, this is effectively a two step process. Step 1 requires evaluating the function $f(\cdot)$ over all $Q^P$ nodes and then step 2 is the summation of (\ref{eqn:multIntegralRotate}) making use of those values over all rows of the grid $\bm{G}$. Even with a modest selection for $Q$, the exponential growth in the function evaluations quickly becomes large with increasing $P$. Hence, we might explore ways in which we evaluate $f(\cdot)$ as few times as possible and whether fewer function evaluations than $Q^P\times P$ can be used. These options are explored in the applications section.
+
+\section*{General Purpose Optimization Tools}
+
+Perhaps the most pervasive need for psychometric application building is a collection of tools for optimizing likelihoods. The likelihood theory of inference is well-developed \cite{king:1998} and found across all corners of psychometric practice. The common challenge is that likelihood functions for psychometric problems rarely have analytic forms and so iterative numerical approaches are used for maximum likelihood estimation (MLE). Two methods are explored here with a reminder that the stochastic gradient descent method is also a general purpose tool, but was presented within the section on linear models.
+
+\subsection*{Maximization with Newton-Raphson}
+
+Optimization problems in psychometrics generally involve a multi-parameter likelihood function intending to simultaneously maximize all parameters. In this instance, let $\mathcal{L}(\bm{\theta})$ denote a twice differentiable likelihood function with respect to the parameters $\bm{\theta$} with gradient $\nabla\mathcal{L}(\bm{\theta})$ and Hessian, $\mathcal{H}(\bm{\theta})$. The Newton-Raphson procedure maximizes $\mathcal{L}(\bm{\theta})$ by choosing initial starting values for $\bm{\theta}$ and then iteratively updating the parameters via
+
+\begin{equation}
+\label{nr}
+\bm{\theta}_{t+1} = \bm{\theta}_t - \mathcal{H}_t(\bm{\theta})^{-1} \nabla\mathcal{L}_t(\bm{\theta})
+\end{equation}
+
+\noindent where the subscript $t$ denotes the values of the gradient and Hessian at iteration $t$ and continues until a convergence criterion is reached. The notation, $\mathcal{H}_t(\bm{\theta})^{-1}$, implies inversion of this matrix at each iteration. However, as previously discussed, the operation should be performed using a numerically stable decomposition. Additionally, because $\mathcal{H}_t(\bm{\theta})^{-1}$ is found iteratively and may be expensive, it may be feasible to find a trivial way to perform this operation similar to the eigendecomposition method in Equation~(\ref{eqn:efficient}) provided in the appendix that takes advantage of precomputing and reusing certain components. While the method in the appendix is unique to the mixed model scenario, it is intended to be a concept that can be generalized to other situations where a matrix inverse computed iteratively can be made less expensive. Quasi-Newton methods, such as the BFGS algorithm \cite{Flet87}, are other less expensive options that are quite simple to implement and avoid directly computing $\mathcal{H}_t(\bm{\theta})^{-1}$, which may be difficult in some scenarios.
+
+It can be pointed out that the SGD approach in (\ref{eqn:sgd}) bears similarity to Newton's method of (\ref{nr}) where the learning rate of SGD is replaced by a Hessian in Newton's method. Conceptually, Newton's method will more directly head towards the optimal value and SGD will essentially wiggle its way there. However, the cost of Newton's approach is much greater than that of the SGD. Some work combining the faster convergence of Newton's method with the reduced computational complexity of SGD is available for further study \cite{jascha,dampSGD}.    
+
+\subsection*{Expectation-Maximization Algorithm}
+
+There is no approach more ubiquitous across psychometrics than the expectation-maximization (EM) algorithm \cite{dempster}. The EM algorithm is based on the idea that there exists some complete data, $\bm{z} = \{\bm{x}, \bm{\eta}\}$, and a complete data likelihood, $\mathcal{L}(\bm{\theta};\bm{z}) = \mathcal{L}(\bm{\theta};\bm{x},\bm{\eta})$, that could be maximized with respect to $\bm{\theta}$ if the complete data were observed. The problem is that only $\bm{x}$ is observed and $\bm{\eta}$ are latent; hence the values of $\bm{\eta}$ represent missing data and so maximizing $\mathcal{L}(\bm{\theta};\bm{z})$ cannot easily occur. 
+
+The EM algorithm ameliorates the missing data problem by using provisional, or conditional expected values, of $\bm{\eta}$ and then maximizing the complete data likelihood. Algorithm (\ref{algo:em}) outlines the alternating steps used to implement EM.
+
+\begin{algorithm}
+\caption{Expectation Maximization Algorithm}
+\label{algo:em}
+	\hspace*{\algorithmicindent} \textbf{Input:} Create starting values for $\bm{\theta}$.
+\begin{algorithmic}[1]
+	\State E-step is to compute expected values given the observed data and the provisional parameter estimate, $Q(\bm{\theta};\bm{\theta}_t) = \mathbb{E}[\mathcal{L}(\bm{\theta};\bm{x},\bm{\eta})|\bm{x},\bm{\theta}_t]$.
+	\State M-step is to find $\argmax_{\bm{\theta} \in \bm{\Omega}} Q(\bm{\theta};\bm{\theta}_t)$ where $\bm{\theta}$ is in the parameter space $\bm{\Omega}$.
+	\State Iterate between steps (1) and (2) until criterion for a stopping rule has been satisfied. 
+\end{algorithmic}
+\end{algorithm}
+
+There are many examples of the EM algorithm in the psychometric literature for interested readers to further explore \cite{Hsu1999TheRB}. One very simple example that can be quickly illustrated is to reconsider estimating the linear mixed model of the form $\bm{y} = \bm{X}\bm{\beta} + \bm{Z}\bm{u} + \bm{e}$. Here, the complete data are $\{\bm{y}, \bm{u}\}$ and if fully observed, the parameters of the mixed model could be found using the MLE variants in Equation~(\ref{eqn:vars:mixed}) for the variance components and Equation~(\ref{eqn:triangle}) for estimates of the fixed effects\footnote{If the random effects were observed, the least squares solution is justified as $\bm{y} -\bm{Z}\bm{u} = \bm{X}\bm{\beta} + \bm{e}$}. The random effects are in reality missing, but the joint distribution of the complete data, $\{\bm{y}, \bm{u}\}$, is assumed multivariate normal and standard distribution theory for the multivariate normal provides that $\mathbb{E}(\bm{u}|\bm{y})$ can be easily determined \cite{mcandsearle:2001} and used to update a new value for the M step.  
+
+There are some occasions where the M-step may not have a closed form or data might be so large the maximization step could be daunting even when working values for the missing data are easily obtained. In fact, it is somewhat challenging to use EM at scale without some additional considerations. One very scalable option is to separate the computations when possible. For instance, there are occassions in psychometrics where the expected values used in the E-step can be computed independently, representing what is known as an embarrasingly parallel problem and the E-step (and possibly also the M-step) can be executed in parallel \cite{lee}. 
+
+An interesting variant of the EM algorithm would be to use SGD in the M-step to manage a large data problem if the E-step was easily available. For example, in the case of the mixed model above, assume $\mathbb{E}(\bm{u}|\bm{y})$ is available through an efficient E-step, but maximization via (\ref{eqn:triangle}) is hard because the dimensions of the model matrix $\bm{X}$ are extremely large. Instead of computing the M-step by (\ref{eqn:triangle}), the SGD could be used in the M-step as a way to manage the process allowing computation to be highly scalable. An illustration for how this could be implemented  for mixed models is provided in the appendix. Other occasions may arise, for instance, in generalized linear mixed models that involve an integral for the M-step and one of the tools discussed above for numerically approximating that integral might be used. In other cases, maximization may require an iterative solution, thus pulling in the Newton-Raphson procedure as a way to solve the M-step.
+
+\section*{Applications to Psychometric Problems}
+
+The previously discussed methods are computational templates that can be used to build and scale psychometric applications. Three examples are provided here with supporting R code in a Github repository available upon request. The intent is not to center attention on these specific examples; rather, these examples are used because they illustrate how the preceding templates can be used to compute something complex that is not routinely found in standard software. For this reason, they are attractive for exploring computationally efficient approaches. 
+
+\subsection*{Example 1: Estimating the Error in Variables Linear Model}
+
+Estimates of examinee performance from a psychometric instrument are noisy reflections of a true, latent trait. The observed measures are subsequently used in various ways and often used as inputs in regression models of some form. When using these observed estimates, the assumptions of the Gauss-Markov theorem do not hold and the parameter estimates are then inconsistent unless corrections are made \cite{doran:eiv,lockwood:eiv,nab}.   
+
+These models are chosen as an example because with different assumptions about the nature of the measurement error (e.g., homoscedastic versus heteroscedastic), the models may take different forms and custom software is often written to obtain parameter estimates. One such example is the \texttt{mecor} \cite{nab} package in R and a code review of its implementation shows that the algebraic representation and computational representation are one and the same. 
+
+One form of the linear EiV regression is commonly shown to be \cite{stata:eiv}
+
+\begin{equation}
+\label{eqn:eiv}
+(\bm{X}'\bm{X} - \bm{S})\bm{\beta} = \bm{X}\bm{y} 
+\end{equation}
+
+\noindent where, in the case of known estimates for the reliability, the matrix $\bm{S} = diag(N(1-r_1)\sigma^2_1, \ldots, N(1-r_p)\sigma^2_p) $ where $r_p$ is the reliability of the $p$th variable, $N$ is the number of individuals, and $\sigma^2_p$ is the sample variance of the $p$th variable in the model matrix $\bm{X}$.  Now, find $\bm{X}'\bm{X} - \bm{S} = \bm{L}\bm{L}'$ and obtain estimates using (\ref{eqn:triangle}). It's useful to note that (\ref{eqn:eiv}) can be extended for the linear mixed model and the computational approach previously shown can be applied. 
+
+\subsection*{Example 2: Estimating a High-Dimensional EAP}
+
+Suppose we are interested in estimating the ability of an examinee using a $P$-dimensional EAP estimator. This is chosen as an example because it is a desirable estimator that continues to be challenging for psychometricians to implement \cite{Chalmers,ferrando}. Let the expected value of the posterior be 
+
+\begin{equation}
+\label{eqn:scoreIntegral}
+\widehat{\boldsymbol{\theta}} = \frac{\int \dots \int \boldsymbol{\theta} \mathcal{L}(\boldsymbol{\theta};\boldsymbol{z}) \psi(\boldsymbol{\theta};\boldsymbol{\mu},\boldsymbol{\Sigma})d\boldsymbol{\theta}}{\int \dots \int \mathcal{L}(\boldsymbol{\theta};\boldsymbol{z})\psi(\boldsymbol{\theta};\boldsymbol{\mu},\boldsymbol{\Sigma})d\boldsymbol{\theta}}
+\end{equation}
+
+\noindent where $\psi(\boldsymbol{\theta};\boldsymbol{\mu},\boldsymbol{\Sigma})$ is the multivariate normal density function and the likelihood function (see appendix) is a product of domain-specific likelihoods as $\mathcal{L}(\boldsymbol{\theta};\boldsymbol{z}) = \prod^P_{p=1}\mathcal{L}(\theta_p;\bm{z}_p)$. Individuals are assumed to have some idiosyncratic ability contributing to their response on each dimension and that some test items are uniquely associated with dimension 1 ($\theta_1$), others with dimension 2 ($\theta_2$), and so on for the $P$th dimension, $\boldsymbol{\theta}\boldsymbol{=}(\theta_1, \theta_2,\dots ,\theta_P)^{'}$. 
+
+The likelihood function and its corresponding population distribution in (\ref{eqn:scoreIntegral}) are not in the same parametric family, as such the integral cannot be evaluated analytically. Here three options are explored that make for possible implementation that vary in the number of times the function $\mathcal{L}(\theta;\bm{z})$ is computed. Once the likelihood is evaluated, then step 2 is effectively direct implementation of the sum over all rows of $\bm{G}$. Sparse grids or ``pruning'' some values are options for reducing the number of points over which the function is evaluated, but those are not explored here.
+
+The first canonical option is to use (\ref{eqn:multIntegralRotate}) directly. This involves using the Cholesky factor to adjust the nodes to absorb the population covariance structure and then, possibly shift the nodes over a new centered point. This works quite well; however, has one downside worth noting that makes this computationally somewhat less attractive. 
+
+Initially (before rotating with the Cholesky factor), the nodes in $\bm{G}$ are patterned such that marginally (i.e., each column in $\bm{G}$) the $Q$ unique nodes are repeated over and over. When the rows of this matrix are rotated via $\bm{L}(\theta_{q1}, \ldots, \theta_{qp})'$, then the uniqueness is lost exponentially over each column. That is, column 1 has $Q$ unique nodes repeated, column 2 has only $Q^2$ unique nodes, column 3 would have $Q^3$ unique nodes and so on up to the $P$th column. 
+
+This reduced pattern of unique nodes creates a larger burden in that we must compute the values of the likelihood at each node and that IRT likelihood is somewhat expensive as it involves computing exponents. In column 1, it is feasible to compute the value of the likelihood at the $Q$ unique points and then simply copy those values into the other positions in column 1 where the same value of the node appears. That is, we would compute the likelihood only $Q$ times and then recycle those values by copying them into other positions where the same node appears in the grid. In column 2, we must compute the likelihood at all $Q^2$ unique nodes and then the values could then be copied into the positions of this column where the same node appears again. The upside here is that the method yields a good approximation of the integral. The downside is the computational expense is very large. In this case, we would evaluate the likelihood  $Q + Q^2 + Q^3, \ldots, Q^P$ times.
+
+A second option for computing this integral could be to use a stochastic quadrature routine. In this process the nodes are random draws from $\mathcal{N}_p(\bm{M}, \bm{I}_P)$, where $\bm{I}_P$ is a $P$-dimensional identity matrix again creating the grid $\bm{G}$, but in this instance it would have dimensions $R \times P$ where $R$ is the number of random variates chosen and it is not an exponential function of $R$. In this manner, the variates in $\bm{G}$ would reflect the population covariance after being premultiplied by the Cholesky factor (see introductory section) when the summation in (\ref{eqn:multIntegralRotate}) is used to evaluate the integral. This stochastic approach makes the computation reasonable and its precision is highly dependent on the law of large numbers such that $\widehat{\theta}_p\xrightarrow{a.s.}\theta_p$ as $R\rightarrow\infty$\footnote{The asymptotics here also depend on the number of test items being very large and not only the number of variates used for evaluation}. In this case, we would evaluate the likelihood $R \times P$ times.
+
+The GHR tends to behave well when the function being evaluated approximates a low order polynomial \cite{liu:pierce}. However, in situations where an examinee responds to many test items, the function could spike in some areas causing for GHR to perform badly as few quadrature points could live within a region of interest. Perhaps the integral within (\ref{eqn:scoreIntegral}) can be rewritten so that it behaves more like a low order polynomial \cite{ets:2007,pin:bates,hesketh:skrondal,Tuerlinckx} and a third approach can be explored as
+
+\begin{equation}
+\int \dots \int \mathcal{L}(\boldsymbol{\theta};\boldsymbol{z})\psi(\boldsymbol{\theta};\boldsymbol{\mu},\boldsymbol{\Sigma})d\boldsymbol{\theta} = \int \dots \int \frac{\mathcal{L}(\boldsymbol{\theta};\boldsymbol{z})\psi(\boldsymbol{\theta};\boldsymbol{\mu},\boldsymbol{\Sigma})}{\widetilde{\psi}(\boldsymbol{\theta};\widetilde{\boldsymbol{\mu}},\widetilde{\boldsymbol{\Sigma}})}\widetilde{\psi}(\boldsymbol{\theta};\widetilde{\boldsymbol{\mu}},\widetilde{\boldsymbol{\Sigma}})d\boldsymbol{\theta}
+\end{equation}
+
+\noindent and then inserting back into (\ref{eqn:scoreIntegral}) gives the approximation
+
+\begin{equation}
+\label{eqn:intApprox}
+\widehat{\theta}_p \simeq  \frac{\sum^Q_{q=1,1} \cdots \sum^Q_{q=p,1}\theta_{p,q} \mathcal{L}(\theta_{1,q};\bm{z}_1) \mathcal{L}(\theta_{2,q};\bm{z}_2)\cdots \mathcal{L}(\theta_{P,q};\bm{z}_p)\phi(\boldsymbol{\theta}_q;\boldsymbol{\mu}',\boldsymbol{\Sigma'})w^*_q}{\sum^Q_{q=1,1} \ldots\sum^Q_{q=p,1}\mathcal{L}(\theta_{1,q};\bm{z}_1) \mathcal{L}(\theta_{2,q};\bm{z}_2) \cdots \mathcal{L}(\theta_{P,q};\bm{z}_p)\phi(\boldsymbol{\theta}_q;\boldsymbol{\mu}',\boldsymbol{\Sigma'})w^*_q}
+\end{equation}
+
+\noindent where
+
+\begin{equation}
+\label{eqn:mixing}
+\phi(\boldsymbol{\theta}_q;\boldsymbol{\mu}',\boldsymbol{\Sigma'}) = \frac{\psi(\boldsymbol{\theta}_q;\boldsymbol{\mu},\boldsymbol{\Sigma})}{\widetilde{\psi}(\boldsymbol{\theta}_q;\widetilde{\boldsymbol{\mu}},\widetilde{\boldsymbol{\Sigma}})}
+\end{equation}
+
+\noindent and $\widetilde{\psi}(\cdot)$ is a proposal distribution. This expression resembles an importance sampling approach \cite{gelman} and has been termed importance Gauss Hermite (IGH) method \cite{elvira}. The value of the IGH approach is that the weights are retuned to have greater importance for certain nodes used to evaluate the integrand. The implication is that fewer quadrature points may be needed to evaluate the integral, thus leading to greater scalability in high-dimensional psychometric problems. The trade-off is that some calculations involving the densities in $\phi(\cdot)$ is required, though that additional cost is seemingly smaller than if more quadrature points were used and importance-based methods may be valuable for reducing computational burden \cite{Ackerberg}. At the current time, no applications of IGH can be found in psychometric applications. 
+
+The additional benefit is that the original (unrotated) Gauss Hermite nodes are used in (\ref{eqn:intApprox}). We can exploit the uniqueness in the repeating values of the nodes in each column and compute the value of the likelihood only $Q$ times in each dimension and then copy those values into other positions of the column where they repeat. As a result, the likelihood is evaluated only $Q \times P$ times and not $Q^P \times P$ times! Assuming $Q < R$, this approach evaluates the likelihood the smallest number of times of all three cases. 
+
+%Naturally, the question of what values are used in $\widetilde{\psi}(\cdot)$ needs clarification. This choice is what has the largest impact relative to the computational burden, yet unfortunately, some experimentation is %needed for choosing these values. The R code implementation available for this example uses $\widetilde{\psi}(\bm{\theta};\bm{0}, \bm{I})$ as a template and some tuning of that distribution can be explored. 
+
+%One final consideration for reducing some computational burden in problems of this nature might be to use an iterative process as suggested by Naylor and Smith (1982). If values for the parameters of interest were known, or at %least approximately known, the nodes could be recentered via the transformation $\sqrt{2}\theta_{p,q}\sigma_p+\widehat{\theta}_p$ and take another pass over the integral with the transformed nodes and weights at an increased %number of quadrature points for precision could be used.  
+
+Some additional computational benefits could easily be realized for this problem. For instance, computing the likelihood values over each column in the node array is independent and consequently is embarassingly parallel, and the results could then be joined to take summations. In fact, test scoring applications in psychometrics are an embarassingly parallel problem as the test score for examinee $k$ does not depend on the scores for others, it depends only on the item parameters and their item responses, both of which are treated as fixed. 
+
+\subsection*{Example 3: A Simple ML Classifier with SGD}
+
+Imagine a group of test item developers would benefit from knowing whether the new items being developed are likely to have examinee response times that are fast or slow before those items have any field test and timing statistics. Such forecasting systems could guide item development plans and item writing workshops and be helpful in an array of test construction activities. Machine learning applications are premised on the idea that computers can be trained to learn from existing data and subsequently apply the results to form future classifications, or predictions, and such an application is suitable here.
+
+For purposes of the example, assume response time data from a testing program exist for each test item and the data could be concatenated over years, over grades, over test forms, and over all examinees yielding an extremely large data file forming $N$ total observations. In addition, assume all items in the set have a collection of observable features that are predictive of response time, such as readability indices, stem word length, content domain, cognitive complexity, item type and so on. Further, assume a binary outcome is associated with item response time such that $y_{i} = 1$ if the response to the $i$th item is fast and $y_{i}=0$ otherwise and that the many item features can be used to form the model matrix $\bm{X}$ to serve as covariates in the regression. Response time is of course a real positive number, but here we bin into two categories to build an illustration that differs from the prior linear regression model using SGD.   
+
+The example described here yields an extremely large data file from which we intend to learn patterns and then make future predictions on other data not included in the training sample. Because the available data to be used for training is so large, logistic regression using something like iteratively reweighted least squares is not feasible. In this case, an alternative classifier can be constructed using SGD for training allowing for computation to occur in an efficient way. 
+
+To show a contrast, in batch gradient descent with $n$ observations, $p$ parameters, and using $k$ epochs, the gradient would be evaluated $n \times k \times p$ times. The number for $k$ is generally arbitrary, but is often selected as a very large value. Instead, SGD can reduce this computational burden and evaluate only $k \times p$ gradient terms to achieve comparable results. In fact, because SGD randomly samples from the full set of observations, it may be helpful to only randomly stream in portions of the full available data and sample from within those portions repeatedly. This could alleviate some overhead space needed to be reserved for computing. If mini-batch gradient descent were used, then $n_i \times k \times p$ gradient terms would be evaluated, where $n_i$ represents a subset of $n$. The reduction in the number of gradient evaluations is impressive and makes very large problems feasible. Simply to be conceptual, imagine $n=1,000,000$, $k=1000$, and $p=3$; then, batch gradient descent would evaluate 3 billion gradient terms whereas SGD would only evaluate 3,000 gradient terms!
+
+Here, let the objective function for the logistic model be $\mathcal{J}_i(\bm{\theta}) = -y_i\log(z_i) + (1 - y_i)(1-z_i)$ and then 
+\begin{equation}
+\label{eqn:sgdLogis}
+\nabla\mathcal{J}_i(\bm{\theta}) = (z_i - y_i)'\bm{X}_i
+\end{equation}
+
+\noindent where the following familiar logistic (sigmoid) function is used
+
+\begin{equation}
+\Pr(y_i=1|,\bm{\bm{X}_i,\beta}) = z_i = \frac{1}{1 + \exp(-(\bm{X}_i\bm{\beta}))}.
+\end{equation}
+
+The gradient in (\ref{eqn:sgdLogis}) can be used in Equation~(\ref{eqn:sgd}) and the steps in Algorithm (\ref{algo:sgd}) would be implemented for optimization. Generalizations of this concept could be further developed to explore IRT forecasting problems where a sense of the future item parameters could be obtained from features associated with items or in training a learning management system to associate targeted instructional content to an examinee based on their test performance.   
+
+\section*{Discussion}
+
+This paper has presented ways in which psychometricians may build efficient and scalable applications with large, complex data. Three general topics have been explored including computational concepts needed for linear models, multivariable integration, and optimization methods. The ideas here are but a subset of useful numerical methods. However, the subset represents a core set of methods that can be combined or generalized and broadly applied in psychometric application building. It's important to be clear that the computational ideas here are not the universe of potential methods. Instead, they are a subset of core methods on which many applications can be scaled and the intent is to encourage even further study and conversations in scalable computational methods that are necessary ingredients to support the future challenges of computationally demanding psychometric models. 
+
+There are a few possible ways in which the work described here might be useful. First, many psychometricians find jobs in industry where they are charged with creating psychometric applications to support their organizational infrastructure and client requirements. The applications used by assessment companies deploy tests to many hundreds of thousands (even millions) of examinees and the operational systems used for psychometric work must be fast, accurate, and highly scalable. Second, perhaps in academia, the ideas here can supplement other course materials borrowed from computational statistics that are more mathematical in nature. This work is intended to create connections to computational psychometrics and may be a helpful way to bridge the knowledge base between general numerical methods and psychometric theory. Third, many commercial psychometric applications need some retrofitting to better support larger computational demands and the ideas here can be potentially used to support those upgrades. Last, psychometricians setting out on their own course of study to improve their computational acumen might benefit from implementing the ideas proposed here as test cases to explore and replicate.
+
+This work is also intended to fit into a larger conversation of the future of psychometrics. The skill set for building scalable psychometric applications means innovators need foundational numerical approaches, but also skills in software development to prototype, finalize, and deploy at scale applications to support those ideas. Commercial cloud-based infrastructures are more readily available and provide platforms to take advantage of distributed computing. Nonetheless, the first step should be to build an efficient method and then secondly scale that method with computational advantages offered.
+
+\newpage
+\section*{Appendix A: Computational Formulae}
+
+\subsection*{Proof that $(\bm{Z}'\bm{Z}\bm{D} + \bm{I})^{-1} = \bm{Q}_1 \bm{\lambda}^{*-1} \bm{Q}_1'$}
+
+Let $\bm{Z}'\bm{Z} = \bm{Q}_1 \bm{\lambda}_1 \bm{Q}_1'$ and $\bm{D}=\bm{Q}_2 \bm{\lambda}_2 \bm{Q}_2'= \bm{\lambda}_2$ given that $\bm{D}=d\bm{I}$, then
+\begin{align}
+\bm{Z}'\bm{Z}\bm{D} + \bm{I} & = (\bm{Q}_1 \bm{\lambda}_1 \bm{Q}_1')(\bm{Q}_2 \bm{\lambda}_2 \bm{Q}_2') + \bm{I}\\
+		& = (\bm{Q}_1 \bm{\lambda}_1 \bm{Q}_1')\bm{\lambda}_2 + \bm{I}
+\end{align}
+
+The commutative property for matrices holds if and only if $d\bm{I}$, hence $\bm{Q}_1'\bm{\lambda}_2 = \bm{\lambda}_2\bm{Q}_1'$. Then, $(\bm{Q}_1 \bm{\lambda}_1 \bm{Q}_1')\bm{\lambda}_2 + \bm{I} = (\bm{Q}_1 \bm{\lambda}_1\bm{\lambda}_2 \bm{Q}_1') + \bm{I}$. Finally, we can take advantage of the identity matrix and co-diagonalize its elements alongside the eigenvalues as		
+\begin{equation}
+\bm{Q}_1 \bm{\lambda}_1\bm{\lambda}_2 \bm{Q}_1' + \bm{I} = \bm{Q}_1 (\bm{\lambda}_1\bm{\lambda}_2+ \bm{I}) \bm{Q}_1' = \bm{Q}_1 \bm{\lambda}^* \bm{Q}_1'
+\end{equation}
+		
+\noindent where $\bm{\lambda}^* = diag\{\lambda_{11}d+1, \lambda_{12}d+1, \ldots, \lambda_{1n}d+1\}$ and $\lambda_{1n}$ are the elements of $\bm{\lambda}_1$. Finally, the inverse of the sums is simplified to
+\begin{equation}
+\label{eqn:efficient}
+(\bm{Z}'\bm{Z}\bm{D} + \bm{I})^{-1} = \bm{Q}_1 \bm{\lambda}^{*-1} \bm{Q}_1'.
+\end{equation}
+
+Equation~(\ref{eqn:efficient}) is useful in iterative algorithms as it precomputes an expensive component, $\bm{Q}_1$, initially and then it is repeatedly reused in subsequent iterations. Because updating $\bm{\lambda}^*$ is simple and it is diagonal, it permits a trivial inverse. Collectively, the special structures in this instance are exploited to reduce a larger computational burden into one that is much less expensive within iterative algorithms.
+
+\subsubsection*{General Remark on the Proof}
+It is important to note that the preceding proof applies under conditions when $\bm{D}=d\bm{I}$, in which case the commutative property holds between $\bm{D}$ and some other (conformable) matrix. However, when that condition is not true, we arrive at a slightly different problem. Suppose $\bm{D}$ is diagonal, but the elements along the diagonal are not constant. Then, we may write $(\bm{Z}'\bm{Z}\bm{D} + \bm{I})^{-1} = (\bm{Q} \bm{\lambda} \bm{Q}' + \bm{I})^{-1} = \bm{Q} (\bm{\lambda}+\bm{I})^{-1} \bm{Q}'$ where now $\bm{Z}'\bm{Z}\bm{D} = \bm{Q} \bm{\lambda} \bm{Q}'$.
+
+This is interesting, but not entirely helpful within an iterative algorithm as $\bm{D}$ cannot be factored out of the decomposition. Hence, it requires computing the decomposition $\bm{Z}'\bm{Z}\bm{D}$ at each iteration even though only $\bm{D}$ is changing. At the current time, there is no accepted method for the inverse of matrix sums under this condition. There are some concepts that may later be considered using eigenvalue perturbations. That is, if we can first compute the decomposition $\bm{Z}'\bm{Z}$, then update this with the changing values of $\bm{D}$ to yield an approximation of $\bm{Q} \bm{\lambda} \bm{Q}'$, then we might be able to efficiently find the sum of the inverse when $\bm{D}$ is diagonal, but not with constant elements. This remains a numerical challenge to explore.
+
+\subsection*{Likelihood Function Details}
+
+Each individual domain likelihood, $\mathcal{L}(\theta_P;\bm{z}_p)$, is composed of a mixture of binary and polytomous test items with known item parameters. Let $z_{ijp}$ denote the observed response of the $i$th examinee to the $j$th item in the $p$th dimension, then
+
+\begin{equation}
+\mathcal{L}(\theta_P;\bm{z}_p) = \mathcal{L}_1(\theta_P;\bm{z}_p)\mathcal{L}_2(\theta_P;\bm{z}_p)\nonumber
+\end{equation}
+
+\begin{equation}
+\mathcal{L}_1(\theta_P;\bm{z}_p) = \prod_{j \in p}\left[c_j+\frac{1-c_j}{1+\exp[-Da_j(\theta_P-b_j)]}\right]^{z_{ijp}}\left[1-\left(c_j+\frac{1-c_j}{1+\exp[-Da_j(\theta_P-b_j)]}\right)\right]^{1-z_{ijp}}\nonumber
+\end{equation}
+
+\noindent where $j \in p$ is used to mean there is a collection of $j$ items uniquely associated with dimension $p$, $c_j$ is the lower asymptote of the item response curve (i.e., the guessing parameter), $a_j$ is the slope of the item response curve (i.e., the discrimination parameter), $b_j$is the location parameter, and $D$ is a constant, by default fixed at 1.7. Then the items scored in multiple categories takes the form of the graded response model as
+
+\begin{equation}
+\mathcal{L}_2(\theta_P;\bm{z}_p) = \prod_{j \in p}\Pr(z_{ijp}|\theta_P)\nonumber
+\end{equation}
+
+\begin{equation}
+\Pr(z_{ijp}|\theta)=\left\{  \begin{array}{c}
+\frac{1}{1+e^{Da_j(\theta_P-b_{j1})}},z_{ijp}=0 \\
+\frac{1}{1+e^{Da_j(\theta_P-b_{j,z+1})}} - \frac{1}{1+e^{Da_j(\theta_P-b_{jz})}}, \ 0 < z_{ijp} < K \\
+\frac{1}{1+e^{-Da_j(\theta_P-b_{jK})}},\ z_{ijp}=K 
+ \end{array} \right. 
+\end{equation} 
+ 
+\noindent where $b_K$ denotes the $k$th step and the other definitions used for the binary model apply here.
+
+\subsection*{Efficient Parallel E-Step Example for Linear Mixed Model}
+
+Let the joint distribution of the fixed and random effects be written as a multivariate normal
+\begin{equation}
+\left [ 
+\begin{array}{cc}
+\bm{u} \\
+\bm{y} \\
+\end{array}
+\right ]
+\sim \mathcal{N}
+\left [ 
+\begin{array}{cc}
+\bm{0} \\
+\bm{X\beta} \\
+\end{array}
+\right ]
+\left [ 
+\begin{array}{cccc}
+\bm{G} & \bm{GZ'} \\
+\bm{ZG} & \bm{V} \\
+\end{array}
+\right ]
+\end{equation}
+
+\noindent where $\bm{V} = \bm{ZGZ'} + \bm{\Omega}$. Standard distribution theory provides that the conditional values of the random effects from this joint multivariate normal are $\mathbb{E}[\bm{u}|\bm{y}]  = \bm{GZ'V}^{-1}(\bm{y}-\bm{X\beta})$. For two-level nested models with random intercepts only, this can be written as follows for the $j$th group with $N_j$ denoting the number of units in the group
+\begin{equation}
+\label{eqn:eb}
+\mathbb{E}[\bm{u}_j|\bm{y}_j] = \bm{\widetilde{u}}_j = \left[\frac{\sigma_{q}^2}{\sigma_{e}^2 + N_{j}\sigma_{q}^2}\right] \sum_{i \in j} \left(y_{i} - \bm{X}_i\bm{\beta}\right)
+\end{equation}
+
+\noindent where $\bm{X}_i$ is the $i$th row in the model matrix $\bm{X}$ and $\sigma_{e}^2$ and $\sigma_{q}^2$ are the residual variance and the marginal variance of the random effects at level $q$, respectively. Equation~(\ref{eqn:eb}) can be computed as an embarrasingly parallel problem for each of the $j$ groups. Assembling all $\bm{\widetilde{u}}_j$ to use as the provisional working values for the missing data, we can now proceed with the M-step using stochastic gradient descent for least squares as shown in the section on linear models. 
+
+
+\clearpage 
+\bibliography{edu-ref2} 
+\end{document}
