@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">How To Equate Test Items using PACER</h2>
+				    <div class="meta mb-3"><span class="date">Published January 17, 2022</span><span class="time">5 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					 <h3 class="mt-5 mb-3">Test Equating</h3>
+				    <p>Test equating is the process of placing scores from different test forms onto a common, comparable scale. This is a common task in psychometric practice and there are many ways to equate test forms. PACER offers six IRT-based approaches including Stocking-Lord, symmetric and non-symmetric approaches, Haebara, symmetric and non-symmetric, Mean/Sigma, and Mean/Mean. The language used in PACER is "bank" items and "operational" or "to link" items. The "bank" items are on the scale we wish to link to. The "operational" or "to link" items need to be linked by estimating a set of linking constants and using those to transform the item parameters onto the bank scale. By way of preference, I do not like the term "linking constant" because the parameters we estimate are random variables sbject to sampling variance and they are not constants, although they are often treated as though they are fixed variables. 
+					</p>
+					
+					 <p>The items in the linking set can be all binary, all polytomous, or a mixture of the two. All binary items are treated as a special case of the 3-parameter logistic model and the polytomous items can be the generalized partial credit model, or a special case of that model (e.g., Master's Partial Credit) or the graded response model. I will not go into the math in this post, but the Stocking-Lord and Haebara are based on minimization of an objective function where an integral is evaluated using adaptive Gauss-Hermite quadrature. The default is to use 20 quadrature points, however that number can be increased to achieve better approximations as needed. 
+					</p>
+					
+					<p>In this blog post I will show how to use PACER to equate test forms, examine the visual displays associated with equating, and show how to grab the rescaled item parameters. There are many features in the test equating module in PACER and so this blog post will provide sample data and just get you up and running with test equating. Other future posts will show some of the other features.
+					</p>
+				    
+				    <h3 class="mt-5 mb-3">Preparing the Data</h3>
+				    <p>The data used in this tutorial can be downloaded by clicking <a href = 'data/OIBDat.csv'> here </a>. The data must look like this sample: 
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/oib.png" alt="image">
+				    </figure>
+					
+					<p>
+					Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, ..., P5. For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items, the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P5 are the step values indicating where the curves of the GPCM intersect. 					
+					</p>
+					
+					<p>
+					Some IRT software programs represent the GPCM as \((\theta - (\delta_j - b_{j,k}))\) where \(\delta_j\) is a location parameter and \(b_{j,k}\) is a category and \(\sum_{k=1}b_{j,k}=0\). In PACER, simply transform this to be \((\theta - \lambda_{jk})\) where \(\lambda_{jk} = (\delta_j - b_{j,k})\).
+					</p>		
+
+					<h3 class="mt-5 mb-3">Running the Analysis in PACER</h3>	
+					<p>
+					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Create OIB" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file.
+					<figure>
+				        <img class="img-fluid" src="Images/ReadIn.png" alt="image">
+				    </figure>					
+					</p>
+					
+					<p>
+					You know your data are properly read in when you see "Upload Complete". Now, all you need to do to run the analysis is move over to the "Options" tab and click "Get Response Probabilities". The RP is set to .67 by default but you can change that to any value. The inputs for mean and variance are to estimate impact data from a theoretical normal distribution using those two parameters. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/optionsOIB.png" alt="image">
+				    </figure>
+					
+					<p>
+					When you click "Get Response Probabilities" a beautiful data table prints to the screen as in the example below. This output shows the RP value, the item ID, the location of where the RP value is in the table, and the impact data representing the percentage of examinees that would score at or below this point. Notice that binary items have one location only (Step 1 of 1) but polytomous items have one row for each step parameter. So, if an item has multiple score points it will appear in multiple places in the table with the RP value needed to score in that category.  
+					</p>
+					
+					<p>
+					The table is searchable using the box to the right. Simply start typing in text or numeric values and the table will begin to filter as you type. Additionally, you can click any of the buttons at the top to export the table in any of the formats listed. Note, if you filter the table, it prints the filtered version. Also, note that these buttons will print the RP value only to 3 digits. If you prefer greater precision, click the "Export RP Table button" on the sidepanel to export a table with more precision than 3 digits.
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/outputOIB.png" alt="image">
+				    </figure>
+
+					<p>
+					Now if you head over to the "Visual Displays" tab, you can use the drop down menu and view plots for any of the items included in the analysis. If the plots seem too small, use the "Panel Size" input on the sidepanel to increase (or decrease) the size of the graphic.
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/oibVisual.png" alt="image">
+				    </figure>					
+
+			   
+
+				    
+				    
+				   
+			    </div>
+				    
+				
+
+				
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
