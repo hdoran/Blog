@@ -62,6 +62,9 @@
 					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
 					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
 					</li>
 					<li class="nav-item">
@@ -79,7 +82,7 @@
 		    <div class="container single-col-max-width">
 			    <header class="blog-post-header">
 				    <h2 class="title mb-2">How To Equate Test Items using PACER</h2>
-				    <div class="meta mb-3"><span class="date">Published January 17, 2022</span><span class="time">5 min read</span></div>
+				    <div class="meta mb-1"><span class="date">Published January 19, 2022</span><span class="time">10 min read</span></div>
 			    </header>
 			    
 			    <div class="blog-post-body">
@@ -87,7 +90,7 @@
 				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
 				    </figure>*/-->
 					 <h3 class="mt-5 mb-3">Test Equating</h3>
-				    <p>Test equating is the process of placing scores from different test forms onto a common, comparable scale. This is a common task in psychometric practice and there are many ways to equate test forms. PACER offers six IRT-based approaches including Stocking-Lord, symmetric and non-symmetric approaches, Haebara, symmetric and non-symmetric, Mean/Sigma, and Mean/Mean. The language used in PACER is "bank" items and "operational" or "to link" items. The "bank" items are on the scale we wish to link to. The "operational" or "to link" items need to be linked by estimating a set of linking constants and using those to transform the item parameters onto the bank scale. By way of preference, I do not like the term "linking constant" because the parameters we estimate are random variables sbject to sampling variance and they are not constants, although they are often treated as though they are fixed variables. 
+				    <p>Test equating is the process of placing scores from different test forms onto a common, comparable scale. This is a common task in psychometric practice and there are many ways to equate test forms. PACER offers six IRT-based approaches including Stocking-Lord, symmetric and non-symmetric approaches, Haebara, symmetric and non-symmetric, Mean/Sigma, and Mean/Mean. The language used in PACER is "bank" items and "operational" or "to link" items. The "bank" items are on the scale we wish to link to. The "operational" or "to link" items need to be linked by estimating a set of linking constants and using those to transform the item parameters onto the bank scale. By way of preference, I do not like the term "linking constant" because the parameters we estimate are random variables subject to sampling variance and they are not constants, although they are often treated as though they are fixed variables. 
 					</p>
 					
 					 <p>The items in the linking set can be all binary, all polytomous, or a mixture of the two. All binary items are treated as a special case of the 3-parameter logistic model and the polytomous items can be the generalized partial credit model, or a special case of that model (e.g., Master's Partial Credit) or the graded response model. I will not go into the math in this post, but the Stocking-Lord and Haebara are based on minimization of an objective function where an integral is evaluated using adaptive Gauss-Hermite quadrature. The default is to use 20 quadrature points, however that number can be increased to achieve better approximations as needed. 
@@ -97,14 +100,15 @@
 					</p>
 				    
 				    <h3 class="mt-5 mb-3">Preparing the Data</h3>
-				    <p>The data used in this tutorial can be downloaded by clicking <a href = 'data/OIBDat.csv'> here </a>. The data must look like this sample: 
+				    <p>In order to run the test equating, we need two sets of item parameters. Data file 1--the bank parameters can be downloaded <a href = 'data/PACER Supplementals/Test Equating/bankFile.csv'> here </a> and the to link parameters can be downloaded <a href = 'data/PACER Supplementals/Test Equating/toLinkFile.csv'> here. </a> The data in each file must look like this sample: 
+					
 					</p>
 					<figure>
-				        <img class="img-fluid" src="Images/oib.png" alt="image">
+				        <img class="img-fluid" src="Images/equateData.png" alt="image">
 				    </figure>
 					
 					<p>
-					Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, ..., P5. For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items, the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P5 are the step values indicating where the curves of the GPCM intersect. 					
+					Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, .... For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items, the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P3 are the step values indicating where the curves of the GPCM intersect. By the way, there can be more columns for step values. Just label them P4, P5, etc.					
 					</p>
 					
 					<p>
@@ -113,42 +117,68 @@
 
 					<h3 class="mt-5 mb-3">Running the Analysis in PACER</h3>	
 					<p>
-					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Create OIB" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file.
+					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Test Linking" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file. The bank file has the parameters on the scale we want and the toLink parameters will be linked to the bank scale.
 					<figure>
-				        <img class="img-fluid" src="Images/ReadIn.png" alt="image">
+				        <img class="img-fluid" src="Images/ReadInEquate.png" alt="image">
 				    </figure>					
 					</p>
 					
 					<p>
-					You know your data are properly read in when you see "Upload Complete". Now, all you need to do to run the analysis is move over to the "Options" tab and click "Get Response Probabilities". The RP is set to .67 by default but you can change that to any value. The inputs for mean and variance are to estimate impact data from a theoretical normal distribution using those two parameters. 
+					You know your data are properly read in when you see "Upload Complete". Now, all you need to do to run the analysis is move over to the "Options" tab and use the drop down menu to choose your method and choose a few options. 
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/optionsOIB.png" alt="image">
+				        <img class="img-fluid" src="Images/equateOptions1.png" alt="image">
 				    </figure>
 					
 					<p>
-					When you click "Get Response Probabilities" a beautiful data table prints to the screen as in the example below. This output shows the RP value, the item ID, the location of where the RP value is in the table, and the impact data representing the percentage of examinees that would score at or below this point. Notice that binary items have one location only (Step 1 of 1) but polytomous items have one row for each step parameter. So, if an item has multiple score points it will appear in multiple places in the table with the RP value needed to score in that category.  
-					</p>
-					
-					<p>
-					The table is searchable using the box to the right. Simply start typing in text or numeric values and the table will begin to filter as you type. Additionally, you can click any of the buttons at the top to export the table in any of the formats listed. Note, if you filter the table, it prints the filtered version. Also, note that these buttons will print the RP value only to 3 digits. If you prefer greater precision, click the "Export RP Table button" on the sidepanel to export a table with more precision than 3 digits.
-					</p>
-
-					<figure>
-				        <img class="img-fluid" src="Images/outputOIB.png" alt="image">
-				    </figure>
-
-					<p>
-					Now if you head over to the "Visual Displays" tab, you can use the drop down menu and view plots for any of the items included in the analysis. If the plots seem too small, use the "Panel Size" input on the sidepanel to increase (or decrease) the size of the graphic.
+					Now choose a few optional settings, like the number of quadrature points. As mentioned above, PACER uses adaptive Gauss-Hermite and the default is 20 quadrature points. You can increase this and test out more points and see if the estimates change. 
 					</p>
 					<figure>
-				        <img class="img-fluid" src="Images/oibVisual.png" alt="image">
+				        <img class="img-fluid" src="Images/equateOptions2.png" alt="image">
 				    </figure>					
+					
+					<p>
+					Now all you need to do is click "Run Equating Modules" and PACER will begin estimation. A progress bar will appear in the lower right corner of your screen and when the analysis is complete you will see the following summary printed to screen.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/equateSummary.png" alt="image">
+				    </figure>
+					
+					<p>
+					The summary text provides the estimates--referred to as A: Slope and B: Intercept and some diagnostics. An important diagnostic is the \(D^2\) statistic, a measure of distance between the ICC curves. The diagnostic prints the five items with the largest \(D^2\). 
+					</p>
 
-			   
+					<p>
+					Now we can move over the the "Visual Displays" tab and examine the ICCs and the TCCs. First, note that the top plot is the two ICCs for the selected item. Use the drop down menu to choose a different item. The bottom plot shows two TCCs. Well, there are two, but they are almost right on top of each other in this example, so it seems like there might be only one.
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/equateVisual.png" alt="image">
+				    </figure>
 
-				    
+					<p>
+					Now if you head over to the "Item Parameters" tab can see the data table of the to link items rescaled using the estimates obtained from the equating process. This is a searchable and filterable table and you can use the buttons on top to export or print the table as you wish. The column D2 is the \(D^2\) for each item and the column SD2 is the standardized \(D^2\). 
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/equateTable.png" alt="image">
+				    </figure>
+					</p>
+					<p>
+					For the most part, that's all there is in order to equate items. But, there are some additional features to document. First, suppose you want to rerun the equating with some items removed from the set. Simply click in the "Select Items to Drop" box and choose some items. When you're done, simply click "Run Equating Modules" again and the analysis will be rerun and will now exclude those items from the analysis.
+					<figure>
+				        <img class="img-fluid" src="Images/equateDrop.png" alt="image">
+				    </figure>	
+					<p>
+					I'll describe one option for now and leave the other options for another blog post. If you choose the Stocking-Lord or Haebara approaches, you will see an option to choose the population parameters. When a symmetric approach, you will see inputs for the bank population and another for the OP (or to be linked) population. The idea of the symmetric approach is we can define the two different populations from which the examinees are drawn. If a non-symmetric approach is selected, you would only see bank population. 
+					<figure>
+				        <img class="img-fluid" src="Images/equatePopMeans1.png" alt="image">
+				    </figure>	
+					</p>		
+
+					<p>
+					Experiment with the drop down menus and choose different methods, try dropping items, and try different numbers for the quadrature points. For the most part, the experience here should be intuitive if you're familiar with test equating. Future blog posts will explain the other options and how they can be used.
+					</p>			    
 				    
 				   
 			    </div>
