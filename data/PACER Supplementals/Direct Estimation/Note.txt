@@ -1,1 +1,3 @@
 These three files 100% work when running metrics locally
+But, make sure to use only 2 cores on shiny for now until I upgrade
+Otherwise it breaks shiny server
