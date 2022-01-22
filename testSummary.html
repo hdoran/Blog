@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">How To Create Test Summary Plots and Score Conversion Tables Using PACER</h2>
+				    <div class="meta mb-1"><span class="date">Published January 22, 2022</span><span class="time">5 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					 <h3 class="mt-5 mb-3">Test Summary Plots and Score Conversion Tables</h3>
+				    <p>Visual displays of test forms and test score conversion tables are two very standard needs for psychometricians. PACER is a complete IRT-based test environment and its capacity for test scoring will be fully described in another blog post. For now we explore the overall summaries of test forms through visual displays and with general score conversion tables often used for test scoring or reviewing the test before launching into a full test scoring routine.
+					</p>
+			
+					<p>In this blog post I will walk through a simple and effective way to get test information functions, standard error plots, test characteristics curves, score conversion tables and the marginal reliability of test forms. This requires only two data files and samples can be downloaded for practice and replicating this tutorial. See links below in next section.
+					</p>
+				    
+				    <h3 class="mt-5 mb-3">Preparing the Data</h3>
+				    <p>In order to generate the visual displays we require two data files. The first file holds the item parameters and a sample to run this tutorial can be donwloaded <a href = 'data/PACER Supplementals/Test Summary/params.csv'> here. </a> The second file is a list of the item identifiers you wish to include in these summaries a sample of which can be downloaded <a href = 'data/PACER Supplementals/Test Summary/items.csv'> here. </a> Let's examine these two files so their structure is understood.  			
+					</p>
+					
+					<p>
+					First, a snapshot of the parameters file is below. For this example, it's a simple structure Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, .... For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items (although there are none in this example), the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P3 are the step values indicating where the curves of the GPCM intersect. By the way, there can be more columns for step values. Just label them P4, P5, etc.					
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/param4Summary.png" alt="image">
+				    </figure>
+					
+					<p>
+					If you have polytomous items and want to learn more about how to include them in a parameters file see this blog post <a href="testEquate.html">Test Equating</a> for some additional details. The second file is nothing more than a list of the items you want to include and looks like this:
+					</p>		
+					
+					<figure>
+				        <img class="img-fluid" src="Images/items4Summary.png" alt="image">
+				    </figure>
+					
+					<p>
+					First notice we have three columns which will tell PACER we will plot three test forms. There can be one column, two columns, or any number. The rows are simply the item ID of the items you want to include. So, column 1 for example begins with item 106294, then 5199 and so on. The item IDs must be item IDs that exist in the parameters file and they can have any form (numeric, character, etc). The second column has different items and also has fewer items that column 1. So, we can include any number of items in these columns. This might be useful to create a plot or score conversion table of parallel forms or of one form with strands within the ovreall form containing a subset of the items. 
+					</p>
+
+					<h3 class="mt-5 mb-3">Running the Analysis in PACER</h3>	
+					<p>
+					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Test Summary" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file. 
+					<figure>
+				        <img class="img-fluid" src="Images/testSummary1.png" alt="image">
+				    </figure>					
+					</p>
+					
+					<p>
+					Now in this case as soon as you load both data files a test information plot (TIF) is immediately drawn on the screen for all three test forms we are including. We can now head over to the "Options" tab where we can simply use the drop down menu and select a different type of visual display for our summary. These will be immediately drawn when you choose an option.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/testSummary2.png" alt="image">
+				    </figure>
+
+					<p>
+					Now head over to the "Score Options" and the "Score Conversion" tabs and you will immediately see a score conversion table printed to the screen. Notice at the bottom of the side panel you will see "Choose a column for the score conversion table" and in this example it is a 1. That means it generated a score conversion table for the items in the first column of your items file. If you simply change this to a 2, it will create a score conversion table using only the items included in column two of your items file. 
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/testSummary3.png" alt="image">
+				    </figure>					
+					
+					<p>
+					Also notice we can choose different scoring options. Experiment with the options and watch as a new score conversion table is immediately created. If you choose one of the two Bayesian options (MAP or EAP), you will see an option to choose the population mean and variance. The two frequentist methods (MLE and TCC) are pretty commonly used.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/testSummary4.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					You will also see there is a tab for the "marginal reliability". Head over to that tab and you will see the marginal reliability estimated for the test forms you select. This is estimated using only the item parameters and it integrates out the nuisance (theta) parameter. Also, things are designed to be simple and intuitive in this environment. Note that you can export the score conversion tables, export the plots, change options for various things, all in a simple way. The best thing is to mess around with the different options and watch what happens to the plots or the data tables as you do so.
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
