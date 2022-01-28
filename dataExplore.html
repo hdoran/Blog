@@ -62,7 +62,7 @@
 					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variancce Estimation</a>
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
 					</li>
 					<li class="nav-item">
 					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
@@ -87,84 +87,68 @@
 	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container single-col-max-width">
 			    <header class="blog-post-header">
-				    <h2 class="title mb-2">How To Estimate Response Probabilities Using PACER</h2>
-				    <div class="meta mb-3"><span class="date">Published January 17, 2022</span><span class="time">5 min read</span></div>
+				    <h2 class="title mb-2">Basic Data Exploration and Variance Estimation</h2>
+				    <div class="meta mb-1"><span class="date">Published January 28, 2022</span><span class="time">5 min read</span></div>
 			    </header>
 			    
 			    <div class="blog-post-body">
 				   <!--/* <figure class="blog-banner">
 				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
 				    </figure>*/-->
-					 <h3 class="mt-5 mb-3">Response Probabilities</h3>
-				    <p>Response probabilities, or RP values, are used in psychometrics in multiple ways. Sometimes they are used in the Bookmark standard setting procedure to create an ordered item booklet (OIB) and other times they are used for mapping items to a reporting scale. The PACER software program can estimate the theta (or ability) associated with a specific response probability for a set of items and return a table with the RP values for each item, a table ordering all items by the RP value, and a collection of visual displays that might be useful to examine the items. 
-					</p>
-					
-					 <p>The items can be all binary, all polytomous, or a mixture of the two. All binary items are treated as a special case of the 3-parameter logistic model and the polytomous items must be the generalized partial credit model, or a special case of that model (e.g., Master's Partial Credit). The graded response model is coming soon. 
-					</p>
-					
-					<p>In this blog post I will show how to use PACER to estimate the RP values and examine a set of visual displays using data that can be accessed here. 
+					 <h3 class="mt-5 mb-3">Basic Data Analysis</h3>
+				    <p> Sometimes we just need a tool to open and explore our data. PACER provides a way to do this that is fast and with many options for data exploration. In this blog post I will walk through a simple and effective way to read any data file into the web application and do some basic data exploration. This module in PACER is perhaps the easiest to use because data can be in any format and the options are simple point and click. Even though you can use any data file, if you want to replicate the example I use for this tutorial you can grab it <a href = 'data/PACER Supplementals/Data Tools/apistrat.Rdata'> here. </a>This file happens to be an R data file, but it doesn't matter because you can import any type of data into PACER, just make sure to use the radio buttons for ".csv/other" for different formats.
 					</p>
 				    
-				    <h3 class="mt-5 mb-3">Preparing the Data</h3>
-				    <p>The data used in this tutorial can be downloaded by clicking <a href = 'data/OIBDat.csv'> here </a>. The data must look like this sample: 
-					</p>
+				    <h3 class="mt-5 mb-3">Data Exploration</h3>
+				    <p>The first thing we will do is head over to "Data Tools" in the top navigation bar and read in our data as follows. On the "Data" tab use the browse button to locate and read in your data. The upload bar will read in the file and I immediately clicked on the "Data View" tab in the main panel which shows our data. 
+					</p>					
+					
 					<figure>
-				        <img class="img-fluid" src="Images/oib.png" alt="image">
+				        <img class="img-fluid" src="Images/dtReadIn.png" alt="image">
+				    </figure>
+					
+					<p>The first thing to point out is this is an INTERACTIVE data table. I'll show you a few quick features. Note, we read in an R data file, but using the buttons at the top we can export the data to any format right away! First, if the data are too big and you want to hide some columns on the screen, click the "Column Visibility" button and a list of all the columns appear. Click the ones you no longer want and they will be hidden. Don't worry, you can always bring them back if you just click them again after they are hidden. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/dtColumns.png" alt="image">
+				    </figure>
+					
+					Here is another very cool feature. At the bottom of the table are boxes to filter your data. Just start typing and the filtering will happen in real time. This is not case sensitive. For the numbers, you will get a "slider" to you can filter a range. But, if you want a specific value in a box with numbers just type into the box <code>200...200</code> as an example and this will give you all rows with that exact value or you can type in the range you specifically want. Also, if you click and drag the column names, you can move the columns around to be in different positions. 
+					
+					<figure>
+				        <img class="img-fluid" src="Images/dtFilter.png" alt="image">
 				    </figure>
 					
 					<p>
-					Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, ..., P5. For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items, the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P5 are the step values indicating where the curves of the GPCM intersect. 					
-					</p>
-					
-					<p>
-					Some IRT software programs represent the GPCM as \((\theta - (\delta_j - b_{j,k}))\) where \(\delta_j\) is a location parameter and \(b_{j,k}\) is a category and \(\sum_{k=1}b_{j,k}=0\). In PACER, simply transform this to be \((\theta - \lambda_{jk})\) where \(\lambda_{jk} = (\delta_j - b_{j,k})\).
+					Let's now move over to the "General" tab in the sidebar and use the drop down menu to choose "Get Descriptive Statistics". Choose a variable (must be a numeric variable) and click the button to run. Now, on the "Result View" panel you will see the summary of the variable. Very easy! 
 					</p>		
-
-					<h3 class="mt-5 mb-3">Running the Analysis in PACER</h3>	
-					<p>
-					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Create OIB" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file.
-					<figure>
-				        <img class="img-fluid" src="Images/ReadIn.png" alt="image">
-				    </figure>					
-					</p>
-					
-					<p>
-					You know your data are properly read in when you see "Upload Complete". Now, all you need to do to run the analysis is move over to the "Options" tab and click "Get Response Probabilities". The RP is set to .67 by default but you can change that to any value. The inputs for mean and variance are to estimate impact data from a theoretical normal distribution using those two parameters. 
-					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/optionsOIB.png" alt="image">
+				        <img class="img-fluid" src="Images/dtDescriptive.png" alt="image">
 				    </figure>
 					
 					<p>
-					When you click "Get Response Probabilities" a beautiful data table prints to the screen as in the example below. This output shows the RP value, the item ID, the location of where the RP value is in the table, and the impact data representing the percentage of examinees that would score at or below this point. Notice that binary items have one location only (Step 1 of 1) but polytomous items have one row for each step parameter. So, if an item has multiple score points it will appear in multiple places in the table with the RP value needed to score in that category.  
+					Let's do one "complex" thing. Use the drop down menu to choose "Get Standard errors" and you will see a list of options for estimating standard errors from complex sample designs. Here you just choose the variable you want to get the variance of and let's choose "cluster" and choose our cluster variable. Now simply click run and the table appears with the standard error, design effect, intraclass correlation and so on.  		
 					</p>
 					
-					<p>
-					The table is searchable using the box to the right. Simply start typing in text or numeric values and the table will begin to filter as you type. Additionally, you can click any of the buttons at the top to export the table in any of the formats listed. Note, if you filter the table, it prints the filtered version. Also, note that these buttons will print the RP value only to 3 digits. If you prefer greater precision, click the "Export RP Table button" on the sidepanel to export a table with more precision than 3 digits.
-					</p>
-
 					<figure>
-				        <img class="img-fluid" src="Images/outputOIB.png" alt="image">
+				        <img class="img-fluid" src="Images/dtVariance.png" alt="image">
 				    </figure>
 
 					<p>
-					Now if you head over to the "Visual Displays" tab, you can use the drop down menu and view plots for any of the items included in the analysis. If the plots seem too small, use the "Panel Size" input on the sidepanel to increase (or decrease) the size of the graphic.
-					</p>
+					Last thing for now is to simply show the easy way to get visual displays. Head over to the "Graphics" tab and choose a plot and choose your variables like I have in this screen shot. Click to run the graphic and there you go. 
 					<figure>
-				        <img class="img-fluid" src="Images/oibVisual.png" alt="image">
+				        <img class="img-fluid" src="Images/dtVisual.png" alt="image">
 				    </figure>					
-
-			   
-
-				    
-				    
+					</p>
+					
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					I have shown only a few very small features. You use the drop down menus to choose many other ways to explore your data. Some of the learning comes through exploration so try using some of the other features and let me know if you have any thoughts or questions. 
+					</p>
 				   
 			    </div>
-				    
-				
-
-				
 				
 		    </div><!--//container-->
 	    </article>
