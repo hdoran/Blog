@@ -65,7 +65,7 @@
 					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-home fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variancce Estimation</a>
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
 					</li>
 					<li class="nav-item">
 					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
@@ -90,84 +90,68 @@
 	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container single-col-max-width">
 			    <header class="blog-post-header">
-				    <h2 class="title mb-2">How To Estimate Response Probabilities Using PACER</h2>
-				    <div class="meta mb-3"><span class="date">Published January 17, 2022</span><span class="time">5 min read</span></div>
+				    <h2 class="title mb-2">IRT Fit Statistics</h2>
+				    <div class="meta mb-1"><span class="date">Published February 1, 2022</span><span class="time">5 min read</span></div>
 			    </header>
 			    
 			    <div class="blog-post-body">
 				   <!--/* <figure class="blog-banner">
 				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
 				    </figure>*/-->
-					 <h3 class="mt-5 mb-3">Response Probabilities</h3>
-				    <p>Response probabilities, or RP values, are used in psychometrics in multiple ways. Sometimes they are used in the Bookmark standard setting procedure to create an ordered item booklet (OIB) and other times they are used for mapping items to a reporting scale. The PACER software program can estimate the theta (or ability) associated with a specific response probability for a set of items and return a table with the RP values for each item, a table ordering all items by the RP value, and a collection of visual displays that might be useful to examine the items. 
+					 <h3 class="mt-5 mb-3">IRT Fit Plots</h3>
+				    <p> Visual displays of data are the most powerful tools we can use to assess the degree to which our data fit the model. PACER makes it easy to read in some data after calibration and produce visual displays of the data to evaluate model fit. This tutorial provides sample data files to use for practicing and a high-level overview to get you started. Running these analyses requires three data files. The first file simply holds the item response data in a wide format as shown in <a href = 'data/PACER Supplementals/Fit Statistics/itemDat.csv'> this sample. </a>  The second file holds the model parameters as shown <a href = 'data/PACER Supplementals/Fit Statistics/parameters.csv'> here </a> and the third file holds the ability estimates as shown <a href = 'data/PACER Supplementals/Fit Statistics/theta.csv'> here </a>.
 					</p>
 					
-					 <p>The items can be all binary, all polytomous, or a mixture of the two. All binary items are treated as a special case of the 3-parameter logistic model and the polytomous items must be the generalized partial credit model, or a special case of that model (e.g., Master's Partial Credit). The graded response model is coming soon. 
+					<p>
+					As a reminder there is help in the app also. Look at the navigation bar at the top right and click help. Then, use the drop down menu to choose "Fit Plots" as shown here
 					</p>
 					
-					<p>In this blog post I will show how to use PACER to estimate the RP values and examine a set of visual displays using data that can be accessed here. 
-					</p>
-				    
-				    <h3 class="mt-5 mb-3">Preparing the Data</h3>
-				    <p>The data used in this tutorial can be downloaded by clicking <a href = 'data/OIBDat.csv'> here </a>. The data must look like this sample: 
-					</p>
 					<figure>
-				        <img class="img-fluid" src="Images/oib.png" alt="image">
+				        <img class="img-fluid" src="Images/fitStatHelp.png" alt="image">
+				    </figure>
+				    
+				    <h3 class="mt-5 mb-3">Read in Data</h3>
+				    <p>The first thing we will do is head over to "Fit Statistics" in the top navigation bar and read in our data as follows. First, on the "Data" tab use the browse button to locate and read the first file called "theta.csv" and use the drop down menu to choose "theta" as the variable we need to use.
+					</p>					
+					
+					<figure>
+				        <img class="img-fluid" src="Images/fitReadIn.png" alt="image">
+				    </figure>
+					
+					<p>Now let's read in the item data and the item parameters as shown in this screenshot. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/fitReadIn2.png" alt="image">
+				    </figure>
+					
+					<p>That's it! Now, you'll see a drop down menu appear in the main panel but no item plots will be produced until you choose one from the menu as shown below. The first two plots are based on the residuals and show the degree to which the empirical data fit the model-based curves from calibration. Binary items show the single ICC and polytomous items (based on the GPCM) show one curve for each score point. By default the standard error bars are based on the 95% confidence intervals using the <a href = "https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval" target = "blank"> Clopper Pearson </a> intervals.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/fitStatOut1.png" alt="image">
+				    </figure>
+					The second two plots are somewhat unique. The first plot is a "violin" plot showing the distribution of abilities at each score point. It's sort of a visual representation of the point biserial and here we hope that ability increases generally over score points. The second plot is an adaptation of theoretical QQ plots applied to IRT. It is based on the work described  <a href = 'https://www.statsci.org/smyth/pubs/residual.pdf'> here. </a>
+
+					
+					<figure>
+				        <img class="img-fluid" src="Images/fitStatOut2.png" alt="image">
 				    </figure>
 					
 					<p>
-					Here we see the variable names ITEM_ID, SCOREPOINTS, and then P0, P1, P2, ..., P5. For binary items (SCOREPOINTS =1), the columns mean P0 = a-parameter, P1 = b-parameter, and P2 = c-parameter. For polytomous items, the columns have a slightly different meaning. When SCOREPOINTS > 1, then P0=a-parameter, however, the columns P1 through P5 are the step values indicating where the curves of the GPCM intersect. 					
-					</p>
-					
-					<p>
-					Some IRT software programs represent the GPCM as \((\theta - (\delta_j - b_{j,k}))\) where \(\delta_j\) is a location parameter and \(b_{j,k}\) is a category and \(\sum_{k=1}b_{j,k}=0\). In PACER, simply transform this to be \((\theta - \lambda_{jk})\) where \(\lambda_{jk} = (\delta_j - b_{j,k})\).
-					</p>		
-
-					<h3 class="mt-5 mb-3">Running the Analysis in PACER</h3>	
-					<p>
-					Now with our data formatted, we can easily run the analysis using <a href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"> PACER</a>. First, click the "Create OIB" tab in the top navigation bar and you'll end up at this screen where you simply read in the data as you would any file using browse to find the file.
-					<figure>
-				        <img class="img-fluid" src="Images/ReadIn.png" alt="image">
-				    </figure>					
-					</p>
-					
-					<p>
-					You know your data are properly read in when you see "Upload Complete". Now, all you need to do to run the analysis is move over to the "Options" tab and click "Get Response Probabilities". The RP is set to .67 by default but you can change that to any value. The inputs for mean and variance are to estimate impact data from a theoretical normal distribution using those two parameters. 
+					You can now move over to the "Options" tab and make any adjustments to the pots you like. For example, if you prefer a 68% confidence interval, change the ".95" to a ".68" and things will be automatically adjusted on the screen. The polytomous items might seem a little crowded on the screen so use the "Number of Panels" option to increase the number and space things out as you prefer. 		
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/optionsOIB.png" alt="image">
+				        <img class="img-fluid" src="Images/fitStatOptions.png" alt="image">
 				    </figure>
 					
+					<h3 class="mt-5 mb-3">Some Notes</h3>
 					<p>
-					When you click "Get Response Probabilities" a beautiful data table prints to the screen as in the example below. This output shows the RP value, the item ID, the location of where the RP value is in the table, and the impact data representing the percentage of examinees that would score at or below this point. Notice that binary items have one location only (Step 1 of 1) but polytomous items have one row for each step parameter. So, if an item has multiple score points it will appear in multiple places in the table with the RP value needed to score in that category.  
+					You can see there is a navigation bar for "Q1" etc. Click over to those to get Yen's Q1 statistics and other visual displays on the screen. 
 					</p>
-					
-					<p>
-					The table is searchable using the box to the right. Simply start typing in text or numeric values and the table will begin to filter as you type. Additionally, you can click any of the buttons at the top to export the table in any of the formats listed. Note, if you filter the table, it prints the filtered version. Also, note that these buttons will print the RP value only to 3 digits. If you prefer greater precision, click the "Export RP Table button" on the sidepanel to export a table with more precision than 3 digits.
-					</p>
-
-					<figure>
-				        <img class="img-fluid" src="Images/outputOIB.png" alt="image">
-				    </figure>
-
-					<p>
-					Now if you head over to the "Visual Displays" tab, you can use the drop down menu and view plots for any of the items included in the analysis. If the plots seem too small, use the "Panel Size" input on the sidepanel to increase (or decrease) the size of the graphic.
-					</p>
-					<figure>
-				        <img class="img-fluid" src="Images/oibVisual.png" alt="image">
-				    </figure>					
-
-			   
-
-				    
-				    
 				   
 			    </div>
-				    
-				
-
-				
 				
 		    </div><!--//container-->
 	    </article>
