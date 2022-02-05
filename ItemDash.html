@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="ItemDash.html"><i class="fas fa-home fa-fw me-2"></i>Item Analysis Dashboards <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-home fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Item Analysis Dashboards</h2>
+				    <div class="meta mb-1"><span class="date">Published February 5, 2022</span><span class="time">10 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					<h3 class="mt-5 mb-3">Item Analysis</h3>
+				    <p>Classical item analysis is generally a good first approach for the analysis of item response data. It gives a useful collection of descriptive statistics that indicate the general behavior of the items from the samples collected. <a href="https://psycho-metrics.shinyapps.io/metrics/" target="blank"> PACER </a> has a large collection of psychometric tools for classicial item analysis and to create dashboard views. This tutorial will walk through an example of how to run item analyses with the sample <a href = 'data/PACER Supplementals/Fit Statistics/itemDat.csv'> here. </a>  Download this file to your computer and you'll be able to replicate the analyses done in this tutorial.
+					</p>
+					
+					<h3 class="mt-5 mb-3">Screen Capture Tutorial</h3>
+					<p>
+					A picture is worth a thousand words, but video is sometimes better. Here's a snippet screen capture showing how to interact with PACER and run the item analysis module. 
+					</p>
+
+					<div>
+					   <video width="700" height="450" controls="controls" poster="image" preload="true">
+						<source src="video/itemAnalysis.mp4" type="video/mp4">
+						 Your browser does not support the video tag.
+					   </video>
+					</div>
+				    
+				    <h3 class="mt-5 mb-3">Read in and Preview Data</h3>
+				    <p>The first thing we will do is head over to "Data Tools" in the top navigation bar and read in our data as follows. First, on the "Data" tab use the browse button to locate and read the first file called "itemDat.csv" if you're using the sample data or read in any data file you want. 
+					</p>		
+					
+					<p>Once you read in the data, you can preview the data by clicking on the "Data View" tab in the main panel. Here you will see this data table that you can interact with in real time. You can hide columns using the column visibility button, you can filter in real time using the boxes at the bottom of the table, you can grab the column header with your mouse and move columns around, you can export your data with the buttons, etc. Again, PACER is intended to be intuitive and work like any other web application so no real software learning is expected. 
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/itemAnalysisPreview.png" alt="image">
+				    </figure>
+					
+					<p>
+					The data we use for this module require no special formatting, they can have any structure. However, these data happen to look like this 
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/itemAnalysisData.png" alt="image">
+				    </figure>
+					
+					
+					<h3 class="mt-5 mb-3">Estimate Reliability</h3>
+					<p>Now head over to the "Psychometrics" tab in the sidepanel and estimate the reliability as shown in this figure. We simply use the menus to highlight which items we want to include, and click "Compute Reliability" when you are ready. Ths will output the following table. The leave one out table is showing what the coefficient alpha wold be if that particular item were excluded.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/itemAnalysisReliability.png" alt="image">
+				    </figure>				
+					
+					<h3 class="mt-5 mb-3">Run Classical Item Analysis</h3>
+					<p>
+					Now, on the side panel, use the drop down menu as shown below to choose "Classical Item Analysis" and again highlight the items you want included in the analysis. Click "Compute Classical Item Statistics" and on the "Results View" panel you will see the following output. The columns are the mean item response, standard error of the mean, the point-biserial (which can be corrected or not), the biserial (or polyserial for polytomous items), the maximum observed score in the data, the relative mean (item mean divided by max score), the item standard deviation, the omit count, the number of counted responses, and the size within each possible score point for each item. 
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/itemAnalysisClassical.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">View Item Analysis Dashboard</h3>
+					
+					<p>
+					You can now move over to the "IA Dashboard" tab and you will see a summary dashboard along with a plot you can change. Choose the variable you want to view and the dotplot will create an ordered view of that statistic for each item. This is an interactive plot, so you can zoom in/out, hover over dots to see data, export the plot and more. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/itemAnalysisDash.png" alt="image">
+				    </figure>
+					
+				
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					This module runs descriptve statistics, but other IRT-based fits are also available. See the blog post on <a href="fitStatistics.html">IRT Fit Statistics </a> for tutorials on additional ways to preview item response data.
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
