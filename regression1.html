@@ -113,11 +113,11 @@
 					</p>
 				    
 					<p>
-					By way of preference, I use the term "mixed effects" or "random effects" models more often that hierarchical linear model (HLM), although these are all referring more or less to the same type of model. We have mixed effects because when we have both fixed and random effects. I truly despise the notation where people write these out in "levels" and I think that notation is misguided. I often hear people say "at level 1 I have this and then at level 2 I have this". These models are not estimated as separate regressions and writing them out notationally with all those levels is cumbersome in my opinion.  
+					By way of preference, I use the term "mixed effects" or "random effects" models more often that hierarchical linear model (HLM), although these are all referring more or less to the same type of model. We have mixed effects because when we have both fixed and random effects. I think the notation where people write these out in "levels" misguided. I often hear people say "at level 1 I have this and then at level 2 I have this". These models are not estimated as separate regressions and writing them out notationally with all those levels is cumbersome in my opinion.  
 					</p>
 					
 				    <h3 class="mt-5 mb-3">Read in Data</h3>
-				    <p>The first thing we will do is head over to "Regression" tab in the top navigation bar, use the drop down to choose "Linear Models" and then simply read in our data as follows. Just use the browse button to locate and read the file called "sampleDat.csv" if you're using the sample data or read in any data file you want. 
+				    <p>The first thing we will do is head over to the "Regression" tab in the top navigation bar, use the drop down to choose "Linear Models" and then simply read in our data as follows. Just use the browse button to locate and read the file called "sampleDat.csv" if you're using the sample data or read in any data file you want. 
 					
 					<figure>
 				        <img class="img-fluid" src="Images/regReadIn.png" alt="image">
@@ -130,11 +130,10 @@
 					
 					<figure>
 				        <img class="img-fluid" src="Images/regDatPreview.png" alt="image">
-				    </figure>
-						
+				    </figure>						
 					
 					<h3 class="mt-5 mb-3">Configuring the Model</h3>
-					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Choose independent variables" reads "Leave empty for intercept only model". Simply click the "Run regression" button and a table will be printed to screen showing the estimates of the fixed effects, in this case the intercept only model. With mixed random effects (shown later) this strategy is sometimes used to estimate the unconditional model. 
+					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Select independent variable(s) from:" reads "Leave empty for intercept only model". Simply click the "Run regression" button and a table will be printed to screen showing the estimates of the fixed effects, in this case the intercept only model. With mixed random effects (shown later) this strategy is sometimes used to estimate the unconditional model. 
 					</p>
 
 					<figure>
