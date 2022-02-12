@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="regression1.html"><i class="fas fa-home fa-fw me-2"></i>Linear Models <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="ItemDash.html"><i class="fas fa-home fa-fw me-2"></i>Item Analysis Dashboards <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-home fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Introduction to Error-in-Variable Linear Models</h2>
+				    <div class="meta mb-1"><span class="date">Published February 12, 2022</span><span class="time">15 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					<h3 class="mt-5 mb-3">Linear Regression</h3>
+				    <p> PACER implements a special type of linear regression referred to as an error-in-variables (EiV) linear model as both fixed effects models or mixed effects models. EiV models are useful when one or more of the predictor variables are measured with error. If that error is ignored, the estimates of the fixed effects are <a href = "https://en.wikipedia.org/wiki/Consistent_estimator" target = "blank"> inconsistent</a> and the source of that inconsistency is described <a href = "https://www.tandfonline.com/doi/full/10.1080/2330443X.2014.955228" target = "blank"> here. </a> PACER has many features for linear models, such as design-conistent standard errors for the fixed effect model or for easily implementing many levels of nesting or partially crossed random effects in what are sometimes called multiple membership models. 
+					</p>
+					
+					<p>
+					Because PACER has many ways to implement regression models I will do a few tutorials and begin with some basics and build to more complex models later. First, sample data for practicing the analyses described in this tutorial are <a href = 'data/PACER Supplementals/Regressions/sampleDat.csv'> here. </a>  Download this file to your computer and you'll be able to replicate the analyses done in this tutorial. One important thing to note is that the results from PACER will match other standard software when the measurement error is ignored (e.g., HLM or lmer in R). However, PACER extends those models allowing for the measurement error in the predictor variables to be managed using either the standard errors of measurement if available or the test reliability. 
+					</p>
+				    
+					<p>
+					By way of preference, I use the term "mixed effects" or "random effects" models more often that hierarchical linear model (HLM), although these are all referring more or less to the same type of model. We have mixed effects because when we have both fixed and random effects. I truly despise the notation where people write these out in "levels" and I think that notation is misguided. I often hear people say "at level 1 I have this and then at level 2 I have this". These models are not estimated as separate regressions and writing them out notationally with all those levels is cumbersome in my opinion.  
+					</p>
+					
+				    <h3 class="mt-5 mb-3">Read in Data</h3>
+				    <p>The first thing we will do is head over to "Regression" tab in the top navigation bar, use the drop down to choose "Linear Models" and then simply read in our data as follows. Just use the browse button to locate and read the file called "sampleDat.csv" if you're using the sample data or read in any data file you want. 
+					
+					<figure>
+				        <img class="img-fluid" src="Images/regReadIn.png" alt="image">
+				    </figure>
+					</p>		
+					
+					<p>
+					The data do not need any special format, but these data are formatted in a "wide" style where each row represents a unique observation for a simulated examinee. These simulated data reflect student test scores with the variable \(y\) being the dependent variable and the variables \(x_1\) and \(x_2\) representing prior test scores. The variables \(sem_1\) and \(sem_2\) are the conditional standard errors of measurement associated with the observed scores \(x_1\) and \(x_2\), respectively. We can use those later when accounting for measurement error or we can optionally enter in the overall test reliability. These data also have a simple nesting structure where each student is nested in one and only one teacher and each teacher is nested in one and only one school. When this type of structure exists we have models with nested random effects, although PACER can also estimate models with fully or partially crossed random effects, a topic I will explore in a later blog post. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/regDatPreview.png" alt="image">
+				    </figure>
+						
+					
+					<h3 class="mt-5 mb-3">Configuring the Model</h3>
+					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Choose independent variables" reads "Leave empty for intercept only model". Simply click the "Run regression" button and a table will be printed to screen showing the estimates of the fixed effects, in this case the intercept only model. With mixed random effects (shown later) this strategy is sometimes used to estimate the unconditional model. 
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/regIntFixed.png" alt="image">
+				    </figure>
+					
+					<p>
+					Now let's set up our first EiV linear regression with fixed effects. Click in the box with "Select independent variable(s) from:" and choose \(x_1\) and \(x_2\). Now, we could run this model now and click run regression without doing anything else. If we did that we would estimate a linear regression that would match other standard software. However, let's run an EiV model. We first must indicate which variables have measurement error. Click in the box "Which independent variable(s) have measurement error:" and choose both \(x_1\) and \(x_2\). We will use the conditional standard errors and so let's leave the "heteroscedastic" button checked. Now click in the box "Select SEM variable(s) from:" and choose sem1 and sem2. 
+					</p>
+					
+					<p>
+					It's important to note that the order of things matters here. We entered \(x_1\) and \(x_2\) as our variables with measurement error so the order in which we choose the measurement error variables must correspond to that same order. In this example, sem1 is the error associated with \(x_1\) and sem2 is the error associated with \(x_2\). 
+					</p>
+					
+					<p>
+					When we now click "run regression" we get two tables. The first is the output showing the estimates of the fixed effects, their standard errors, t-values, and a p-value. For now, those p-values are unrounded just so we can see their machine precision. The second table shows the marginal reliability of the variables that are measured with error. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/regFixed1.png" alt="image">
+				    </figure>
+					
+					<p>
+					Suppose we did not have conditional standard errors of measurement but instead we wanted to use the test reliability. In that case, click "homoscedastic error" and enter in the reliabilities for each variable as shown here.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/errorType.png" alt="image">
+				    </figure>
+					
+					<p>
+					Let's do one more quick thing. By default our model assumes the errors are the typical independent and identically (iid) distributed form. This may not be true and we can estimate either "Heteroscedastic Robust" or "Cluster Robust". Let's click "Cluster Robust" and choose schid as our cluster variable. Now click "Run Regression" and the same fixed effects will be printed but the standard errors will be updated.
+					
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/errorCluster.png" alt="image">
+				    </figure>					
+					
+					<h3 class="mt-5 mb-3">Configuring a Mixed Effects Model (HLM)</h3>
+					<p>We can now very easily extend this model and run a mixed effects model. All of the preceding configurations apply and so let's do one more thing now. Under model type click "Mixed Effects Model". Leave "Model Type" as "Nested" and in the box "Select level variable(s) from:" enter in tchid and schid. This will implement a "three level" models where students are nested in teachers and teachers are nested in schools. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/mixed.png" alt="image">
+				    </figure>	
+					
+					<p>
+					Now, you can click "Run Regression" and two new tables will be printed to screen as shown below. We now have a table showing the variance components and some fit statistics. Notice that I do not provide standard errors of the variances. This is intentional because significance tests on the marginal variances using standard errors that assume normality is wrong. Better ways to test models using likelihood ratio tests should be used instead--a topic for another post.					
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/mixedOut.png" alt="image">
+				    </figure>		
+
+					<p>
+					You may also notice that the table for fixed effects is slightly different than before. We no longer see a p-value. We see only an estimate, its standard error, and a t-statistic. With mixed models, the null distribution of the fixed effects is actually unknown. So, rather than encouraging someone to immediately infer that a fixed effect is statistically significant, I'll let you consider this issue a bit more on your own and determine how to best test the estimates using the output provided.  
+					</p>
+					<figure>
+				        <img class="img-fluid" src="Images/mixedOut2.png" alt="image">
+				    </figure>					
+					
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					There are many aother things PACER can do with linear models. This is a first introduction and other posts will follow. However, you can experiment with features and also read the Help tab for this module on the PACER site for more details. Notice the fits plots and other diagnostics are also available to view.
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
