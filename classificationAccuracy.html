@@ -99,65 +99,59 @@
 	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container single-col-max-width">
 			    <header class="blog-post-header">
-				    <h2 class="title mb-2">Basic Data Exploration and Variance Estimation</h2>
-				    <div class="meta mb-1"><span class="date">Published January 28, 2022</span><span class="time">5 min read</span></div>
+				    <h2 class="title mb-2">Classification Accuracy</h2>
+				    <div class="meta mb-1"><span class="date">Published February 19, 2022</span><span class="time">5 min read</span></div>
 			    </header>
 			    
 			    <div class="blog-post-body">
 				   <!--/* <figure class="blog-banner">
 				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
 				    </figure>*/-->
-					 <h3 class="mt-5 mb-3">Basic Data Analysis</h3>
-				    <p> Sometimes we just need a tool to open and explore our data. PACER provides a way to do this that is fast and with many options for data exploration. In this blog post I will walk through a simple and effective way to read any data file into the web application and do some basic data exploration. This module in PACER is perhaps the easiest to use because data can be in any format and the options are simple point and click. Even though you can use any data file, if you want to replicate the example I use for this tutorial you can grab it <a href = 'data/PACER Supplementals/Data Tools/apistrat.Rdata'> here. </a>This file happens to be an R data file, but it doesn't matter because you can import any type of data into PACER, just make sure to use the radio buttons for ".csv/other" for different formats.
+					<h3 class="mt-5 mb-3">Classification Accuracy</h3>
+				    <p>
+					Classification accuracy helps us understand the degree to which examinees are properly placed into a test category level. If true scores were known, there would be no misclassification at all. Of course, true scores are latent and we only have an estimate of performance referred to as the observed score and that observed score has some amount of measurement error that would lead to some possible misclassifications. So, as the reliability of the measure tends towards 1, we expect fewer misclassifications into groups and as the reliability of the measure tends towards 0, we would expect more misclassification. 
+					
+					<a href="https://psycho-metrics.shinyapps.io/metrics/" target="blank"> PACER </a> provides tools for examining the classification accuracy as well as the classification consistency, although this blog post will focus only on classification accuracy based on <a href = "https://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1162&context=pare", target = "blank"> Rudner's approach </a>.
+					
+					Download <a href = 'data/PACER Supplementals/Classification Accuracy/classifyFile.csv'> this file </a> to your computer and you'll be able to replicate the analyses done in this tutorial.
 					</p>
-				    
-				    <h3 class="mt-5 mb-3">Data Exploration</h3>
-				    <p>The first thing we will do is head over to "Data Tools" in the top navigation bar and read in our data as follows. On the "Data" tab use the browse button to locate and read in your data. The upload bar will read in the file and I immediately clicked on the "Data View" tab in the main panel which shows our data. 
-					</p>					
+ 
+				    <h3 class="mt-5 mb-3">Read in and Preview Data</h3>
+				    <p>The first thing we will do is head over to "Classification Accuracy" in the top navigation bar and read in our data using the browse button to locate the file. The sample data look like the following but there is no requirement at all for data structure, PACER requires only two variables and optionally a third. 
 					
 					<figure>
-				        <img class="img-fluid" src="Images/dtReadIn.png" alt="image">
+				        <img class="img-fluid" src="Images/classifyInput.png" alt="image">
 				    </figure>
-					
-					<p>The first thing to point out is this is an INTERACTIVE data table. I'll show you a few quick features. Note, we read in an R data file, but using the buttons at the top we can export the data to any format right away! First, if the data are too big and you want to hide some columns on the screen, click the "Column Visibility" button and a list of all the columns appear. Click the ones you no longer want and they will be hidden. Don't worry, you can always bring them back if you just click them again after they are hidden. 
-					</p>
-					
-					<figure>
-				        <img class="img-fluid" src="Images/dtColumns.png" alt="image">
-				    </figure>
-					
-					Here is another very cool feature. At the bottom of the table are boxes to filter your data. Just start typing and the filtering will happen in real time. This is not case sensitive. For the numbers, you will get a "slider" to you can filter a range. But, if you want a specific value in a box with numbers just type into the box <code>200...200</code> as an example and this will give you all rows with that exact value or you can type in the range you specifically want. Also, if you click and drag the column names, you can move the columns around to be in different positions. 
-					
-					<figure>
-				        <img class="img-fluid" src="Images/dtFilter.png" alt="image">
-				    </figure>
-					
-					<p>
-					Let's now move over to the "General" tab in the sidebar and use the drop down menu to choose "Get Descriptive Statistics". Choose a variable (must be a numeric variable) and click the button to run. Now, on the "Result View" panel you will see the summary of the variable. Very easy! 
 					</p>		
 					
-					<figure>
-				        <img class="img-fluid" src="Images/dtDescriptive.png" alt="image">
-				    </figure>
-					
+					<p>The first variable called "score" is the observed score for the examinee and the second variable called "sem" is the standard error of measurement for the individual examinee. These are the only two required variables for this analysis and they do not need to be called "score" or "sem" as we will later see. The third variable called "pl" is the performance level the individual is placed into. We can use this variable in the analysis or PACER can compute the cuts for you. The advantage is that using a precomputed variable will make PACER a bit faster since it has fewer computations to do if you provide this variable--but it's not that big of a deal. 
+					</p>
+
 					<p>
-					Let's do one "complex" thing. Use the drop down menu to choose "Get Standard errors" and you will see a list of options for estimating standard errors from complex sample designs. Here you just choose the variable you want to get the variance of and let's choose "cluster" and choose our cluster variable. Now simply click run and the table appears with the standard error, design effect, intraclass correlation and so on.  		
+					With the data now read into PACER, go to the "options" tab and set up the analysis as follows. Use the drop down menu to choose which variable in your data has the observed score and choose which variable in the data is the standard error of measurement. Now, under "Compute Cuts" use the drop down and choose "FALSE" for now. When you do this, a drop down will appear and you can choose which variable in your data represent the performance level (or group) variable. Last, and very importantly, enter the cut scores used for performance level assignment. If you have \(K\) levels, then you will have \(K-1\) cut scores. Just type in each cut separating them with a comma. 
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/dtVariance.png" alt="image">
+				        <img class="img-fluid" src="Images/classifySetup.png" alt="image">
 				    </figure>
-
-					<p>
-					Last thing for now is to simply show the easy way to get visual displays. Head over to the "Graphics" tab and choose a plot and choose your variables like I have in this screen shot. Click to run the graphic and there you go. 
+					
+					<p>Now, click "Run Classification" and in the main panel you will see the following:</p>					
+					
 					<figure>
-				        <img class="img-fluid" src="Images/dtVisual.png" alt="image">
-				    </figure>					
+				        <img class="img-fluid" src="Images/classifypart1.png" alt="image">
+				    </figure>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/classifypart2.png" alt="image">
+				    </figure>
+					
+					<p>
+					These cards present the entire results in one clean preview and the data can be exported using the buttons over each table. The results are rather comprehensive giving the overall classification accuracy as well as the accuracy at each specific cut as well as the observed counts within each performance level. 
 					</p>
 					
 					<h3 class="mt-5 mb-3">Some Notes</h3>
 					<p>
-					I have shown only a few very small features. You use the drop down menus to choose many other ways to explore your data. Some of the learning comes through exploration so try using some of the other features and let me know if you have any thoughts or questions. 
+					If you set "Compute Cuts?" to "TRUE", then you do not need to enter in a performance level variable. PACER will first assign a performance level to each examinee in the file based on the cut scores you enter in the "Cut Scores" box and then it will compute the classification accuracy. 
 					</p>
 				   
 			    </div>
