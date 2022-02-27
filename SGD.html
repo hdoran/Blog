@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="SGD.html"><i class="fas fa-bookmark fa-fw me-2"></i>Stochastic Gradient Descent <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="classificationAccuracy.html"><i class="fas fa-bookmark fa-fw me-2"></i>Classification Accuracy <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="regression1.html"><i class="fas fa-bookmark fa-fw me-2"></i>Linear Models <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="ItemDash.html"><i class="fas fa-bookmark fa-fw me-2"></i>Item Analysis Dashboards <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-bookmark fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Stochastic Gradient Descent</h2>
+				    <div class="meta mb-1"><span class="date">Published February 27, 2022</span><span class="time">10 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					<h3 class="mt-5 mb-3">Gradient Descent Methods</h3>
+				    <p> Stochastic gradient descent (SGD) is a powerful approach for analyzing extremely large data and building classifiers that may be useful in machine learning applications. SGD, and other variants of gradient descent, reduce the computational burden associated with large data by simplifying it to an iterative solution passing over the gradient one sample at a time. While SGD is a general purpose optimization technique useful for minimization of any differentiable objective (loss) function, \(\mathcal{J}(\boldsymbol{\theta})\), this blog post will demonstrate how PACER implements gradient descent with linear models. 
+					</p>
+					<p>
+					There are two major features offered in PACER for gradient descent (GD) models. One option is to simply use all of the data and run a regression. This yields model parameters and some fit statistics that may be useful. A second option is the "Train and Validate" option. In this approach, PACER takes a random sample of the full data and "learns" from these training data. The terms "learns" is used here to mean that the data provide information to estimate parameters that are useful for predicting or classifiying some outcome, sometimes referred to as supervised learning. Then, the remaining data in the validation sample are used to produce fits to determine how well the model works. In PACER, the training sample and the validation sample are completely different, as they should be. We would not want data from our training sample to be in our validation sample. 
+					</p>
+					
+					<p>
+					When "Train and Validate" is selected, the training sample is determined as a random subset of the complete data. You can set what percentage of the data are used for training. Then, the remaining data are used in the validation sample. For example, by default the training sample is set to 65% of the full data and then the validation sample would be the remaining 35%. This option is entirely configurable.  
+					</p>
+					
+				    <h3 class="mt-5 mb-3">Read in Data</h3>
+				    <p>The first thing we will do is head over to the "Regression" tab in the top navigation bar, use the drop down to choose "Gradient Descent" and then simply read in our data as follows. Download these <a href = 'data/PACER Supplementals/Regressions/sampleDat.csv'> sample data </a> to replicate this tutorial. Now, just use the browse button to locate and read the file called "sampleDat.csv" if you're using the sample data or read in any data file you want. Note, that you can use the buttons to select a file formatted as a .Rdata file or any other .csv/other file.
+					</p>		
+					
+					<p>
+					The data do not need any special format, but these data are formatted in a "wide" style where each row represents a unique observation. These simulated data reflect student test scores with the variable \(y\) being the dependent variable and the variables \(x_1\) and \(x_2\) representing prior test scores.  
+					</p>
+					
+					<h3 class="mt-5 mb-3">Configuring the Model</h3>
+					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model using GD. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Select independent variable(s) from:" select \(x_1\) and \(x_2\) as the independent variables.  Leave the defaults as they are and go down to "Fit Options" and choose "Train and Validate". Click "Run Regression" and the following will be printed to screen.
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/SGD1.png" alt="image">
+				    </figure>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD2.png" alt="image">
+				    </figure>
+					
+					<p>
+					So, what we did here is use Stochastic Gradient Descent because <code>size=1</code>, training was based on 65% of the complete, validation was done of the remaining 35%, and 500 epochs (or iterations) were used. The data are "shuffled" with a randomization process at each epoch. The fit plots are all based on the validation sample. We want to evaluate how well our model would work on some "other" sample of data and the residual against fitted plot are just one indicator and a pretty good one to size up our model pretty quickly.
+					</p>
+					
+					<p>
+					Notice that we used "Stochastic Gradient Descent" because <code>size=1</code>. But, you can switch to "Mini-Batch" by increasing this number. You can also do traditional gradient descent by just choosing "Run All", which uses all rows in the data--although that may be an expensive computation and take time depending on how large your data file is.
+					</p>
+					
+					<p>
+					Now, let's click the button for "Tune learning rate" and the following options will be revealed after doing so. The learning rate is a number that must be between 0 and 1 and can be adjusted to produce better fits. You can also select a learning rate schedule. Constant means the learning rate is the same over all epochs. Choosing time-based or exponential are common options that adjust the learning rate to smaller values with increasing number of epochs. Other adaptive learning rates, such as momentum, will be available soon. If you choose time-based or exponential, you will also see the decay parameter that you can adjust. For those interested in exactly how that is used, see the online help in the navigation bar in PACER to see the technical details of the models and the learning rates.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD3.png" alt="image">
+				    </figure>
+					
+					<p>
+					The best thing to do at this point is simply experiment and try different learning rates, different percentages for training, and examine how well the models seem to work. Machine learning with GD is highly sensitive to the hyperparameters and inputs used for training. Sometimes, quite a few models need to be run with different parameters for learning/building. Notice that the tabs at the top provide two other options. First you can view a QQ plot of the residuals from the validation sample.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD4.png" alt="image">
+				    </figure>
+					
+					<p>
+					Or, you can also find the parameter history over all epochs in the "Parameter History" tab. This is an exportable table by simply clicking one of the buttons to export in the format you prefer. You can use the data in this table to create your own plots and evaluate whether the parameter estimates are starting to "settle down".
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD5.png" alt="image">
+				    </figure>
+
+										
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					There are many aother things PACER can do with gradient descent and other link functions are available. This is a first introduction and other posts will follow. However, you can experiment with features and also read the Help tab for this module on the PACER site for more details. 
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
