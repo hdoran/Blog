@@ -123,7 +123,7 @@
 					</p>
 					
 				    <h3 class="mt-5 mb-3">Data Structure Explanation</h3>
-				    <p>The data needed do need to be structured in a specific way. It's very simple, but by feeding in data with a particular structure, it means there can be less programming needed to set things up. So, here is how things need to be set up. First, the file holding the item parameters must look like this
+				    <p>The data needed do need to be structured in a specific way. It's very simple, but by feeding in data with a particular structure, it means there can be less programming needed to set things up. So, here is how things need to be set up. First, the file holding the item parameters must look like this:
 					
 					<figure>
 				        <img class="img-fluid" src="Images/tsParams1.png" alt="image">
@@ -131,7 +131,7 @@
 					</p>		
 					
 					<p>
-					The data do not need any special format, but these data are formatted in a "wide" style where each row represents a unique observation. These simulated data reflect student test scores with the variable \(y\) being the dependent variable and the variables \(x_1\) and \(x_2\) representing prior test scores.  
+					The required variables are ItemID, ScorePoints, Model, and some of the P0-P10 columns, wihch I will explain. First, this file must hold all of the item parameters in the examinee file that will be used to score an examinee. PACER does a quick check before you doing any scoring and will print error messages to screen, but if an examinee was administered an item, then the parameters for that item must be in this file with an ItemID. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. For example, the Rasch model has an a-parameter set to 1, a location parameter, and then a c-parameter set to 0. In fact, that's exactly what this file is showing for these sample items. In PACER, column P0 holds the a-parameters for an item. Here, the value is set to 1. Column P1 holds the b-parameter, and column P2 holds the c-parameter.
 					</p>
 					
 					<h3 class="mt-5 mb-3">Configuring the Model</h3>
