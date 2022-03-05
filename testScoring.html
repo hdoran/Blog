@@ -62,6 +62,9 @@
 					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
+					    <a class="nav-link active" href="testScoring.html"><i class="fas fa-bookmark fa-fw me-2"></i>IRT Test Scoring <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
 					    <a class="nav-link active" href="SGD.html"><i class="fas fa-bookmark fa-fw me-2"></i>Stochastic Gradient Descent <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
@@ -111,7 +114,7 @@
 				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
 				    </figure>*/-->
 					<h3 class="mt-5 mb-3">IRT Test Scoring</h3>
-				    <p> PACER offers a very large set of options for scoring unidimensional and multidimensional IRT tests given a set of item parameters. Test scores can be generated for any type of test (computer adaptive, fixed form) and for as many examinees as you want, whcih can be one examinee or thousands. The options include maximum likelihood estimation (MLE), maximum a-priori (MAP), expected a-priori (EAP), inverse of the test characteristic curve (TCC), and the bifactor (or clustering of items) method. I also have the correlated factors model but it's not yet available in the browser. Scoring examinees is extremely easy with all configurations done in the web browser and all results printed to the screen with interactive tables and visual displays as soon as scoring is done.  
+				    <p> PACER offers a very large set of options for scoring unidimensional and multidimensional IRT tests given a set of item parameters. Test scores can be generated for any type of test (computer adaptive, fixed form) and for as many examinees as you want, which can be one examinee or thousands. The options include maximum likelihood estimation (MLE), maximum a-priori (MAP), expected a-priori (EAP), inverse of the test characteristic curve (TCC), and the bifactor (or clustering of items) method. I also have the correlated factors model but it's not yet available in the browser. Scoring examinees is extremely easy with all configurations done in the web browser and all results printed to the screen with interactive tables and visual displays as soon as scoring is done.  
 					</p>
 					
 					<p>
@@ -119,7 +122,7 @@
 					</p>
 					
 					<p>
-					This blog post will show how to generate overall IRT scores and will show how to also generate strand scores. I feel it's best to learn by example, so to best follow this tutorial, download the sample data files and you will be able to replicate all the analyses done here. You will need one file that holds the IRT item parameters like this one <a href = 'data/PACER Supplementals/TestScoring/params.csv'> here </a>. Then, you will need a second file that holds the examinee responses like this one <a href = 'data/PACER Supplementals/TestScoring/examinees.csv'> here </a>. Mainly, this is all you need in order for scoring to work. But, if you want to generate strand scores, you will also need two other files. These are optional but you can use the <a href = 'data/PACER Supplementals/TestScoring/scoreType.csv'> score type </a> and <a href = 'data/PACER Supplementals/TestScoring/itemMap.csv'> item map </a> files here. I'll explain what all of these are below.
+					This blog post will show how to generate overall IRT scores and will show how to also generate strand scores. I feel it's best to learn by example, so to best follow this tutorial, download the sample data files and you will be able to replicate all the analyses done here. You will need one file that holds the IRT item parameters like this one <a href = 'data/PACER Supplementals/Test Scoring/params.csv'> here </a>. Then, you will need a second file that holds the examinee responses like this one <a href = 'data/PACER Supplementals/Test Scoring/examinees.csv'> here </a>. Mainly, this is all you need in order for scoring to work. But, if you want to generate strand scores, you will also need two other files. These are optional but you can use the <a href = 'data/PACER Supplementals/Test Scoring/scoreType.csv'> score type </a> and <a href = 'data/PACER Supplementals/Test Scoring/itemMap.csv'> item map </a> files here. I'll explain what all of these are below.
 					</p>
 					
 				    <h3 class="mt-5 mb-3">Data Structure Explanation</h3>
@@ -131,69 +134,113 @@
 					</p>		
 					
 					<p>
-					The required variables are ItemID, ScorePoints, Model, and some of the P0-P10 columns, wihch I will explain. First, this file must hold all of the item parameters in the examinee file that will be used to score an examinee. PACER does a quick check before you doing any scoring and will print error messages to screen, but if an examinee was administered an item, then the parameters for that item must be in this file with an ItemID. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. 
+					The required variables are ItemID, ScorePoints, Model, and some of the P0-P10 columns, which I will explain. First, this file must hold all of the item parameters in the examinee file that will be used to score an examinee. PACER does a quick check before you doing any scoring and will print error messages to screen telling you if anything is missing, but if an examinee was administered an item, then the parameters for that item must be in this file with an ItemID. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. 
 					</p>
 					
 					<p>
-					 For example, the Rasch model has an a-parameter set to 1, a location parameter, and then a c-parameter set to 0. In fact, that's exactly what this file is showing for these sample items. In PACER, column P0 holds the a-parameters for an item. Here, the value is set to 1. Column P1 holds the b-parameter, and column P2 holds the c-parameter. So, this also shows PACER can score a mixture of item types as well. Some of the item might be 2pl, some might be 1PL, some might be 3PL. The scoring system would score accordinly just by passing it the types of item parameters ite needs. 
+					 For example, the Rasch model has an a-parameter set to 1, a location parameter, and then a c-parameter set to 0. In fact, that's exactly what this file is showing for these sample items. In PACER, column P0 holds the a-parameters for an item. Here, the value is set to 1. Column P1 holds the b-parameter, and column P2 holds the c-parameter. So, this also shows PACER can score a mixture of item types as well. Some of the item might be 2pl, some might be 1PL, some might be 3PL. The scoring system would score accordingly just by passing it the types of item parameters item needs. 
 					</p>
 					
 					<p>
-					Now, this file happens to have only binary items. But, you can have a mixture of polytomous and binary items too. This file shows how that might be structured. 
+					Now, this file happens to have only binary items. But, you can have a mixture of polytomous and binary items too. This file shows how that might be structured. Notice, the first item is setup as a 3PL item and the second item is setup as a generalized partial credit item. It has 2 scores points. For this GPC item, P0 is its a-parameter, P1 is step value 1 and P2 is step value 2. Note, if you want the GPC to actually be Master's partial credit, then P0 would just be 1! So, PACER views items as special cases of the more general case making it very easy. 
 					</p>
 					
 					<figure>
 				        <img class="img-fluid" src="Images/tsParams2.png" alt="image">
 				    </figure>
 					
-					<h3 class="mt-5 mb-3">Configuring the Model</h3>
-					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model using GD. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Select independent variable(s) from:" select \(x_1\) and \(x_2\) as the independent variables.  Leave the defaults as they are and go down to "Fit Options" and choose "Train and Validate". Click "Run Regression" and the following will be printed to screen.
+					<p>
+					In addition to the item parameters file you will also need an examinee file. This is the file that holds the item responses in a long format for all examinees you wish to include in the scoring. Open the same file provided to explore the structure further, but the screen shot shows a sample of how this must be organized. First, it has only three required variables, "testID" is the unique ID associated with the examinee, "key" is the item ID, and "score" is the observed response. Note, this is stacked in a long format so that an examinee has one row per item. Then, the next examinee would follow with one row per item. The number of rows can vary by examinee and there can be as many examinees as you want. This sample file has 6 examinees and the item id (key) must be an item that is also found in the parameter file. In this sample file, the first examinee has testID 2119851. This can be any unique number for the examinee. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsExaminee.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Let's Run Some Scores</h3>
+					<p>The item map and score types files are optional and used only if you want to generate some other score types. We'll explore those later because we have what we need to get up and running. Let's first head over to the "Test Scoring" in the navigation bar and read in the two sample files provided as shown below. 
 					</p>
 
 					<figure>
-				        <img class="img-fluid" src="Images/SGD1.png" alt="image">
-				    </figure>
-					
-					<figure>
-				        <img class="img-fluid" src="Images/SGD2.png" alt="image">
+				        <img class="img-fluid" src="Images/tsReadIn.png" alt="image">
 				    </figure>
 					
 					<p>
-					So, what we did here is use Stochastic Gradient Descent because <code>size=1</code>, training was based on 65% of the complete data, validation was done of the remaining 35%, and 500 epochs (or iterations) were used. The data are "shuffled" with a randomization process at each epoch. The fit plots are all based on the validation sample. We want to evaluate how well our model would work on some "other" sample of data and the residual against fitted plot is just one indicator and a pretty good one to size up our model pretty quickly.
+					Now, move over to the "Options" tab in the side bar and leave all the defaults alone for now. Go to the button "IRT Ability" and check that box. Then, click "Run Scoring Modules" and in just a moment the scoring will run and print the results to the screen as you see in this image. This is showing you chose "MLE" as your scoring method, 6 examinee tests were scored, two plots are provided to get an immediate visual display of the score distributions, and then an interactive table is printed to screen with the results. You get the theta (ability estimate), its standard error and the raw score by default. 
 					</p>
 					
 					<p>
-					Notice that we used "Stochastic Gradient Descent" because <code>size=1</code>. But, you can switch to "Mini-Batch" by increasing this number. You can also do traditional gradient descent by just choosing "Run All", which uses all rows in the data--although that may be an expensive computation and take time depending on how large your data file is.
-					</p>
-					
-					<p>
-					Now, let's click the button for "Tune learning rate" and the following options will be revealed after doing so. The learning rate is a number that must be larger than 0 and can be adjusted to produce better fits. You can also select a learning rate schedule. Constant means the learning rate is the same over all epochs. Choosing time-based or exponential are common options that adjust the learning rate to smaller values with increasing number of epochs. Other adaptive learning rates, such as momentum, will be available soon. If you choose time-based or exponential, you will also see the decay parameter that you can adjust. For those interested in exactly how that is used, see the online help in the navigation bar in PACER to see the technical details of the models and the learning rates.  
+					Now, suppose you want to score as EAP instead of MLE. Just click EAP at the top and click "Run Scoring Modules" again. New scores will be printed to the screen almost immediately. 
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/SGD3.png" alt="image">
+				        <img class="img-fluid" src="Images/tsResult1.png" alt="image">
 				    </figure>
 					
 					<p>
-					The best thing to do at this point is simply experiment and try different learning rates, different percentages for training, and examine how well the models seem to work. Machine learning with GD is highly sensitive to the hyperparameters and inputs used for training. Sometimes, quite a few models need to be run with different parameters for learning/building. Notice that the tabs at the top provide two other options. First you can view a QQ plot of the residuals from the validation sample.  
+					If all you want are the overall ability estimates, you're done and you can export that table, filter the table live in the web browser and so on. But, there is a lot more we can do. 
+					</p>
+					
+					<h3 class="mt-5 mb-3">Adding Score Transformations</h3>
+					<p>
+					We can also do a Score Transformation as shown here. Use the drop down menu under "Set Settings For" and choose "Score Transformation". You can now enter in ways to transform your score. Try the settings I have shown in this example or try your own. Note, that in the "Cut Scores (seperated by comma)" box I entered in 450 and 550. This will bin examinees into three levels using those scores as the cut. Now, click the box called "Score Transformation" under "IRT Ability" and click "Run Scoring Modules". PACER will only do the analyses that you choose so it runs fast. Again, you will see the same displays as before but the table now has more data. 
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/SGD4.png" alt="image">
+				        <img class="img-fluid" src="Images/tsResult2.png" alt="image">
 				    </figure>
 					
 					<p>
-					Or, you can also find the parameter history over all epochs in the "Parameter History" tab. This is an exportable table by simply clicking one of the buttons to export in the format you prefer. You can use the data in this table to create your own plots and evaluate whether the parameter estimates are starting to "settle down".
+					Theta2 is the censored theta. That is, if you used lowest obtainable or highest obtainable theta, this variable wold be censored if the original theta falls outside those boundaries and se2 is the standard error of the censored theta. This will always match the original theta if censoring is not applied. Notice you also see "ss", "PL" and "ss.se". The variable "ss" is the transformed theta called a scaled score, and "ss.se" is its standard error. The variable called "PL" is the performance bin using the cuts that were setup up. 
+					</p>
+					
+					<h3 class="mt-5 mb-3">Classification Consistency</h3>
+					<p>
+					Let's do one more thing. Use the drop down menu under "Set Settings For" and choose "Classification Consistency". A bunch of new things will appear but for now leave the defaults alone. Go to the bottom and click the box for "Classification Consistency" under which modules to run and again click "Run Scoring Modules". Now, you will see one more column in the table as "class.probs". What PACER just did was integrate for each examinee over the posterior distribution the proportion of that distribution that is above 0. If you want to know what proprtion is above 1, then under the box "Cut score (on theta scale)" enter in whatever value you want. You can also tell PACER to integrate below the cut score by choosing "Integrate Above Cut Score" to FALSE. The default sets a normal population distribution with \(N(0,1)\) as the default, so you can change those or you can also choose a uniform distribution for the population. 
 					</p>
 					
 					<figure>
-				        <img class="img-fluid" src="Images/SGD5.png" alt="image">
+				        <img class="img-fluid" src="Images/tsResult3.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Test Scoring Diagnostics</h3>
+					<p>
+					Suppose you want some further diagnostics on a particular examinee. Move over to the "Scoring Diagnostics" tab and enter in the testID you want to explore further than just click "Run Diagnostic". You will see a result printed as follows to the screen with some useful diagostic information you can study. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsResult4.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Strand Scores</h3>
+					<p>
+					We can now very easily and quickly generate strand scores of any type. You will need the other sample files provided and they need to also be structured in a specific way. The first file is called the "Item Map" file and it simply maps items to a certain category. In the example below the variable called "Key" is the item ID and the variable "Cat" is the category an item is mapped to. Here I have generically created a mapping of items to things called "Strand1", "Strand2" and "Strand3". Important, items do NOT need to be nested in one strand. The same item can appear in multiple strands if you want. And the names of the strands can be anything you want. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsResult5.png" alt="image">
+				    </figure>
+					
+					<p>
+					The next file you need is a score type file that is set up like this. It has two required columns, "Cat" and "type". Cat must match the categories in the item map file and the score type can be any score type. Here is says MLE and so it will generate an MLE for the items associated with Strand1 and the others. You can also enter "Raw", or "EAP", "MAP" or you can enter in MLE for one and EAP for another. They do not need to be all the same. Also, this will generate a strand score for any examinee who saw some or all of these items. Suppose this is an adaptive test and these are all items in the bank associated with Strand1. But, examinee 1 sees only 4 of those items. Then, a strand score will be developed using only the items in that category administered to that examinee. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsResult6.png" alt="image">
+				    </figure>
+					
+					<p>
+					Let's now use these files and generate strand scores. In the sidebar use the drop down for "Set Settings For" and choose "Strand Reporter". You will see the new read in options for the item map and score types files as shown in the screen shot below. Read those two files in and then click the box for "Strand Reporter" and click "Run Scoring Modules". New variables will be added to the table including Strand1, Strand2, and Strand3 and also Strand1.se etc. These are the strand scores and their standard errors. The names of the strand scores in this output table will match whatever you called them in your item map and score type files. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsResult7.png" alt="image">
 				    </figure>
 
 										
 					<h3 class="mt-5 mb-3">Some Notes</h3>
 					<p>
-					There are many aother things PACER can do with gradient descent and other link functions are available. This is a first introduction and other posts will follow. However, you can experiment with features and also read the Help tab for this module on the PACER site for more details. 
+					There are many aother things PACER can do with test scoring and the detals are best explored by trying some of the options and learning through experimentation. 
 					</p>
 				   
 			    </div>
