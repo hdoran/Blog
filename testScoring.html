@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="SGD.html"><i class="fas fa-bookmark fa-fw me-2"></i>Stochastic Gradient Descent <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="classificationAccuracy.html"><i class="fas fa-bookmark fa-fw me-2"></i>Classification Accuracy <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="regression1.html"><i class="fas fa-bookmark fa-fw me-2"></i>Linear Models <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="ItemDash.html"><i class="fas fa-bookmark fa-fw me-2"></i>Item Analysis Dashboards <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-bookmark fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">IRT Test Scoring</h2>
+				    <div class="meta mb-1"><span class="date">Published March 5, 2022</span><span class="time">10 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					<h3 class="mt-5 mb-3">IRT Test Scoring</h3>
+				    <p> PACER offers a very large set of options for scoring unidimensional and multidimensional IRT tests given a set of item parameters. Test scores can be generated for any type of test (computer adaptive, fixed form) and for as many examinees as you want, whcih can be one examinee or thousands. The options include maximum likelihood estimation (MLE), maximum a-priori (MAP), expected a-priori (EAP), inverse of the test characteristic curve (TCC), and the bifactor (or clustering of items) method. I also have the correlated factors model but it's not yet available in the browser. Scoring examinees is extremely easy with all configurations done in the web browser and all results printed to the screen with interactive tables and visual displays as soon as scoring is done.  
+					</p>
+					
+					<p>
+					Not only is the number of scoring methods large, but the number of available extensions is also rather large including the ability to generate overall scores and subscores at any level with no programming required, score transformation options to transform ability estimates to any metric as a linear transformation of the original score, bin examinees into categories such as performance levels, run IRT-based classification consistency, and ways for dealing with troublesome likelihoods if needed. 
+					</p>
+					
+					<p>
+					This blog post will show how to generate overall IRT scores and will show how to also generate strand scores. I feel it's best to learn by example, so to best follow this tutorial, download the sample data files and you will be able to replicate all the analyses done here. You will need one file that holds the IRT item parameters like this one <a href = 'data/PACER Supplementals/TestScoring/params.csv'> here </a>. Then, you will need a second file that holds the examinee responses like this one <a href = 'data/PACER Supplementals/TestScoring/examinees.csv'> here </a>. Mainly, this is all you need in order for scoring to work. But, if you want to generate strand scores, you will also need two other files. These are optional but you can use the <a href = 'data/PACER Supplementals/TestScoring/scoreType.csv'> score type </a> and <a href = 'data/PACER Supplementals/TestScoring/itemMap.csv'> item map </a> files here. I'll explain what all of these are below.
+					</p>
+					
+				    <h3 class="mt-5 mb-3">Data Structure Explanation</h3>
+				    <p>The data needed do need to be structured in a specific way. It's very simple, but by feeding in data with a particular structure, it means there can be less programming needed to set things up. So, here is how things need to be set up. First, the file holding the item parameters must look like this
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsParams1.png" alt="image">
+				    </figure>
+					</p>		
+					
+					<p>
+					The data do not need any special format, but these data are formatted in a "wide" style where each row represents a unique observation. These simulated data reflect student test scores with the variable \(y\) being the dependent variable and the variables \(x_1\) and \(x_2\) representing prior test scores.  
+					</p>
+					
+					<h3 class="mt-5 mb-3">Configuring the Model</h3>
+					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model using GD. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Select independent variable(s) from:" select \(x_1\) and \(x_2\) as the independent variables.  Leave the defaults as they are and go down to "Fit Options" and choose "Train and Validate". Click "Run Regression" and the following will be printed to screen.
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/SGD1.png" alt="image">
+				    </figure>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD2.png" alt="image">
+				    </figure>
+					
+					<p>
+					So, what we did here is use Stochastic Gradient Descent because <code>size=1</code>, training was based on 65% of the complete data, validation was done of the remaining 35%, and 500 epochs (or iterations) were used. The data are "shuffled" with a randomization process at each epoch. The fit plots are all based on the validation sample. We want to evaluate how well our model would work on some "other" sample of data and the residual against fitted plot is just one indicator and a pretty good one to size up our model pretty quickly.
+					</p>
+					
+					<p>
+					Notice that we used "Stochastic Gradient Descent" because <code>size=1</code>. But, you can switch to "Mini-Batch" by increasing this number. You can also do traditional gradient descent by just choosing "Run All", which uses all rows in the data--although that may be an expensive computation and take time depending on how large your data file is.
+					</p>
+					
+					<p>
+					Now, let's click the button for "Tune learning rate" and the following options will be revealed after doing so. The learning rate is a number that must be larger than 0 and can be adjusted to produce better fits. You can also select a learning rate schedule. Constant means the learning rate is the same over all epochs. Choosing time-based or exponential are common options that adjust the learning rate to smaller values with increasing number of epochs. Other adaptive learning rates, such as momentum, will be available soon. If you choose time-based or exponential, you will also see the decay parameter that you can adjust. For those interested in exactly how that is used, see the online help in the navigation bar in PACER to see the technical details of the models and the learning rates.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD3.png" alt="image">
+				    </figure>
+					
+					<p>
+					The best thing to do at this point is simply experiment and try different learning rates, different percentages for training, and examine how well the models seem to work. Machine learning with GD is highly sensitive to the hyperparameters and inputs used for training. Sometimes, quite a few models need to be run with different parameters for learning/building. Notice that the tabs at the top provide two other options. First you can view a QQ plot of the residuals from the validation sample.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD4.png" alt="image">
+				    </figure>
+					
+					<p>
+					Or, you can also find the parameter history over all epochs in the "Parameter History" tab. This is an exportable table by simply clicking one of the buttons to export in the format you prefer. You can use the data in this table to create your own plots and evaluate whether the parameter estimates are starting to "settle down".
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/SGD5.png" alt="image">
+				    </figure>
+
+										
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					There are many aother things PACER can do with gradient descent and other link functions are available. This is a first introduction and other posts will follow. However, you can experiment with features and also read the Help tab for this module on the PACER site for more details. 
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
