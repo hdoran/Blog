@@ -131,8 +131,20 @@
 					</p>		
 					
 					<p>
-					The required variables are ItemID, ScorePoints, Model, and some of the P0-P10 columns, wihch I will explain. First, this file must hold all of the item parameters in the examinee file that will be used to score an examinee. PACER does a quick check before you doing any scoring and will print error messages to screen, but if an examinee was administered an item, then the parameters for that item must be in this file with an ItemID. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. For example, the Rasch model has an a-parameter set to 1, a location parameter, and then a c-parameter set to 0. In fact, that's exactly what this file is showing for these sample items. In PACER, column P0 holds the a-parameters for an item. Here, the value is set to 1. Column P1 holds the b-parameter, and column P2 holds the c-parameter.
+					The required variables are ItemID, ScorePoints, Model, and some of the P0-P10 columns, wihch I will explain. First, this file must hold all of the item parameters in the examinee file that will be used to score an examinee. PACER does a quick check before you doing any scoring and will print error messages to screen, but if an examinee was administered an item, then the parameters for that item must be in this file with an ItemID. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. 
 					</p>
+					
+					<p>
+					 For example, the Rasch model has an a-parameter set to 1, a location parameter, and then a c-parameter set to 0. In fact, that's exactly what this file is showing for these sample items. In PACER, column P0 holds the a-parameters for an item. Here, the value is set to 1. Column P1 holds the b-parameter, and column P2 holds the c-parameter. So, this also shows PACER can score a mixture of item types as well. Some of the item might be 2pl, some might be 1PL, some might be 3PL. The scoring system would score accordinly just by passing it the types of item parameters ite needs. 
+					</p>
+					
+					<p>
+					Now, this file happens to have only binary items. But, you can have a mixture of polytomous and binary items too. This file shows how that might be structured. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/tsParams2.png" alt="image">
+				    </figure>
 					
 					<h3 class="mt-5 mb-3">Configuring the Model</h3>
 					<p>Now that we have the data read in, we can very quickly set up and run a linear regression model using GD. First, let's do something extremely simple. Use the drop down menu and choose \(y\) as the dependent variable. Now, notice the placeholder text in the box "Select independent variable(s) from:" select \(x_1\) and \(x_2\) as the independent variables.  Leave the defaults as they are and go down to "Fit Options" and choose "Train and Validate". Click "Run Regression" and the following will be printed to screen.
