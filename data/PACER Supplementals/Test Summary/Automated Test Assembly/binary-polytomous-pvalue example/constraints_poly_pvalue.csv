@@ -6,4 +6,4 @@ strand3,5,=
 strand4,5,=
 binary,15,<=
 polytomous,5,<=
-pvalue,10,>=
+pvalue,12,>=

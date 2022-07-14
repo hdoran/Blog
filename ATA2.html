@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PACER</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+	
+	<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+    
+
+</head> 
+
+<body>
+    
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="PACER.html">PACER Blog</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">This blog is to support the PACER software program.<br></div><!--//bio-->
+					
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-start">
+					<li class="nav-item">
+					    <a class="nav-link active" href="https://psycho-metrics.shinyapps.io/metrics/" target="_blank"><i class="fas fa-link"></i>The PACER Web Application <span class="sr-only">(current)</span></a>
+					</li> 
+					<li class="nav-item">
+					    <a class="nav-link" href="PACER.html"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="ATA.html"><i class="fas fa-bookmark fa-fw me-2"></i>Automated Test Assembly <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="testScoring.html"><i class="fas fa-bookmark fa-fw me-2"></i>IRT Test Scoring <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="SGD.html"><i class="fas fa-bookmark fa-fw me-2"></i>Stochastic Gradient Descent <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="classificationAccuracy.html"><i class="fas fa-bookmark fa-fw me-2"></i>Classification Accuracy <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link active" href="regression1.html"><i class="fas fa-bookmark fa-fw me-2"></i>Linear Models <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="ItemDash.html"><i class="fas fa-bookmark fa-fw me-2"></i>Item Analysis Dashboards <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="fitStatistics.html"><i class="fas fa-bookmark fa-fw me-2"></i>IRT Fit Statistics <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="dataExplore.html"><i class="fas fa-bookmark fa-fw me-2"></i>Basic Data Exploration and Variance Estimation</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testSummary.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Summary and Score Conversion Tables</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="testEquate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Test Equating</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="oibCreate.html"><i class="fas fa-bookmark fa-fw me-2"></i>Estimate Response Probabilities</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw me-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+    </header>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Automated Test Assembly</h2>
+				    <div class="meta mb-1"><span class="date">Published July 12, 2022</span><span class="time">15 min read</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				   <!--/* <figure class="blog-banner">
+				        <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image"></a>
+				    </figure>*/-->
+					<h3 class="mt-5 mb-3">Automated Test Assembly: Example 2</h3>
+				    <p> Someone asked how many constraints PACER can implement in its ATA module. The answer is as many of you can create with your item bank. Here is an example that can be generalized in many ways. This example quickly shows how to build a form with the following constraints:
+					
+					<ul>
+						<li>Build a form with 20 total items</li>
+						<li>Include items from different content strands. This example has four strands and we'll constrain the form to include five items from each strand </li>
+						<li>Constrain the form to include 15 binary items and five polytomous items</li>
+						<li> Constrain the average p-value on the form to be .6</li>
+						<li> Define item enemies so that those enemies do not appear on the same form</li>
+						<li> Create an item group so that at least one intact grouping of items are chosen together</li>
+					</ul> 
+					</p>
+					
+					<p>
+					In the terminology of ATA the term "constraints" are features of the items or test we want the form to adhere to. PACER provides a platform to use <a href ="https://en.wikipedia.org/wiki/Linear_programming" target = "_blank">linear programming</a> to build a complex test form with many test constraints via the <a href ="https://sourceforge.net/projects/lpsolve/" target = "_blank">lpSolve API</a>. However, PACER goes beyond simple test construction and puts all the tools a test developer and psychometrician needs in one place.  
+					</p>
+					
+					<p>
+					Specifically, the test construction module in PACER allows you to quickly view TCC, TIF, and SEM plots, view a score conversion table, estimate marginal reliability of the form, and build test forms all in the browser. This is extremely convenient as many things are available in a simple point and click environment all found in one location.
+					</p>
+					
+					<p>
+					This blog post will show how to use the test construction module including the ATA engine. It is intended to be a quick tutorial to get you up and running with the ATA options in PACER. The example is simple to show how to use the module, but the number of test constraints can be much larger than those demonstrated here. To follow along with the example, download the sample files including <a href = 'data/PACER Supplementals/Test Summary/Automated Test Assembly/bank_poly.csv'> the item bank file </a>. Then, you will need a second file that lists the items you want to incude on a form <a href = 'data/PACER Supplementals//Test Summary/Automated Test Assembly/lpItems.csv'> here </a> and last to use ATA you need a file that defines your test constraints like this one <a href = 'data/PACER Supplementals//Test Summary/Automated Test Assembly/constraints_poly.csv'> here </a>. 
+					</p>
+									
+				    <h3 class="mt-5 mb-3">Data Structure Explanation</h3>
+				    <p>We need three specific data files to get up an running with the ATA options in PACER. The first file is the parameters file and is structured as follows below. This file holds the item parameters and any features associated with those items we might later use as test constraints. Download the bank_poly.csv file in the link above to see this complete file.
+					
+					<figure>
+				        <img class="img-fluid" src="Images/params4ata.png" alt="image">
+				    </figure>
+					</p>		
+					
+					<p>
+					The required variables are ItemID, ScorePoints, Model, and the P0-P10 columns, which I will explain. First, this file must hold all of the item parameters that will be used in the test construction process. The scorepoints variable tells PACER how many scores are expected for that item (e.g., multiple choice is 1). The model variable for binary items is always IRT3pl. All binary items are treated as a special case of the 3PL. 
+					</p>
+					
+					<p>
+					 For example, the Rasch model has an a-parameter set to 1 (P0), a location parameter (P1), and then a c-parameter set to 0 (P2). In PACER, column P0 holds the a-parameters for an item. Column P1 holds the b-parameter, and column P2 holds the c-parameter. So, this also shows PACER can hold a mixture of item types as well. Some of the item might be 2pl, some might be 1PL, some might be 3PL. 
+					</p>
+					
+					<p>
+					You can have a mixture of polytomous and binary items too. This file shows how that might be structured. Notice, the first item is setup as a 3PL item and the fourth item is setup as a generalized partial credit item. It has 2 scores points. For this GPC item, P0 is its a-parameter, P1 is step value 1 and P2 is step value 2. Note, if you want the GPC to actually be Master's partial credit, then P0 would just be 1! So, PACER views items as special cases of the more general case making it very easy. 
+					</p>
+					
+					<p>
+					The second file you need is the item list file and is structured as shown in the screen shot below. You can also download this file as the lpitems.csv file in the link above. This file has two columns meaning we want to build two test forms with the items in each column. This file must have at least one column and at least one item but can have as many columns as you wish after that. PACER will build a test form for each column and the values in the column are the item IDs. That is, column 1 holds the item IDs you wish to include in form 1, column 2 has the items in form 2 and so on. Note, these item IDs must be in the parameter file.    
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/items4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					The third and final file for the ATA option defines the constraints we wish to use when building our new form. The first constraint is required and tells PACER the total number of items to include on the test form. The additional constraints are all optional and are based on the features available for the items in the parameters file. Note above in the parameters file we have two columns called "strands1" and "strands2". They can be called something else, but these are the features associated with the items we wish to use as test constraints. 
+					</p>
+					
+					<p>
+					These constraints provide the instructions on how to build the form. Here we want 20 total items and we want 5 items from strand 1, 5 from strand 2 and so on. In addition, we want the form to consist of 15 binary items and 5 polytomous items.
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/constraints4ata.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Let's Build Some Forms</h3>
+					<p>The first step is to head over to PACER under the Test Construction tab and read in those two files as shown in the screen shot below. PACER will automatically build two forms using the items listed in the items file and will immediately print two TCCs to the screen for each of those forms.  
+					</p>
+
+					<figure>
+				        <img class="img-fluid" src="Images/readIn4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					Notice, you can simply move over to the Options tab and click on TIF and new test information plots will immediately be printed to the screen for each form. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/TIF4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					So far PACER has only built forms using the items you read in. We can now head over to the "Add Form" tab and build some new forms using one of three options. The first option is to manually choose items using the drop down menu as shown in the screen shot below. As soon as you begin choosing items and plot will be added to the screen representing that new form and updated in real time. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/manual4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					A second option is to use the quick build feature as shown below. Here we simply build a test form that maximizes the TIF at theta = -1 and we tell PACER to choose 20 test items. Immediately the items will be chosen and a plot will be printed to screen immediately. It's important to point out that you can also visit the other tabs as soon as you have a form to view the score conversion table or the reliability of the form as well. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/quick4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					A third option is to use the build with test constraints feature as shown below. Here we need to set up a few more things in order to properly use ATA. First, use the drop down menu called "Select blueprint dimensions" and select the columns in the parameters file that hold the features associated with the items you wish to use for the ATA process. In this sample, we choose strand1 which has items in one of four strands and a second column called strand2 which denotes if an item is binary or polytomous. Next let's read in the file called constraints_poly.csv. This has the instructions that are passed to PACER describing specifically how to build the form. Once you read those in click Build Form and a test form meeting those constraints (if possible) will be built and a plaot will be printed to screen. You can choose new values of theta in the browser to meet a form with the same constraints but at a different value for theta.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/ata4ata.png" alt="image">
+				    </figure>
+					
+					<p>
+					Of course, we want to know if the ATA worked to produce a test form that met those constraints. Notice at the bottom of the panel is a card printing the frequency report. If we use the drop down and choose the variable called strand2 for example we see the form consists of 15 binary items and 5 polytomous items exactly as we expected. You can use the drop down to explore the other features and constraints you might wish to view and the table will be immediately updated. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/frequency4ata.png" alt="image">
+				    </figure>
+					
+					<h3 class="mt-5 mb-3">Other Available Features</h3>
+					<p>
+					Notice the tabs at the top offer many other features you can explore. For instance, if you head over to the Form Items tab you will see a table showing which items belong to each form. This can be easily exported using the buttons above the table.  
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/formItems4ata.png" alt="image">
+				    </figure>
+				
+					<p>
+					Or you can head over to the score conversion tab and immediately get a score conversion table for the form you built. Notice by simply clicking on MAP or EAP for example the score conversion table will update using that method for scoring. 
+					</p>
+					
+					<figure>
+				        <img class="img-fluid" src="Images/scoreConversion4ata.png" alt="image">
+				    </figure>
+										
+					<h3 class="mt-5 mb-3">Some Notes</h3>
+					<p>
+					This is intended as a quick guide to get you up and running with test form construction methods in PACER. Many other features are available and we'll explore those in future blog posts. 
+					</p>
+				   
+			    </div>
+				
+		    </div><!--//container-->
+	    </article>
+	    
+	   
+	    
+	    <footer class="footer text-center py-2 theme-bg-dark">
+		   
+	        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="https://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		   
+	    </footer>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script> 
+    
+
+</body>
+</html> 
+
