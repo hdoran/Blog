@@ -1,0 +1,10 @@
+constraint,value,direction
+total,20,=
+strand1,5,=
+strand2,5,=
+strand3,5,=
+strand4,5,=
+binary,15,<=
+polytomous,5,<=
+min,5,>=
+max,6,<=

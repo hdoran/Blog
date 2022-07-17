@@ -1,0 +1,16 @@
+constraint,value,direction
+total,100,=
+strand1,25,=
+strand2,25,=
+strand3,25,=
+strand4,25,=
+tminus2min,20,>=
+tminus2max,45,<=
+tminus1min,20,>=
+tminus1max,45,<=
+at0min,20,>=
+at0max,45,<=
+tplus1min,20,>=
+tplus1max,45,<=
+tplus2min,20,>=
+tplus2max,45,<=
